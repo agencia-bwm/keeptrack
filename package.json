@@ -1,0 +1,26 @@
+{
+  "name": "keeptrack-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site KeepTrack 4x4 — Astro estático + Pages CMS",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro build",
+    "preview": "astro preview",
+    "imagens": "node scripts/importar-imagens.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource/barlow": "^5.2.6",
+    "@fontsource/barlow-condensed": "^5.2.6",
+    "astro": "^5.18.2",
+    "vanilla-cookieconsent": "^3.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^5.9.3"
+  }
+}
