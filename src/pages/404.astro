@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icone from '../components/Icone.astro';
+---
+<BaseLayout titulo="Página não encontrada | KeepTrack 4x4" descricao="Essa trilha não existe. Veja os treinamentos e as viagens da KeepTrack 4x4." noindex>
+  <section class="secao secao--escura topo erro">
+    <div class="container">
+      <p class="eyebrow eyebrow--claro">Erro 404</p>
+      <h1>Essa trilha não leva a lugar nenhum</h1>
+      <p class="sub">A página que você procurou mudou de endereço ou não existe mais. Siga por um destes caminhos:</p>
+      <div class="botoes">
+        <a class="btn" href="/treinamentos/">Treinamentos 4x4</a>
+        <a class="btn btn--contorno" href="/viagens/">Viagens & Expedições</a>
+        <a class="btn btn--contorno" href="/"><Icone nome="seta" />Página inicial</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .erro { min-height: 60vh; display: flex; align-items: center; }
+  h1 { max-width: 14ch; }
+  .sub { font-size: 1.2rem; max-width: 52ch; color: #c5d0ea; }
+  .botoes { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+</style>

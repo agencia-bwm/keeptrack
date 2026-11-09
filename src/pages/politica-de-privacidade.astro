@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getSite } from '../lib/utils';
+import { schemaBreadcrumb } from '../lib/schema';
+const site = await getSite();
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Privacidade e cookies', url: '/politica-de-privacidade/' }];
+const atualizado = '29 de outubro de 2026';
+---
+<BaseLayout titulo="Política de Privacidade e Cookies | KeepTrack 4x4"
+  descricao="Como a KeepTrack 4x4 trata dados pessoais e cookies no site, de acordo com a LGPD: finalidades, base legal, cookies usados e seus direitos."
+  schema={[schemaBreadcrumb(migalhas, Astro.site!)]}>
+  <PageHero titulo="Privacidade e cookies" eyebrow="LGPD" migalhas={migalhas} subtitulo={`Última atualização: ${atualizado}.`} />
+  <div class="estreito prosa corpo">
+    <h2>1. Quem é o controlador</h2>
+    <p>Este site é mantido pela KeepTrack 4x4 [RAZÃO SOCIAL], inscrita no CNPJ [00.000.000/0000-00], com sede em {site.cidade}-{site.uf}. Contato para assuntos de privacidade: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+    <h2>2. Quais dados coletamos</h2>
+    <p>O site não tem formulários nem área de login e não armazena dados pessoais. Quando você clica em um botão de WhatsApp, a conversa acontece no aplicativo do WhatsApp, e os dados que você enviar (nome, telefone, mensagens) são tratados pela KeepTrack apenas para responder ao seu contato e organizar a sua participação em treinamentos e viagens.</p>
+    <p>Com a sua permissão, coletamos dados de navegação por meio de cookies (páginas visitadas, cliques em botões, tipo de dispositivo e origem da visita).</p>
+
+    <h2>3. Finalidades e base legal</h2>
+    <ul>
+      <li><strong>Atendimento e inscrições</strong> (WhatsApp, e-mail): execução de contrato ou de procedimentos preliminares a pedido do titular (art. 7º, V, LGPD).</li>
+      <li><strong>Funcionamento do site</strong> (cookies necessários): legítimo interesse (art. 7º, IX).</li>
+      <li><strong>Análise de audiência</strong> (Google Analytics 4): consentimento (art. 7º, I).</li>
+      <li><strong>Marketing e medição de anúncios</strong> (Meta Pixel, Google Ads): consentimento (art. 7º, I).</li>
+    </ul>
+
+    <h2>4. Cookies usados</h2>
+    <table>
+      <thead><tr><th>Categoria</th><th>Ferramenta</th><th>Para quê</th><th>Duração</th></tr></thead>
+      <tbody>
+        <tr><td>Necessários</td><td>cc_cookie</td><td>Guardar a sua escolha de cookies</td><td>6 meses</td></tr>
+        <tr><td>Análise</td><td>Google Analytics 4 (_ga, _ga_*)</td><td>Medir visitas de forma agregada</td><td>até 2 anos</td></tr>
+        <tr><td>Marketing</td><td>Meta Pixel (_fbp), Google Ads (_gcl_*)</td><td>Medir resultado de anúncios</td><td>até 90 dias</td></tr>
+      </tbody>
+    </table>
+    <p>Nenhum cookie de análise ou marketing é gravado antes da sua permissão. Você pode mudar a escolha a qualquer momento em <button type="button" class="link" data-cc="show-preferencesModal">Preferências de cookies</button>.</p>
+
+    <h2>5. Compartilhamento</h2>
+    <p>Os dados de navegação consentidos são processados pelo Google e pela Meta, que podem armazená-los fora do Brasil, com as salvaguardas previstas em seus termos. Não vendemos dados pessoais.</p>
+
+    <h2>6. Seus direitos</h2>
+    <p>Você pode pedir confirmação, acesso, correção, anonimização, portabilidade ou eliminação dos seus dados, além de informações sobre compartilhamento e revogação do consentimento, pelo e-mail <a href={`mailto:${site.email}`}>{site.email}</a>. Também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+    <h2>7. Retenção e segurança</h2>
+    <p>Mantemos os dados de atendimento pelo tempo necessário para prestar o serviço e cumprir obrigações legais. O site é estático, sem banco de dados, e é servido com HTTPS.</p>
+
+    <h2>8. Alterações</h2>
+    <p>Esta política pode ser atualizada. A data da última versão fica no topo da página.</p>
+  </div>
+</BaseLayout>
+<style>
+  .corpo { padding-block: clamp(40px, 6vw, 72px) var(--sec); }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; display: block; overflow-x: auto; }
+  th, td { text-align: left; padding: .7rem .6rem; border-bottom: 1px solid var(--linha); vertical-align: top; }
+  th { font-family: var(--f-titulo); text-transform: uppercase; letter-spacing: .08em; color: var(--azul-escuro); }
+  .link { background: none; border: 0; padding: 0; color: var(--azul); text-decoration: underline; cursor: pointer; }
+</style>

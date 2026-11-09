@@ -1,0 +1,24 @@
+---
+import Foto from './Foto.astro';
+import type { CollectionEntry } from 'astro:content';
+interface Props { pessoa: CollectionEntry<'equipe'> }
+const p = Astro.props.pessoa.data;
+---
+<article class="pessoa">
+  <div class="foto"><Foto src={p.foto} alt={p.fotoAlt} largura={600} sizes="(max-width: 720px) 100vw, 420px" /></div>
+  <div>
+    <h3>{p.nome}</h3>
+    <p class="cargo">{p.cargo}</p>
+    <p>{p.bio}</p>
+    {p.credenciais.length > 0 && <ul class="lista-check">{p.credenciais.map((c) => <li>{c}</li>)}</ul>}
+  </div>
+</article>
+<style>
+  .pessoa { display: grid; grid-template-columns: minmax(220px, 380px) 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+  .foto { aspect-ratio: 4 / 5; border-radius: var(--raio-g); overflow: hidden; background: var(--bege-2); }
+  .foto :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+  h3 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 0; }
+  .cargo { font-family: var(--f-titulo); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--azul); margin: .2rem 0 1rem; }
+  .lista-check { margin-top: 1.2rem; }
+  @media (max-width: 720px) { .pessoa { grid-template-columns: 1fr; } .foto { aspect-ratio: 4 / 3; } }
+</style>

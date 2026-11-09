@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icone from '../components/Icone.astro';
+import CTAFinal from '../components/CTAFinal.astro';
+import { getSite, linkWhatsApp, formatarTelefone } from '../lib/utils';
+import { schemaBreadcrumb } from '../lib/schema';
+const site = await getSite();
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Contato', url: '/contato/' }];
+const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage', name: 'Contato KeepTrack 4x4', url: new URL('/contato/', Astro.site).href }];
+---
+<BaseLayout titulo="Contato | KeepTrack 4x4 Brotas-SP"
+  descricao="Fale com a KeepTrack 4x4 pelo WhatsApp: treinamentos de condução 4x4 em Brotas-SP, expedições off-road e eventos corporativos."
+  schema={schema}>
+  <PageHero titulo="Fale com a gente" eyebrow="Contato" migalhas={migalhas}
+    subtitulo="O jeito mais rápido é o WhatsApp: você fala direto com a equipe que organiza os treinamentos e as viagens." />
+
+  <section class="secao">
+    <div class="container grade-contato">
+      <a class="canal principal" href={linkWhatsApp(site.whatsappPrincipal, site.whatsappTexto)} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="contato">
+        <Icone nome="whatsapp" />
+        <span class="rot">WhatsApp</span>
+        <strong>{formatarTelefone(site.whatsappPrincipal)}</strong>
+        <span class="acao">Iniciar conversa →</span>
+      </a>
+      {site.whatsappSecundario && (
+        <a class="canal" href={linkWhatsApp(site.whatsappSecundario, site.whatsappTexto)} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="contato-2">
+          <Icone nome="whatsapp" /><span class="rot">WhatsApp</span><strong>{formatarTelefone(site.whatsappSecundario)}</strong><span class="acao">Iniciar conversa →</span>
+        </a>
+      )}
+      <a class="canal" href={`mailto:${site.email}`} data-track="click_email" data-local="contato">
+        <Icone nome="email" /><span class="rot">E-mail</span><strong>{site.email}</strong><span class="acao">Enviar e-mail →</span>
+      </a>
+      <a class="canal" href={site.instagram} target="_blank" rel="noopener" data-track="click_instagram" data-local="contato">
+        <Icone nome="instagram" /><span class="rot">Instagram</span><strong>@keeptrack4x4</strong><span class="acao">Seguir →</span>
+      </a>
+      <a class="canal" href={site.facebook} target="_blank" rel="noopener" data-track="click_facebook" data-local="contato">
+        <Icone nome="facebook" /><span class="rot">Facebook</span><strong>KeepTrack4x4</strong><span class="acao">Curtir →</span>
+      </a>
+    </div>
+    <p class="container horario"><Icone nome="relogio" />{site.horario}</p>
+  </section>
+
+  <section class="secao secao--bege">
+    <div class="container local">
+      <div>
+        <p class="eyebrow">Onde treinamos</p>
+        <h2>{site.local.nome}</h2>
+        <p>{site.local.endereco}. A pista off-road do clube recebe as turmas do treinamento Técnicas de Condução 4x4.</p>
+        <a class="btn" href={site.local.mapsUrl} target="_blank" rel="noopener" data-track="click_mapa" data-local="contato"><Icone nome="local" />Abrir no Google Maps</a>
+      </div>
+      <!-- Mapa estático (sem iframe na carga): trocar por imagem de mapa real quando disponível -->
+      <a class="mapa topo" href={site.local.mapsUrl} target="_blank" rel="noopener" aria-label={`Ver ${site.local.nome} no Google Maps`}>
+        <span class="pino"><Icone nome="local" /></span>
+        <span class="mapa-rot">{site.local.nome}<small>{site.cidade} · {site.uf}</small></span>
+      </a>
+    </div>
+  </section>
+  <CTAFinal />
+</BaseLayout>
+<style>
+  .grade-contato { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; }
+  .canal { display: flex; flex-direction: column; gap: .2rem; padding: 1.6rem; border: 1px solid var(--linha); border-radius: var(--raio-g); text-decoration: none; color: var(--tinta); transition: border-color .2s, transform .2s; }
+  .canal:hover { border-color: var(--azul); transform: translateY(-3px); color: var(--tinta); }
+  .canal > :global(svg) { width: 34px; height: 34px; color: var(--azul); margin-bottom: .8rem; }
+  .canal.principal { background: var(--verde-wa); border-color: var(--verde-wa); color: #fff; }
+  .canal.principal > :global(svg) { color: #fff; }
+  .canal.principal .rot, .canal.principal .acao { color: #dff3e6; }
+  .rot { font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--cinza); }
+  .canal strong { font-size: 1.2rem; word-break: break-word; }
+  .acao { margin-top: .8rem; font-weight: 600; color: var(--azul); }
+  .horario { display: flex; align-items: center; gap: .5em; margin-top: 1.5rem; color: var(--cinza); }
+  .horario :global(svg) { width: 18px; }
+  .local { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem 4rem; align-items: center; }
+  .local .btn { margin-top: .5rem; }
+  .mapa { position: relative; aspect-ratio: 4 / 3; border-radius: var(--raio-g); background: var(--azul-escuro); display: grid; place-items: center; text-decoration: none; overflow: hidden; }
+  .mapa::before { opacity: .22; background-size: 420px; }
+  .pino { width: 72px; height: 72px; border-radius: 50%; background: var(--azul); color: #fff; display: grid; place-items: center; box-shadow: 0 0 0 14px rgb(63 104 185 / .25), 0 0 0 30px rgb(63 104 185 / .12); }
+  .pino :global(svg) { width: 36px; }
+  .mapa-rot { position: absolute; bottom: 1.2rem; left: 1.2rem; color: #fff; font-family: var(--f-titulo); font-weight: 700; font-size: 1.4rem; text-transform: uppercase; line-height: 1.1; }
+  .mapa-rot small { display: block; font-size: .95rem; color: #9fb6e6; letter-spacing: .12em; }
+  @media (max-width: 820px) { .local { grid-template-columns: 1fr; } }
+</style>

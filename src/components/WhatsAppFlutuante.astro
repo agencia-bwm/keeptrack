@@ -1,0 +1,21 @@
+---
+import Icone from './Icone.astro';
+import { getSite, linkWhatsApp } from '../lib/utils';
+interface Props { texto?: string; produto?: string }
+const site = await getSite();
+const { texto, produto } = Astro.props;
+---
+<a class="wa-flutuante" href={linkWhatsApp(site.whatsappPrincipal, texto ?? site.whatsappTexto)} target="_blank" rel="noopener"
+   aria-label="Falar com a KeepTrack no WhatsApp" data-track="click_whatsapp" data-local="flutuante" data-produto={produto}>
+  <Icone nome="whatsapp" />
+</a>
+<style>
+  .wa-flutuante {
+    position: fixed; right: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); z-index: 40;
+    width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center;
+    background: #25d366; color: #fff; box-shadow: 0 10px 24px -6px rgb(0 0 0 / .35);
+    transition: transform .2s;
+  }
+  .wa-flutuante:hover { transform: scale(1.07); color: #fff; }
+  .wa-flutuante svg { width: 32px; height: 32px; }
+</style>

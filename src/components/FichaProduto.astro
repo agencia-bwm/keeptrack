@@ -1,0 +1,42 @@
+---
+// Cartão lateral fixo (sticky) das páginas de produto: fatos + botão WhatsApp
+import Icone from './Icone.astro';
+import { getSite, linkWhatsApp } from '../lib/utils';
+interface Props {
+  fatos: { icone: 'calendario' | 'relogio' | 'local' | 'nivel' | 'carro' | 'pessoas' | 'rota'; rotulo: string; valor: string }[];
+  destaque?: { rotulo: string; valor: string };
+  preco?: string;
+  whatsappTexto: string;
+  produto: string;
+  botao?: string;
+}
+const { fatos, destaque, preco, whatsappTexto, produto, botao = 'Quero participar' } = Astro.props;
+const site = await getSite();
+---
+<aside class="ficha" aria-label="Resumo">
+  {destaque && (
+    <div class="destaque"><span>{destaque.rotulo}</span><strong>{destaque.valor}</strong></div>
+  )}
+  <dl>
+    {fatos.map((f) => (
+      <div><dt><Icone nome={f.icone} />{f.rotulo}</dt><dd>{f.valor}</dd></div>
+    ))}
+  </dl>
+  {preco && <p class="preco">{preco}</p>}
+  <a class="btn btn--wa btn--bloco" href={linkWhatsApp(site.whatsappPrincipal, whatsappTexto)} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="ficha" data-produto={produto}>
+    <Icone nome="whatsapp" />{botao}
+  </a>
+  <p class="nota">Atendimento direto com a equipe, sem formulário.</p>
+</aside>
+<style>
+  .ficha { position: sticky; top: 100px; background: var(--branco); border-radius: calc(var(--raio-g) + 4px); padding: 1.5rem; box-shadow: var(--sombra-forte), inset 0 0 0 1px rgb(18 29 61 / .05); }
+  .destaque { background: linear-gradient(135deg, var(--azul), var(--azul-escuro)); color: #fff; border-radius: 14px; padding: .9rem 1rem; margin-bottom: 1.2rem; }
+  .destaque span { display: block; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #dbe5fa; font-weight: 600; }
+  .destaque strong { font-family: var(--f-titulo); font-size: 1.7rem; text-transform: uppercase; line-height: 1.1; }
+  dl { margin: 0 0 1.2rem; display: grid; gap: .9rem; }
+  dt { display: flex; align-items: center; gap: .45em; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cinza); font-weight: 600; }
+  dt :global(svg) { width: 16px; color: var(--azul); }
+  dd { margin: .15rem 0 0; font-weight: 600; color: var(--azul-escuro); }
+  .preco { font-weight: 600; padding: .8rem 0; border-top: 1px solid var(--linha); margin: 0 0 1rem; }
+  .nota { font-size: .88rem; color: var(--cinza); text-align: center; margin: .7rem 0 0; }
+</style>

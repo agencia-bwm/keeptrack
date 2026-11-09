@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CardPost from '../../components/CardPost.astro';
+import CTAFinal from '../../components/CTAFinal.astro';
+import { getPosts } from '../../lib/utils';
+import { schemaBreadcrumb } from '../../lib/schema';
+
+const posts = await getPosts();
+const [destaque, ...resto] = posts;
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Blog', url: '/blog/' }];
+const schema = [
+  schemaBreadcrumb(migalhas, Astro.site!),
+  { '@type': 'Blog', name: 'Blog KeepTrack 4x4', url: new URL('/blog/', Astro.site).href, inLanguage: 'pt-BR',
+    blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.titulo, url: new URL(`/blog/${p.id}/`, Astro.site).href, datePublished: p.data.publicado.toISOString() })) },
+];
+---
+<BaseLayout titulo="Blog KeepTrack 4x4 | Dicas Off-Road e Relatos de Viagem"
+  descricao="Dicas de condução 4x4, equipamentos, preparação do carro e relatos das expedições da KeepTrack pelo Brasil e América do Sul."
+  schema={schema}>
+  <PageHero titulo="Dicas e relatos off-road" eyebrow="Blog" migalhas={migalhas}
+    subtitulo="Técnica de condução, equipamentos, preparação do carro e histórias das nossas expedições." />
+
+  <section class="secao">
+    <div class="container">
+      {destaque && (
+        <div class="destaque"><CardPost post={destaque} nivelTitulo="h2" /></div>
+      )}
+      {resto.length > 0 && <div class="grade">{resto.map((p) => <CardPost post={p} nivelTitulo="h2" />)}</div>}
+    </div>
+  </section>
+  <CTAFinal />
+</BaseLayout>
+<style>
+  .destaque { margin-bottom: clamp(40px, 5vw, 64px); }
+  .destaque :global(.card-post) { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  .destaque :global(.midia) { margin: 0; }
+  .destaque :global(.titulo) { font-size: clamp(1.9rem, 3.2vw, 2.6rem); }
+  @media (max-width: 760px) { .destaque :global(.card-post) { grid-template-columns: 1fr; } }
+</style>

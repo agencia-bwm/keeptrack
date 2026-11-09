@@ -1,0 +1,52 @@
+---
+import { Picture } from 'astro:assets';
+import { resolverImagem } from '../lib/imagens';
+
+interface Props {
+  src: string;
+  alt: string;
+  /** largura de exibição máxima, em px (gera os tamanhos responsivos) */
+  largura?: number;
+  /** proporção desejada, ex.: 16/9 — o recorte é feito em CSS (object-fit) */
+  sizes?: string;
+  prioridade?: boolean;
+  class?: string;
+}
+
+const { src, alt, largura = 800, sizes = '100vw', prioridade = false, class: classe } = Astro.props;
+const img = resolverImagem(src);
+// PREVIEW=1 gera uma versão leve (1 tamanho, só WebP) para o protótipo publicado
+const preview = import.meta.env.PREVIEW === '1' || process.env.PREVIEW === '1';
+const larguras = preview
+  ? [Math.min(largura, 1280)]
+  : [400, 640, 800, 1024, 1280, 1600, 2000].filter((w) => w <= largura * 2);
+---
+
+{
+  typeof img === 'string' ? (
+    <img
+      src={img}
+      alt={alt}
+      width={largura}
+      height={Math.round(largura * 0.5625)}
+      loading={prioridade ? 'eager' : 'lazy'}
+      decoding={prioridade ? 'auto' : 'async'}
+      fetchpriority={prioridade ? 'high' : 'auto'}
+      class={classe}
+    />
+  ) : (
+    <Picture
+      src={img}
+      alt={alt}
+      widths={larguras.filter((w) => w <= img.width)}
+      sizes={sizes}
+      formats={preview ? ['webp'] : ['avif', 'webp']}
+      fallbackFormat={preview ? "webp" : "jpg"}
+      quality={72}
+      loading={prioridade ? 'eager' : 'lazy'}
+      decoding={prioridade ? 'auto' : 'async'}
+      fetchpriority={prioridade ? 'high' : 'auto'}
+      class={classe}
+    />
+  )
+}

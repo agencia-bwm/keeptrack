@@ -1,0 +1,21 @@
+# Configurações gerais — editável no painel (Pages CMS)
+nome: KeepTrack 4x4
+# Só números, com DDI 55 + DDD. Qual número recebe os leads está pendente com o cliente.
+whatsappPrincipal: "5514998028008"
+whatsappSecundario: "5511998221440"
+whatsappTexto: "Olá, KeepTrack! Vim pelo site e quero saber mais."
+email: contato@keeptrack.com.br
+instagram: https://www.instagram.com/keeptrack4x4/
+facebook: https://www.facebook.com/KeepTrack4x4/
+cidade: Brotas
+uf: SP
+local:
+  nome: Raceville Speed Club
+  endereco: Brotas, SP
+  mapsUrl: https://www.google.com/maps/search/?api=1&query=Raceville+Speed+Club+Brotas+SP
+  # Coordenadas aproximadas (centro de Brotas) — confirmar o ponto exato do Raceville
+  lat: -22.2843
+  lng: -48.1267
+horario: Atendimento pelo WhatsApp, de segunda a sábado
+# ID de teste até o cliente enviar o acesso ao GTM
+gtmId: GTM-XXXXXXX

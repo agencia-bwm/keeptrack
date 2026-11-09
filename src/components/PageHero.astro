@@ -1,0 +1,28 @@
+---
+import Foto from './Foto.astro';
+import Breadcrumb from './Breadcrumb.astro';
+interface Props {
+  titulo: string; eyebrow?: string; subtitulo?: string;
+  imagem?: string; imagemAlt?: string; migalhas: { nome: string; url: string }[];
+}
+const { titulo, eyebrow, subtitulo, imagem, imagemAlt = '', migalhas } = Astro.props;
+---
+<section class:list={['page-hero', { 'com-imagem': imagem }]}>
+  {imagem && <div class="fundo"><Foto src={imagem} alt={imagemAlt} largura={1600} prioridade /></div>}
+  <div class="container conteudo">
+    <Breadcrumb itens={migalhas} claro />
+    {eyebrow && <p class="eyebrow eyebrow--claro">{eyebrow}</p>}
+    <h1>{titulo}</h1>
+    {subtitulo && <p class="sub">{subtitulo}</p>}
+    <slot />
+  </div>
+</section>
+<style>
+  .page-hero { position: relative; isolation: isolate; background: radial-gradient(800px 420px at 90% 0%, rgb(63 104 185 / .45), transparent 60%), var(--azul-escuro); color: #dfe6f5; padding: clamp(48px, 7vw, 96px) 0 clamp(48px, 6vw, 80px); overflow: hidden; }
+  .com-imagem { padding-top: clamp(90px, 14vw, 180px); }
+  .fundo { position: absolute; inset: 0; z-index: -1; }
+  .fundo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .fundo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(18 29 61 / .55) 0%, rgb(18 29 61 / .8) 55%, rgb(18 29 61 / .96) 100%); }
+  h1 { color: var(--branco); max-width: 16ch; margin-bottom: .3em; text-shadow: 0 2px 30px rgb(0 0 0 / .25); }
+  .sub { font-size: clamp(1.1rem, 1.6vw, 1.3rem); max-width: 58ch; color: #dfe6f5; margin: 0; }
+</style>

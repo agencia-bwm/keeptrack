@@ -1,0 +1,37 @@
+titulo: A KeepTrack
+subtitulo: Uma empresa de expedições, treinamentos e eventos off-road que trata segurança como parte do roteiro.
+capa: https://www.keeptrack.com.br/wp/wp-content/uploads/2021/12/keeptrack-quem-somos.jpg
+capaAlt: Veículos da KeepTrack estacionados em trilha de terra
+historia: |
+  A KeepTrack nasceu da estrada. Antes de virar empresa, eram viagens de 4x4 por trilhas do interior paulista, depois pelo Brasil e, com o tempo, pela América do Sul. Em cada uma ficou claro que a diferença entre uma boa aventura e um problema sério está no preparo: saber usar o carro, levar o equipamento certo e ter alguém que conhece o caminho.
+
+  Hoje a KeepTrack organiza treinamentos de técnicas de condução 4x4 em pista off-road no Raceville Speed Club, em Brotas-SP, e expedições guiadas para destinos como Jalapão, Serra da Canastra, Pantanal e Estrada Real. Também atende empresas com treinamentos e eventos corporativos, orienta sobre acessórios e equipamentos e presta consultoria de manutenção e preparação de veículos 4x4.
+servicos:
+  - titulo: Treinamentos 4x4
+    texto: Técnicas de condução fora de estrada para iniciantes e experientes, em grupo, personalizado ou para empresas.
+  - titulo: Viagens e expedições
+    texto: Roteiros off-road guiados pelo Brasil e pela América do Sul, com carro de apoio e equipe experiente.
+  - titulo: Eventos corporativos
+    texto: Experiências off-road e treinamentos de direção para equipes e clientes da sua empresa.
+  - titulo: Consultoria e preparação
+    texto: Orientação sobre acessórios, equipamentos, manutenção e preparação do seu 4x4 para viagem.
+frota:
+  - Rádio de comunicação
+  - Guincho
+  - Cinta e patesca
+  - Prancha de desatolamento
+  - Hi-lift
+  - Compressor
+  - Tanque reserva
+  - GPS Garmin
+  - Inversor 110 V
+  - Geladeira
+frotaImagem: https://www.keeptrack.com.br/wp/wp-content/uploads/2015/09/keeptrack-veiculos-1.jpg
+frotaImagemAlt: Veículo de apoio da KeepTrack equipado para expedição
+parceria:
+  titulo: Parceria Raceville Speed Club
+  texto: Os treinamentos acontecem no Raceville Speed Club, em Brotas-SP, com pista off-road preparada para praticar subidas, descidas, cruzamento de eixos, lama e obstáculos com segurança.
+  logo: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/04/Logo-Raceville-Verde-ok.jpg
+seo:
+  titulo: A KeepTrack | Expedições e Treinamentos Off-Road
+  descricao: "Conheça a KeepTrack 4x4, de Brotas-SP: treinamentos de condução, expedições guiadas, eventos corporativos e consultoria para veículos 4x4."

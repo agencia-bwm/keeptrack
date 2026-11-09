@@ -1,0 +1,44 @@
+heroEyebrow: Treinamentos e expedições 4x4 · Brotas-SP
+heroTitulo: Off-road com quem leva segurança a sério
+heroSubtitulo: Treinamentos de condução 4x4 e expedições guiadas pelo Brasil e pela América do Sul. Você aprende a usar tudo o que o seu 4x4 oferece e volta para casa com o carro, os passageiros e a história inteiros.
+heroImagem: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-capa-3.png
+heroImagemAlt: Caminhonete 4x4 atravessando trecho de lama durante treinamento KeepTrack
+# Números de autoridade — confirmar com o Caio antes do lançamento
+numeros:
+  - valor: "10+"
+    rotulo: destinos percorridos em expedições
+  - valor: "6"
+    rotulo: turmas de treinamento em 2026
+  - valor: "6 h"
+    rotulo: de treinamento, metade em pista off-road
+  - valor: "BR + AS"
+    rotulo: roteiros pelo Brasil e América do Sul
+pilares:
+  - titulo: Técnica antes da aventura
+    texto: Todo participante sai do treinamento sabendo usar tração, reduzida e bloqueios, e ler o terreno antes de entrar nele.
+  - titulo: Apoio em cada quilômetro
+    texto: Rádio, guincho, hi-lift, compressor e kit de resgate acompanham o comboio. Se alguém atolar, a equipe resolve.
+  - titulo: Roteiro testado
+    texto: Os trajetos são percorridos e planejados com antecedência, com pontos de parada, hospedagem e plano B definidos.
+galeria:
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-4@4x-1024x768.png
+    alt: Participantes do treinamento 4x4 na pista do Raceville
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2023/01/keeptrack-jalapao-54.jpg
+    alt: Grupo da expedição Jalapão em um fervedouro
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/09/keeptrack-sertoes-3.png
+    alt: Comboio KeepTrack acompanhando o Rally dos Sertões
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/07/keeptrack-pantanal-bonito-5.jpg
+    alt: Rio de águas claras em Bonito, MS
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2024/04/track-serra-da-boacaina-2-1.jpg
+    alt: Vista aérea de lagoa e mata na Serra da Bocaina
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-2@4x-1024x768.png
+    alt: Aula teórica do treinamento de técnicas de condução 4x4
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/06/estrada-real-keeptrack-3.jpg
+    alt: Participantes da expedição Estrada Real em cidade histórica
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2022/04/Track-Amazonia-4x4-1.jpg
+    alt: Canoa às margens de rio na expedição Amazônia
+  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-6@4x-1024x768.png
+    alt: Instrutor orienta participante ao lado do veículo
+seo:
+  titulo: KeepTrack 4x4 | Treinamentos e Expedições Off-Road
+  descricao: Curso de condução 4x4 em Brotas-SP e expedições off-road guiadas pelo Brasil e América do Sul. Segurança, técnica e apoio em cada quilômetro.

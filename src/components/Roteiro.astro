@@ -1,0 +1,24 @@
+---
+interface Props { dias: { dia: number; titulo: string; descricao: string; km?: number }[] }
+const { dias } = Astro.props;
+---
+<ol class="roteiro">
+  {dias.map((d) => (
+    <li>
+      <span class="marco">Dia {d.dia}</span>
+      <div>
+        <h3>{d.titulo}{d.km && <span class="km">{d.km} km</span>}</h3>
+        <p>{d.descricao}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+<style>
+  .roteiro { list-style: none; padding: 0; margin: 0; position: relative; }
+  .roteiro::before { content: ''; position: absolute; left: 39px; top: 12px; bottom: 12px; border-left: 2px dashed var(--azul); opacity: .5; }
+  li { display: grid; grid-template-columns: 80px 1fr; gap: 1.2rem; padding-bottom: 1.6rem; position: relative; }
+  .marco { justify-self: center; z-index: 1; background: var(--azul-escuro); color: #fff; font-family: var(--f-titulo); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: .3em .7em; border-radius: 3px; height: fit-content; }
+  h3 { font-size: 1.35rem; margin: .1rem 0 .3rem; display: flex; gap: .7rem; align-items: baseline; flex-wrap: wrap; }
+  .km { font-size: .9rem; color: var(--azul); letter-spacing: .08em; }
+  p { margin: 0; color: var(--cinza); }
+</style>

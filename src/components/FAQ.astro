@@ -1,0 +1,24 @@
+---
+interface Props { itens: { pergunta: string; resposta: string }[] }
+const { itens } = Astro.props;
+---
+<div class="faq">
+  {itens.map((f, i) => (
+    <details name="faq" open={i === 0}>
+      <summary><h3>{f.pergunta}</h3><span class="mais" aria-hidden="true"></span></summary>
+      <p>{f.resposta}</p>
+    </details>
+  ))}
+</div>
+<style>
+  .faq { border-top: 1px solid var(--linha); }
+  details { border-bottom: 1px solid var(--linha); }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.15rem 0; }
+  summary::-webkit-details-marker { display: none; }
+  h3 { margin: 0; font-family: var(--f-texto); text-transform: none; font-size: 1.15rem; font-weight: 600; letter-spacing: 0; line-height: 1.35; color: var(--azul-escuro); }
+  .mais { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--azul); position: relative; }
+  .mais::before, .mais::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; background: var(--azul); translate: -50% -50%; transition: rotate .2s; }
+  .mais::after { rotate: 90deg; }
+  details[open] .mais::after { rotate: 0deg; }
+  details p { margin: 0 0 1.25rem; color: var(--cinza); max-width: 70ch; }
+</style>
