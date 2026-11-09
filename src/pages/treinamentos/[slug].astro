@@ -1,0 +1,157 @@
+---
+import { getCollection, getEntries, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import RespostaDireta from '../../components/RespostaDireta.astro';
+import FichaProduto from '../../components/FichaProduto.astro';
+import ListaTurmas from '../../components/ListaTurmas.astro';
+import Galeria from '../../components/Galeria.astro';
+import FAQ from '../../components/FAQ.astro';
+import CardEquipe from '../../components/CardEquipe.astro';
+import CardPost from '../../components/CardPost.astro';
+import CardTreinamento from '../../components/CardTreinamento.astro';
+import CTAFinal from '../../components/CTAFinal.astro';
+import { proximasTurmas, rotulos, diaMes, getPosts, getTreinamentos } from '../../lib/utils';
+import { schemaBreadcrumb, schemaCurso, schemaFaq } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const ts = await getCollection('treinamentos');
+  return ts.map((t) => ({ params: { slug: t.id }, props: { t } }));
+}
+
+const { t } = Astro.props;
+const d = t.data;
+const { Content } = await render(t);
+const turmas = proximasTurmas(t);
+const prox = turmas[0];
+const instrutores = await getEntries(d.instrutores);
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const waTexto = d.whatsapp ?? `Olá! Quero saber mais sobre o treinamento ${d.titulo}.`;
+const posts = (await getPosts()).filter((p) => p.data.relacionadosTreinamentos.some((r) => r.id === t.id)).slice(0, 3);
+const outros = (await getTreinamentos()).filter((x) => x.id !== t.id);
+
+const migalhas = [
+  { nome: 'Início', url: '/' },
+  { nome: 'Treinamentos', url: '/treinamentos/' },
+  { nome: d.titulo, url: Astro.url.pathname },
+];
+const schema = [
+  schemaBreadcrumb(migalhas, Astro.site!),
+  schemaCurso(t, turmas, url, Astro.site!, instrutores.map((i) => i.data)),
+  ...schemaFaq(d.faq),
+];
+const dm = prox ? diaMes(prox.data) : null;
+---
+<BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} schema={schema}
+  whatsappTexto={waTexto} produto={d.titulo} tipoProduto="treinamento">
+  <PageHero titulo={d.titulo} eyebrow={`Treinamento · ${rotulos.modalidade[d.modalidade]}`} subtitulo={d.resumo} imagem={d.capa} imagemAlt={d.capaAlt} migalhas={migalhas} />
+
+  <div class="container produto">
+    <div class="principal">
+      <RespostaDireta texto={d.resposta} />
+
+      {t.body?.trim() && <div class="prosa intro"><Content /></div>}
+
+      <section class="bloco">
+        <h2>O que você vai aprender</h2>
+        <ol class="conteudo">{d.conteudo.map((c) => <li>{c}</li>)}</ol>
+      </section>
+
+      <section class="bloco duas">
+        <div>
+          <h2>Para quem é</h2>
+          <ul class="lista-check">{d.paraQuem.map((c) => <li>{c}</li>)}</ul>
+        </div>
+        <div>
+          <h2>Requisitos</h2>
+          <ul class="lista-check">{d.requisitos.map((c) => <li>{c}</li>)}</ul>
+          {d.inclui.length > 0 && (
+            <>
+              <h2 class="h-inclui">Inclui</h2>
+              <ul class="lista-check">{d.inclui.map((c) => <li>{c}</li>)}</ul>
+            </>
+          )}
+        </div>
+      </section>
+
+      {d.modalidade === 'grupo' && (
+        <section class="bloco" id="turmas">
+          <h2>Próximas turmas</h2>
+          <ListaTurmas turmas={turmas} localPadrao={d.local} titulo={d.titulo} />
+        </section>
+      )}
+
+      {d.galeria.length > 0 && (
+        <section class="bloco">
+          <h2>Fotos do treinamento</h2>
+          <Galeria fotos={d.galeria} />
+        </section>
+      )}
+
+      {instrutores.length > 0 && (
+        <section class="bloco">
+          <h2>{instrutores.length > 1 ? 'Instrutores' : 'Instrutor'}</h2>
+          {instrutores.map((i) => <CardEquipe pessoa={i} />)}
+        </section>
+      )}
+
+      {d.faq.length > 0 && (
+        <section class="bloco">
+          <h2>Perguntas frequentes</h2>
+          <FAQ itens={d.faq} />
+        </section>
+      )}
+    </div>
+
+    <FichaProduto
+      destaque={dm ? { rotulo: 'Próxima turma', valor: `${dm.dia} ${dm.mes} ${dm.ano}` } : undefined}
+      fatos={[
+        { icone: 'relogio', rotulo: 'Carga horária', valor: d.cargaHoraria },
+        { icone: 'local', rotulo: 'Local', valor: d.local },
+        { icone: 'nivel', rotulo: 'Nível', valor: rotulos.nivel[d.nivel] },
+        { icone: 'carro', rotulo: 'Veículo', valor: d.requisitos[0] },
+      ]}
+      preco={d.preco?.valor ? `R$ ${d.preco.valor.toLocaleString('pt-BR')}${d.preco.texto ? ' · ' + d.preco.texto : ''}` : d.preco?.texto}
+      whatsappTexto={waTexto}
+      produto={d.titulo}
+      botao={d.modalidade === 'corporativo' ? 'Pedir proposta' : d.modalidade === 'personalizado' ? 'Combinar data' : 'Garantir vaga'}
+    />
+  </div>
+
+  {posts.length > 0 && (
+    <section class="secao secao--bege">
+      <div class="container">
+        <div class="cabecalho-secao"><div><p class="eyebrow">Blog</p><h2>Leia também</h2></div></div>
+        <div class="grade">{posts.map((p) => <CardPost post={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  {outros.length > 0 && (
+    <section class="secao">
+      <div class="container">
+        <div class="cabecalho-secao"><div><p class="eyebrow">Treinamentos</p><h2>Outras modalidades</h2></div></div>
+        <div class="grade">{outros.map((o) => <CardTreinamento treinamento={o} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <CTAFinal titulo="Pronto para o próximo nível?" whatsappTexto={waTexto} produto={d.titulo} />
+</BaseLayout>
+
+<style>
+  .produto { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; padding-block: clamp(40px, 6vw, 72px) var(--sec); }
+  .intro { margin-top: 2rem; }
+  .bloco { margin-top: clamp(48px, 6vw, 72px); }
+  .bloco h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .h-inclui { margin-top: 2rem; }
+  .conteudo { list-style: none; counter-reset: c; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .8rem 1.5rem; }
+  .conteudo li { counter-increment: c; display: flex; gap: .9rem; align-items: baseline; padding: .9rem 1rem; background: var(--bege); border-radius: var(--raio); }
+  .conteudo li::before { content: counter(c, decimal-leading-zero); font-family: var(--f-titulo); font-weight: 700; font-size: 1.3rem; color: var(--azul); }
+  @media (max-width: 960px) {
+    .produto { grid-template-columns: 1fr; }
+    .produto :global(.ficha) { position: static; grid-row: 1; }
+  }
+  @media (max-width: 640px) { .duas, .conteudo { grid-template-columns: 1fr; } }
+</style>

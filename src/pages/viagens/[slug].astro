@@ -1,0 +1,115 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import RespostaDireta from '../../components/RespostaDireta.astro';
+import FichaProduto from '../../components/FichaProduto.astro';
+import Roteiro from '../../components/Roteiro.astro';
+import Galeria from '../../components/Galeria.astro';
+import FAQ from '../../components/FAQ.astro';
+import CardViagem from '../../components/CardViagem.astro';
+import CardPost from '../../components/CardPost.astro';
+import CTAFinal from '../../components/CTAFinal.astro';
+import { statusEfetivo, periodo, dias, rotulos, getViagens, getPosts } from '../../lib/utils';
+import { schemaBreadcrumb, schemaViagem, schemaFaq } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const vs = await getCollection('viagens');
+  return vs.map((v) => ({ params: { slug: v.id }, props: { v } }));
+}
+
+const { v } = Astro.props;
+const d = v.data;
+const { Content } = await render(v);
+const status = statusEfetivo(v);
+const realizada = status === 'realizada';
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const waTexto = d.whatsapp ?? `Olá! Quero saber mais sobre a ${d.titulo}.`;
+const migalhas = [
+  { nome: 'Início', url: '/' },
+  { nome: 'Viagens & Expedições', url: '/viagens/' },
+  { nome: d.titulo, url: Astro.url.pathname },
+];
+const schema = [schemaBreadcrumb(migalhas, Astro.site!), schemaViagem(v, status, url, d.capa, Astro.site!), ...schemaFaq(d.faq)];
+const { proximas, realizadas } = await getViagens();
+const outras = [...proximas, ...realizadas].filter((x) => x.id !== v.id).slice(0, 3);
+const posts = (await getPosts()).filter((p) => p.data.relacionadosViagens.some((r) => r.id === v.id)).slice(0, 3);
+const precoTxt = d.preco?.valor ? `A partir de R$ ${d.preco.valor.toLocaleString('pt-BR')}` : d.preco?.texto;
+---
+<BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} schema={schema}
+  whatsappTexto={waTexto} produto={d.titulo} tipoProduto="viagem">
+  <PageHero titulo={d.titulo} eyebrow={`${rotulos.statusViagem[status]} · ${periodo(d.inicio, d.fim, realizada)}`} subtitulo={d.resumo}
+    imagem={d.capa} imagemAlt={d.capaAlt} migalhas={migalhas} />
+
+  <div class="container produto">
+    <div class="principal">
+      <RespostaDireta texto={d.resposta} />
+      {v.body?.trim() && <div class="prosa intro"><Content /></div>}
+
+      {d.roteiro.length > 0 && (
+        <section class="bloco"><h2>Roteiro dia a dia</h2><Roteiro dias={d.roteiro} /></section>
+      )}
+
+      {(d.inclui.length > 0 || d.naoInclui.length > 0) && (
+        <section class="bloco duas">
+          {d.inclui.length > 0 && <div><h2>Inclui</h2><ul class="lista-check">{d.inclui.map((i) => <li>{i}</li>)}</ul></div>}
+          {d.naoInclui.length > 0 && <div><h2>Não inclui</h2><ul class="lista-check lista-x">{d.naoInclui.map((i) => <li>{i}</li>)}</ul></div>}
+        </section>
+      )}
+
+      {d.galeria.length > 0 && (
+        <section class="bloco"><h2>{realizada ? 'Como foi' : 'Fotos'}</h2><Galeria fotos={d.galeria} /></section>
+      )}
+
+      {d.faq.length > 0 && (
+        <section class="bloco"><h2>Perguntas frequentes</h2><FAQ itens={d.faq} /></section>
+      )}
+    </div>
+
+    <FichaProduto
+      destaque={{ rotulo: realizada ? 'Expedição realizada' : 'Saída', valor: periodo(d.inicio, d.fim, realizada) }}
+      fatos={[
+        { icone: 'rota', rotulo: 'Destinos', valor: d.destinos.join(' · ') },
+        ...(!realizada ? [{ icone: 'calendario' as const, rotulo: 'Duração', valor: `${dias(d.inicio, d.fim)} dias` }] : []),
+        { icone: 'nivel', rotulo: 'Dificuldade', valor: rotulos.dificuldade[d.dificuldade] },
+        { icone: 'carro', rotulo: 'Veículo exigido', valor: d.veiculo },
+        ...(d.encontro ? [{ icone: 'local' as const, rotulo: 'Ponto de encontro', valor: d.encontro }] : []),
+        ...(typeof d.vagas === 'number' && !realizada ? [{ icone: 'pessoas' as const, rotulo: 'Vagas', valor: String(d.vagas) }] : []),
+      ]}
+      preco={realizada ? undefined : precoTxt}
+      whatsappTexto={waTexto}
+      produto={d.titulo}
+      botao={realizada ? 'Avise-me da próxima' : status === 'esgotada' ? 'Entrar na lista de espera' : 'Quero participar'}
+    />
+  </div>
+
+  {posts.length > 0 && (
+    <section class="secao secao--bege">
+      <div class="container">
+        <div class="cabecalho-secao"><div><p class="eyebrow">Blog</p><h2>Relatos e dicas</h2></div></div>
+        <div class="grade">{posts.map((p) => <CardPost post={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  {outras.length > 0 && (
+    <section class="secao">
+      <div class="container">
+        <div class="cabecalho-secao"><div><p class="eyebrow">Viagens</p><h2>Outras expedições</h2></div><a class="link-seta" href="/viagens/">Ver todas</a></div>
+        <div class="grade">{outras.map((o) => <CardViagem viagem={o} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <CTAFinal titulo={realizada ? 'Quer ir na próxima?' : 'Garanta a sua vaga'} whatsappTexto={waTexto} produto={d.titulo} />
+</BaseLayout>
+
+<style>
+  .produto { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; padding-block: clamp(40px, 6vw, 72px) var(--sec); }
+  .intro { margin-top: 2rem; }
+  .bloco { margin-top: clamp(48px, 6vw, 72px); }
+  .bloco h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  @media (max-width: 960px) { .produto { grid-template-columns: 1fr; } .produto :global(.ficha) { position: static; grid-row: 1; } }
+  @media (max-width: 640px) { .duas { grid-template-columns: 1fr; } }
+</style>

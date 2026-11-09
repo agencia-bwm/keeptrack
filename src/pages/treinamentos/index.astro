@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CardTreinamento from '../../components/CardTreinamento.astro';
+import ListaTurmas from '../../components/ListaTurmas.astro';
+import FAQ from '../../components/FAQ.astro';
+import Icone from '../../components/Icone.astro';
+import CTAFinal from '../../components/CTAFinal.astro';
+import { getTreinamentos, agendaTurmas, getSite, linkWhatsApp } from '../../lib/utils';
+import { schemaBreadcrumb, schemaFaq } from '../../lib/schema';
+
+const site = await getSite();
+const treinamentos = await getTreinamentos();
+const agenda = await agendaTurmas();
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Treinamentos', url: '/treinamentos/' }];
+const faq = [
+  { pergunta: 'Onde acontecem os treinamentos?', resposta: 'No Raceville Speed Club, em Brotas-SP, que tem pista off-road preparada. Treinamentos personalizados e corporativos podem ser feitos em outro local, a combinar.' },
+  { pergunta: 'Preciso ter um 4x4?', resposta: 'Sim. O treinamento é feito no seu próprio carro: SUV 4x4, jipe ou utilitário 4x4 original. Assim você aprende os comandos do veículo que vai usar.' },
+  { pergunta: 'Quanto custa?', resposta: 'Os valores e as condições são informados pelo WhatsApp, junto com a disponibilidade de vagas da próxima turma.' },
+];
+const schema = [
+  schemaBreadcrumb(migalhas, Astro.site!),
+  {
+    '@type': 'ItemList',
+    itemListElement: treinamentos.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/treinamentos/${t.id}/`, Astro.site).href, name: t.data.titulo })),
+  },
+  ...schemaFaq(faq),
+];
+---
+<BaseLayout titulo="Treinamentos 4x4 em Brotas-SP | KeepTrack"
+  descricao="Curso de técnicas de condução 4x4 no Raceville, em Brotas-SP: turmas abertas, treinamento personalizado e corporativo. Veja o calendário."
+  imagem="https://www.keeptrack.com.br/wp/wp-content/uploads/2022/11/treinamentos-4x4-1.jpg"
+  preloadImagem="https://www.keeptrack.com.br/wp/wp-content/uploads/2022/11/treinamentos-4x4-1.jpg"
+  schema={schema} whatsappTexto="Olá! Quero saber dos treinamentos 4x4.">
+  <PageHero titulo="Treinamentos de condução 4x4"
+    eyebrow="Treinamentos"
+    subtitulo="Aprenda a usar tração, reduzida e bloqueios, a ler o terreno e a sair de situações difíceis, praticando com o seu próprio carro em pista off-road."
+    imagem="https://www.keeptrack.com.br/wp/wp-content/uploads/2022/11/treinamentos-4x4-1.jpg"
+    imagemAlt="Jipe amarelo em trilha de lama durante treinamento"
+    migalhas={migalhas} />
+
+  <section class="secao">
+    <div class="container">
+      <div class="cabecalho-secao">
+        <div><p class="eyebrow">Calendário</p><h2>Próximas turmas</h2></div>
+        <p>Turmas abertas do treinamento Técnicas de Condução 4x4, sempre aos sábados no Raceville Speed Club.</p>
+      </div>
+      <ListaTurmas turmas={agenda.map((a) => a.turma)} mostrarTreinamento={agenda.map((a) => a.treinamento.data.titulo)}
+        localPadrao="Raceville Speed Club, Brotas-SP" titulo="Técnicas de Condução 4x4" />
+    </div>
+  </section>
+
+  <section class="secao secao--bege">
+    <div class="container">
+      <div class="cabecalho-secao">
+        <div><p class="eyebrow">Modalidades</p><h2>Escolha o formato</h2></div>
+        <p>Em grupo, com data marcada; personalizado, no seu ritmo; ou corporativo, para equipes que usam 4x4 no trabalho.</p>
+      </div>
+      <div class="grade">{treinamentos.map((t) => <CardTreinamento treinamento={t} nivelTitulo="h3" />)}</div>
+    </div>
+  </section>
+
+  <section class="secao secao--escura topo">
+    <div class="container empresa">
+      <div>
+        <p class="eyebrow">Para empresas</p>
+        <h2>Sua equipe dirige 4x4 no trabalho?</h2>
+        <p>Agronegócio, energia, mineração e equipes de campo enfrentam terreno severo todos os dias. Montamos um treinamento de condução fora de estrada com foco em prevenção de acidentes e cuidado com a frota.</p>
+      </div>
+      <div class="empresa-botoes">
+        <a class="btn" href="/treinamentos/corporativo/">Ver treinamento corporativo</a>
+        <a class="btn btn--contorno" href={linkWhatsApp(site.whatsappPrincipal, 'Olá! Quero uma proposta de treinamento 4x4 para a minha empresa.')} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="faixa-empresa" data-produto="Treinamento Corporativo">
+          <Icone nome="whatsapp" />Pedir proposta
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <div class="estreito">
+      <p class="eyebrow">Dúvidas</p>
+      <h2>Perguntas frequentes</h2>
+      <FAQ itens={faq} />
+    </div>
+  </section>
+
+  <CTAFinal whatsappTexto="Olá! Quero saber dos treinamentos 4x4." />
+</BaseLayout>
+
+<style>
+  .empresa { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem 4rem; align-items: center; }
+  .empresa p { color: #c5d0ea; max-width: 56ch; }
+  .empresa-botoes { display: flex; flex-direction: column; gap: .8rem; align-items: stretch; }
+  @media (max-width: 820px) { .empresa { grid-template-columns: 1fr; } }
+</style>

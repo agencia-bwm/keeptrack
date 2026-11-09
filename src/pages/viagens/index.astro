@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CardViagem from '../../components/CardViagem.astro';
+import Icone from '../../components/Icone.astro';
+import CTAFinal from '../../components/CTAFinal.astro';
+import { getViagens, getSite, linkWhatsApp } from '../../lib/utils';
+import { schemaBreadcrumb } from '../../lib/schema';
+
+const site = await getSite();
+const { proximas, realizadas } = await getViagens();
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Viagens & Expedições', url: '/viagens/' }];
+const todas = [...proximas, ...realizadas];
+const schema = [
+  schemaBreadcrumb(migalhas, Astro.site!),
+  { '@type': 'ItemList', itemListElement: todas.map((v, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/viagens/${v.id}/`, Astro.site).href, name: v.data.titulo })) },
+];
+const capa = 'https://www.keeptrack.com.br/wp/wp-content/uploads/2025/07/keeptrack-pantanal-bonito.jpg';
+---
+<BaseLayout titulo="Viagens e Expedições 4x4 em Grupo | KeepTrack"
+  descricao="Expedições off-road guiadas pelo Brasil e América do Sul: Jalapão, Serra da Canastra, Pantanal, Estrada Real e mais, com comboio e carro de apoio."
+  imagem={capa} preloadImagem={capa} schema={schema} whatsappTexto="Olá! Quero saber das próximas expedições da KeepTrack.">
+  <PageHero titulo="Viagens & Expedições 4x4"
+    eyebrow="Expedições guiadas"
+    subtitulo="Roteiros off-road em comboio pelo Brasil e pela América do Sul. Você dirige o seu 4x4; a gente cuida do caminho, do apoio e da segurança."
+    imagem={capa} imagemAlt="Baía com vegetação aquática no Pantanal da Nhecolândia" migalhas={migalhas} />
+
+  <section class="secao">
+    <div class="container">
+      <div class="cabecalho-secao">
+        <div><p class="eyebrow">Agenda</p><h2>Próximas viagens</h2></div>
+        <p>Vagas limitadas por comboio. As datas novas são avisadas primeiro no WhatsApp.</p>
+      </div>
+      {proximas.length ? (
+        <div class="grade">{proximas.map((v) => <CardViagem viagem={v} />)}</div>
+      ) : (
+        <div class="vazio topo">
+          <Icone nome="bussola" />
+          <div>
+            <h3>Calendário 2027 em preparação</h3>
+            <p>Estamos fechando os próximos roteiros. Entre na lista e receba as datas antes de todo mundo.</p>
+          </div>
+          <a class="btn btn--wa" href={linkWhatsApp(site.whatsappPrincipal, 'Olá! Quero ser avisado das próximas expedições da KeepTrack.')} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="lista-viagens">
+            <Icone nome="whatsapp" />Quero ser avisado
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="secao secao--bege">
+    <div class="container">
+      <div class="cabecalho-secao">
+        <div><p class="eyebrow">Histórico</p><h2>Viagens realizadas</h2></div>
+        <p>Veja por onde a KeepTrack já passou e como foram as expedições.</p>
+      </div>
+      <div class="grade">{realizadas.map((v) => <CardViagem viagem={v} />)}</div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <div class="container como">
+      <div>
+        <p class="eyebrow">Como funciona</p>
+        <h2>Do primeiro contato à volta para casa</h2>
+      </div>
+      <ol class="passos">
+        <li><strong>Converse com a gente</strong><span>Pelo WhatsApp você recebe roteiro, datas, valores e o que o seu carro precisa ter.</span></li>
+        <li><strong>Prepare o carro</strong><span>Orientamos revisão, pneus e equipamentos. Se quiser, faça antes o treinamento 4x4.</span></li>
+        <li><strong>Pegue a estrada</strong><span>Comboio com rádio, carro de apoio e equipamento de resgate, em roteiro testado.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <CTAFinal titulo="Qual vai ser o seu próximo destino?" whatsappTexto="Olá! Quero saber das próximas expedições da KeepTrack." />
+</BaseLayout>
+
+<style>
+  .vazio { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 2rem; padding: clamp(1.5rem, 4vw, 2.5rem); background: var(--azul-escuro); color: #dfe6f5; border-radius: var(--raio-g); overflow: hidden; }
+  .vazio > :global(svg) { width: 52px; color: #9fb6e6; flex: none; }
+  .vazio div { flex: 1 1 320px; }
+  .vazio h3 { color: #fff; font-size: 1.9rem; margin-bottom: .3rem; }
+  .vazio p { margin: 0; }
+  .como { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem 4rem; }
+  .passos { list-style: none; counter-reset: p; padding: 0; margin: 0; display: grid; gap: 1.5rem; }
+  .passos li { counter-increment: p; display: grid; grid-template-columns: 64px 1fr; column-gap: 1.2rem; }
+  .passos li::before { content: counter(p, decimal-leading-zero); grid-row: span 2; font-family: var(--f-titulo); font-weight: 700; font-size: 2.6rem; line-height: 1; color: var(--azul); }
+  .passos strong { font-family: var(--f-titulo); text-transform: uppercase; font-size: 1.45rem; color: var(--azul-escuro); }
+  .passos span { color: var(--cinza); }
+  @media (max-width: 820px) { .como { grid-template-columns: 1fr; } }
+</style>
