@@ -17,5 +17,5 @@ local:
   lat: -22.2843
   lng: -48.1267
 horario: Atendimento pelo WhatsApp, de segunda a sábado
-# ID de teste até o cliente enviar o acesso ao GTM
-gtmId: GTM-XXXXXXX
+# Google Tag Manager da KeepTrack (o GA4 G-VTTFW4T2QX é configurado dentro do GTM)
+gtmId: GTM-WRZ2KPK

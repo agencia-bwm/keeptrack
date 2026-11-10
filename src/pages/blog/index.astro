@@ -8,7 +8,7 @@ import { schemaBreadcrumb } from '../../lib/schema';
 
 const posts = await getPosts();
 const [destaque, ...resto] = posts;
-const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Blog', url: '/blog/' }];
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Dicas 4x4', url: '/blog/' }];
 const schema = [
   schemaBreadcrumb(migalhas, Astro.site!),
   { '@type': 'Blog', name: 'Blog KeepTrack 4x4', url: new URL('/blog/', Astro.site).href, inLanguage: 'pt-BR',
@@ -18,7 +18,7 @@ const schema = [
 <BaseLayout titulo="Blog KeepTrack 4x4 | Dicas Off-Road e Relatos de Viagem"
   descricao="Dicas de condução 4x4, equipamentos, preparação do carro e relatos das expedições da KeepTrack pelo Brasil e América do Sul."
   schema={schema}>
-  <PageHero titulo="Dicas e relatos off-road" eyebrow="Blog" migalhas={migalhas}
+  <PageHero titulo="Dicas e relatos off-road" eyebrow="Dicas 4x4" migalhas={migalhas}
     subtitulo="Técnica de condução, equipamentos, preparação do carro e histórias das nossas expedições." />
 
   <section class="secao">

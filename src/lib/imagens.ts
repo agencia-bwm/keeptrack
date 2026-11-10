@@ -28,3 +28,20 @@ export function resolverImagem(src: string): ImageMetadata | string {
   if (!achou) throw new Error(`Imagem não encontrada: ${src}`);
   return achou.default;
 }
+
+/** Caminho no disco de uma imagem do conteúdo (usado para gerar as artes de compartilhamento). */
+export function caminhoArquivo(src: string): string | undefined {
+  // Import dinâmico do fs para este módulo continuar seguro no navegador
+  const raiz = process.cwd();
+  const candidatos: string[] = [];
+  if (/^https?:\/\//.test(src)) {
+    const nome = src.split('/wp-content/uploads/')[1];
+    if (nome) {
+      candidatos.push(`${raiz}/src/assets/uploads/legado/${nome}`);
+      candidatos.push(`${raiz}/src/assets/uploads/legado/${nome.replace(/\.(jpe?g|png)$/i, '.webp')}`);
+    }
+  } else {
+    candidatos.push(`${raiz}${src.startsWith('/') ? '' : '/'}${src}`);
+  }
+  return candidatos.find((c) => Object.keys(locais).some((k) => c.endsWith(k)));
+}

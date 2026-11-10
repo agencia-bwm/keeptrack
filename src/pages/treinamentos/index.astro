@@ -46,6 +46,7 @@ const schema = [
         <p>Turmas abertas do treinamento Técnicas de Condução 4x4, sempre aos sábados no Raceville Speed Club.</p>
       </div>
       <ListaTurmas turmas={agenda.map((a) => a.turma)} mostrarTreinamento={agenda.map((a) => a.treinamento.data.titulo)}
+        links={agenda.map((a) => `/treinamentos/${a.treinamento.id}/`)}
         localPadrao="Raceville Speed Club, Brotas-SP" titulo="Técnicas de Condução 4x4" />
     </div>
   </section>

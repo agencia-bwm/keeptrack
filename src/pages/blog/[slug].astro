@@ -24,7 +24,7 @@ const viagens = await getEntries(d.relacionadosViagens);
 const treinamentos = await getEntries(d.relacionadosTreinamentos);
 const outros = (await getPosts()).filter((x) => x.id !== p.id).slice(0, 3);
 const url = new URL(Astro.url.pathname, Astro.site).href;
-const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Blog', url: '/blog/' }, { nome: d.titulo, url: Astro.url.pathname }];
+const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Dicas 4x4', url: '/blog/' }, { nome: d.titulo, url: Astro.url.pathname }];
 const schema = [schemaBreadcrumb(migalhas, Astro.site!), schemaPost(p, autor.data, url, d.capa, Astro.site!), ...schemaFaq(d.faq)];
 ---
 <BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} tipoOg="article" schema={schema} tipoProduto="post" produto={d.titulo}>
@@ -70,7 +70,7 @@ const schema = [schemaBreadcrumb(migalhas, Astro.site!), schemaPost(p, autor.dat
   {outros.length > 0 && (
     <section class="secao">
       <div class="container">
-        <div class="cabecalho-secao"><div><p class="eyebrow">Blog</p><h2>Continue lendo</h2></div></div>
+        <div class="cabecalho-secao"><div><p class="eyebrow">Dicas 4x4</p><h2>Continue lendo</h2></div></div>
         <div class="grade">{outros.map((o) => <CardPost post={o} />)}</div>
       </div>
     </section>

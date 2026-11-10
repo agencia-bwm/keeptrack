@@ -161,7 +161,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .topo::before {
   content: ''; position: absolute; inset: 0; z-index: -1; opacity: .09; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600' fill='none' stroke='%23fff' stroke-width='1.2'%3E%3Cpath d='M-20 120c80-40 140 30 220 0s120-90 210-60 150 70 210 40'/%3E%3Cpath d='M-20 160c90-40 150 40 230 8s130-86 200-56 140 72 210 42'/%3E%3Cpath d='M-20 205c95-30 160 46 240 14s120-80 190-52 140 70 210 44'/%3E%3Cpath d='M-20 380c70 30 150-40 230-10s110 90 200 70 140-60 210-40'/%3E%3Cpath d='M-20 425c80 28 150-36 228-8s118 86 196 66 140-56 216-36'/%3E%3Cpath d='M-20 470c90 26 150-30 226-4s124 80 194 62 140-50 220-30'/%3E%3Cellipse cx='420' cy='300' rx='70' ry='38'/%3E%3Cellipse cx='420' cy='300' rx='110' ry='62'/%3E%3Cellipse cx='420' cy='300' rx='150' ry='86'/%3E%3Cellipse cx='120' cy='560' rx='60' ry='28'/%3E%3Cellipse cx='120' cy='560' rx='100' ry='50'/%3E%3C/svg%3E");
-  background-size: 600px;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
 }
 
 /* Conteúdo em markdown (posts e corpo livre) */

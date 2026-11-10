@@ -133,6 +133,8 @@ const equipe = defineCollection({
     cargo: z.string(),
     foto: imagem,
     fotoAlt: z.string(),
+    /** enquadramento da foto (CSS object-position), ex.: "95% center" para quem está na direita */
+    fotoPosicao: z.string().default('center'),
     bio: z.string(),
     credenciais: z.array(z.string()).default([]),
     ordem: z.number().default(10),

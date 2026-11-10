@@ -12,7 +12,12 @@ document.head.appendChild(linkCss);
 import * as CookieConsent from 'vanilla-cookieconsent';
 
 declare global {
-  interface Window { dataLayer: unknown[]; gtag: (...args: unknown[]) => void; __KT_GTM?: string }
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+    __KT_GTM?: string;
+    __ktConsent?: { analise: boolean; marketing: boolean; conteudo: boolean };
+  }
 }
 
 let gtmCarregado = false;
@@ -30,6 +35,10 @@ function carregarGTM() {
 function atualizarConsentimento() {
   const analise = CookieConsent.acceptedCategory('analise');
   const marketing = CookieConsent.acceptedCategory('marketing');
+  const conteudo = CookieConsent.acceptedCategory('conteudo');
+  // Avisa os componentes da página (ex.: mapa) sobre a escolha
+  window.__ktConsent = { analise, marketing, conteudo };
+  window.dispatchEvent(new CustomEvent('kt:consentimento', { detail: window.__ktConsent }));
   window.gtag('consent', 'update', {
     analytics_storage: analise ? 'granted' : 'denied',
     ad_storage: marketing ? 'granted' : 'denied',
@@ -50,6 +59,7 @@ CookieConsent.run({
     necessarios: { enabled: true, readOnly: true },
     analise: {},
     marketing: {},
+    conteudo: {},
   },
   onConsent: atualizarConsentimento,
   onChange: atualizarConsentimento,
@@ -64,7 +74,7 @@ CookieConsent.run({
         consentModal: {
           title: 'Cookies neste site',
           description:
-            'Usamos cookies necessários para o site funcionar e, com a sua permissão, cookies de análise e de marketing para entender as visitas e medir anúncios. <a href="/politica-de-privacidade/">Política de privacidade</a>',
+            'Usamos cookies necessários para o site funcionar e, com a sua permissão, cookies de análise, de marketing e de conteúdo externo (como o mapa) para entender as visitas, medir anúncios e exibir mapas. <a href="/politica-de-privacidade/">Política de privacidade</a>',
           acceptAllBtn: 'Aceitar',
           acceptNecessaryBtn: 'Recusar',
           showPreferencesBtn: 'Preferências',
@@ -80,6 +90,7 @@ CookieConsent.run({
             { title: 'Necessários', description: 'Essenciais para o site funcionar e para lembrar a sua escolha de cookies.', linkedCategory: 'necessarios' },
             { title: 'Análise', description: 'Google Analytics 4: medem visitas e páginas mais acessadas, de forma agregada.', linkedCategory: 'analise' },
             { title: 'Marketing', description: 'Meta Pixel e Google Ads: medem o resultado de anúncios e permitem anúncios mais relevantes.', linkedCategory: 'marketing' },
+            { title: 'Conteúdo externo', description: 'Mapas do Google e vídeos incorporados. Com esta opção ligada eles abrem direto; desligada, você abre cada um com um clique.', linkedCategory: 'conteudo' },
             { title: 'Mais informações', description: 'Dúvidas? Leia a <a href="/politica-de-privacidade/">Política de Privacidade e Cookies</a>.' },
           ],
         },
