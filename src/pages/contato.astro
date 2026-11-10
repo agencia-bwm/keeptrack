@@ -11,7 +11,7 @@ const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Contato', url: '/conta
 const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage', name: 'Contato KeepTrack 4x4', url: new URL('/contato/', Astro.site).href }];
 ---
 <BaseLayout titulo="Contato | KeepTrack 4x4 Brotas-SP"
-  descricao="Fale com a KeepTrack 4x4 pelo WhatsApp: treinamentos de condução 4x4 em Brotas-SP, expedições off-road e eventos corporativos."
+  descricao="Fale com a KeepTrack 4x4 pelo WhatsApp: treinamentos de condução 4x4 no Haras Tuiuti (SP), expedições off-road e eventos corporativos."
   schema={schema}>
   <PageHero titulo="Fale com a gente" eyebrow="Contato" migalhas={migalhas}
     subtitulo="O jeito mais rápido é o WhatsApp: você fala direto com a equipe que organiza os treinamentos e as viagens." />
@@ -84,10 +84,10 @@ const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage
       <div>
         <p class="eyebrow">Onde treinamos</p>
         <h2>{site.local.nome}</h2>
-        <p>{site.local.endereco}. A pista off-road do clube recebe as turmas do treinamento Técnicas de Condução 4x4.</p>
+        <p>{site.local.endereco}. A pista off-road do haras recebe as turmas do treinamento Técnicas de Condução 4x4.</p>
         <a class="btn" href={site.local.mapsUrl} target="_blank" rel="noopener" data-track="click_mapa" data-local="contato"><Icone nome="local" />Abrir no Google Maps</a>
       </div>
-      <Mapa nome={site.local.nome} cidade={site.cidade} uf={site.uf} mapsUrl={site.local.mapsUrl} />
+      <Mapa nome={site.local.nome} cidade={site.local.cidade} uf={site.uf} mapsUrl={site.local.mapsUrl} />
     </div>
   </section>
   <CTAFinal />

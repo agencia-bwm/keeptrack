@@ -14,9 +14,9 @@ const treinamentos = await getTreinamentos();
 const agenda = await agendaTurmas();
 const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Treinamentos', url: '/treinamentos/' }];
 const faq = [
-  { pergunta: 'Onde acontecem os treinamentos?', resposta: 'No Raceville Speed Club, em Brotas-SP, que tem pista off-road preparada. Treinamentos personalizados e corporativos podem ser feitos em outro local, a combinar.' },
+  { pergunta: 'Onde acontecem os treinamentos?', resposta: 'No Haras Tuiuti, em Tuiuti-SP, complexo com autódromo, centro de eventos e uma pista off-road técnica. Treinamentos personalizados e corporativos podem ser feitos em outro local, a combinar.' },
   { pergunta: 'Preciso ter um 4x4?', resposta: 'Sim. O treinamento é feito no seu próprio carro: SUV 4x4, jipe ou utilitário 4x4 original. Assim você aprende os comandos do veículo que vai usar.' },
-  { pergunta: 'Quanto custa?', resposta: 'Os valores e as condições são informados pelo WhatsApp, junto com a disponibilidade de vagas da próxima turma.' },
+  { pergunta: 'Quanto custa?', resposta: 'No formato Grupo (até 5 carros), R$ 2.095 por veículo. No Personal, exclusivo e com data fechada, R$ 2.595. O 2º condutor no mesmo carro custa R$ 1.830. Pagamento com 50% de sinal e saldo até 2 dias antes, por Pix ou depósito.' },
 ];
 const schema = [
   schemaBreadcrumb(migalhas, Astro.site!),
@@ -27,27 +27,27 @@ const schema = [
   ...schemaFaq(faq),
 ];
 ---
-<BaseLayout titulo="Treinamentos 4x4 em Brotas-SP | KeepTrack"
-  descricao="Curso de técnicas de condução 4x4 no Raceville, em Brotas-SP: turmas abertas, treinamento personalizado e corporativo. Veja o calendário."
-  imagem="https://www.keeptrack.com.br/wp/wp-content/uploads/2022/11/treinamentos-4x4-1.jpg"
-  preloadImagem="https://www.keeptrack.com.br/wp/wp-content/uploads/2022/11/treinamentos-4x4-1.jpg"
+<BaseLayout titulo="Treinamentos 4x4 no Haras Tuiuti (SP) | KeepTrack"
+  descricao="Curso de técnicas de condução 4x4 no Haras Tuiuti (SP): turmas abertas, treinamento personalizado e corporativo. Veja o calendário."
+  imagem="/src/assets/uploads/fotos/treinamento/lama-video.jpg"
+  preloadImagem="/src/assets/uploads/fotos/treinamento/lama-video.jpg"
   schema={schema} whatsappTexto="Olá! Quero saber dos treinamentos 4x4.">
   <PageHero titulo="Treinamentos de condução 4x4"
     eyebrow="Treinamentos"
     subtitulo="Aprenda a usar tração, reduzida e bloqueios, a ler o terreno e a sair de situações difíceis, praticando com o seu próprio carro em pista off-road."
-    imagem="https://www.keeptrack.com.br/wp/wp-content/uploads/2022/11/treinamentos-4x4-1.jpg"
-    imagemAlt="Jipe amarelo em trilha de lama durante treinamento"
+    imagem="/src/assets/uploads/fotos/treinamento/lama-video.jpg"
+    imagemAlt="Caminhonete 4x4 atravessando lama na pista off-road do Haras Tuiuti"
     migalhas={migalhas} />
 
   <section class="secao">
     <div class="container">
       <div class="cabecalho-secao">
         <div><p class="eyebrow">Calendário</p><h2>Próximas turmas</h2></div>
-        <p>Turmas abertas do treinamento Técnicas de Condução 4x4, sempre aos sábados no Raceville Speed Club.</p>
+        <p>Turmas abertas do treinamento Técnicas de Condução 4x4 no Haras Tuiuti, das 9h às 17h, em grupos de até 5 carros.</p>
       </div>
       <ListaTurmas turmas={agenda.map((a) => a.turma)} mostrarTreinamento={agenda.map((a) => a.treinamento.data.titulo)}
         links={agenda.map((a) => `/treinamentos/${a.treinamento.id}/`)}
-        localPadrao="Raceville Speed Club, Brotas-SP" titulo="Técnicas de Condução 4x4" />
+        localPadrao="Haras Tuiuti, Tuiuti-SP" titulo="Técnicas de Condução 4x4" />
     </div>
   </section>
 

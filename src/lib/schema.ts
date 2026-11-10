@@ -18,7 +18,7 @@ export function schemaOrganizacao(site: Site, base: URL) {
     email: site.email,
     telephone: `+${site.whatsappPrincipal}`,
     description:
-      'Treinamentos de técnicas de condução 4x4 em Brotas-SP e expedições off-road guiadas pelo Brasil e pela América do Sul.',
+      'Treinamentos de técnicas de condução 4x4 no Haras Tuiuti (Tuiuti-SP) e expedições off-road guiadas pelo Brasil e pela América do Sul.',
     address: { '@type': 'PostalAddress', addressLocality: site.cidade, addressRegion: site.uf, addressCountry: 'BR' },
     geo: { '@type': 'GeoCoordinates', latitude: site.local.lat, longitude: site.local.lng },
     areaServed: ['BR', 'South America'],
@@ -136,7 +136,7 @@ export function schemaCurso(
       courseMode: 'Onsite',
       startDate: isoDia(tu.data),
       endDate: isoDia(tu.data),
-      location: { '@type': 'Place', name: tu.local ?? d.local, address: { '@type': 'PostalAddress', addressLocality: 'Brotas', addressRegion: 'SP', addressCountry: 'BR' } },
+      location: { '@type': 'Place', name: tu.local ?? d.local, address: { '@type': 'PostalAddress', addressLocality: 'Tuiuti', addressRegion: 'SP', addressCountry: 'BR' } },
       ...(instrutores.length ? { instructor: instrutores.map((i) => ({ '@type': 'Person', name: i.nome })) } : {}),
     })),
   };
@@ -158,13 +158,17 @@ export function schemaPost(p: CollectionEntry<'blog'>, autor: CollectionEntry<'e
   };
 }
 
-export function schemaPessoa(e: CollectionEntry<'equipe'>['data'], imagem: string, base: URL) {
+export function schemaPessoa(e: CollectionEntry<'equipe'>['data'], base: URL) {
+  const desc = e.bio.replace(/\s*\n\s*\n\s*/g, ' ').trim();
+  if (e.tipo === 'empresa') {
+    return { '@type': 'Organization', name: e.nome, description: desc, knowsAbout: e.cargo };
+  }
   return {
     '@type': 'Person',
     name: e.nome,
     jobTitle: e.cargo,
-    description: e.bio,
-    image: abs(imagem, base),
+    description: desc,
+    ...(e.foto ? { image: abs(e.foto, base) } : {}),
     knowsAbout: e.credenciais,
     worksFor: { '@id': idOrg(base) },
   };

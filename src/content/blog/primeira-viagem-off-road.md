@@ -2,7 +2,7 @@
 slug: primeira-viagem-off-road
 titulo: "Primeira viagem off-road: 7 cuidados antes de sair de casa"
 publicado: 2026-10-20
-autor: caio-ferraz
+autor: caio-alves
 categoria: dicas
 tags: [primeira viagem, segurança, equipamentos]
 resumo: O que checar no carro, o que levar e como se preparar para a primeira viagem 4x4 sem transformar a aventura em problema.

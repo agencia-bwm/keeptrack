@@ -7,7 +7,7 @@ nivel: todos
 resumo: Treinamentos de condução 4x4 e direção defensiva fora de estrada para equipes que usam veículos 4x4 no trabalho, e eventos off-road para empresas.
 resposta: O Treinamento Corporativo da KeepTrack capacita equipes que dirigem veículos 4x4 no trabalho, como áreas de campo, agronegócio, energia e mineração, com técnicas de condução fora de estrada e foco em prevenção de acidentes. Também organiza eventos off-road para clientes e colaboradores. O formato é desenhado para cada empresa.
 cargaHoraria: Definida conforme a necessidade da empresa
-local: Raceville Speed Club, Brotas-SP, ou na área da empresa
+local: Haras Tuiuti, Tuiuti-SP, ou na área da empresa
 conteudo:
   - Técnicas de condução 4x4 aplicadas à rotina da equipe
   - Prevenção de acidentes e direção defensiva fora de estrada
@@ -24,9 +24,9 @@ inclui:
   - Programa sob medida
 preco:
   texto: Proposta sob medida
-instrutores: [caio-ferraz]
-capa: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-8@4x-1024x768.png
-capaAlt: Equipe reunida durante treinamento 4x4
+instrutores: [caio-alves, willi-heisterkamp]
+capa: /src/assets/uploads/fotos/treinamento/aula-teorica-video.jpg
+capaAlt: Instrutor da KeepTrack apresentando a aula teórica em sala
 faq:
   - pergunta: O treinamento pode ser feito na área da empresa?
     resposta: Sim, desde que o terreno permita os exercícios com segurança. Isso é avaliado no diagnóstico.

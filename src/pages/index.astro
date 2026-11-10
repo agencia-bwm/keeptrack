@@ -65,7 +65,7 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
       </div>
       <div class="caminhos">
         <a class="caminho" href="/treinamentos/">
-          <Foto src="https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-4@4x-1024x768.png" alt="Veículos 4x4 na pista de treinamento do Raceville" largura={800} sizes="(max-width: 820px) 100vw, 600px" />
+          <Foto src="/src/assets/uploads/fotos/treinamento/defender-subida.jpg" alt="Land Rover Defender subindo rampa de terra na pista off-road do Haras Tuiuti" largura={800} sizes="(max-width: 820px) 100vw, 600px" />
           <div class="caminho-texto">
             <span class="caminho-num">01</span>
             <h3>Treinamentos 4x4</h3>
@@ -75,7 +75,7 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
           </div>
         </a>
         <a class="caminho" href="/viagens/">
-          <Foto src="https://www.keeptrack.com.br/wp/wp-content/uploads/2023/01/keeptrack-jalapao-54.jpg" alt="Grupo da KeepTrack em fervedouro no Jalapão" largura={800} sizes="(max-width: 820px) 100vw, 600px" />
+          <Foto src="/src/assets/uploads/fotos/jalapao/comboio.jpg" alt="Comboio da KeepTrack em estrada de terra no Jalapão" largura={800} sizes="(max-width: 820px) 100vw, 600px" />
           <div class="caminho-texto">
             <span class="caminho-num">02</span>
             <h3>Viagens & Expedições</h3>
@@ -96,14 +96,14 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
           <p class="eyebrow">Treinamentos</p>
           <h2>Próximas turmas</h2>
         </div>
-        <p>Um sábado no Raceville Speed Club, em Brotas-SP: 3 h de teoria e 3 h de prática em pista off-road com o seu próprio carro.</p>
+        <p>Um dia no Haras Tuiuti (SP): 3 h de teoria e 3 h de exercícios na pista off-road com o seu próprio carro, em grupos de até 5 carros.</p>
       </div>
       <div class="agenda">
         <ListaTurmas
           turmas={agenda.map((a) => a.turma)}
           mostrarTreinamento={agenda.map((a) => a.treinamento.data.titulo)}
           links={agenda.map((a) => `/treinamentos/${a.treinamento.id}/`)}
-          localPadrao="Raceville Speed Club, Brotas-SP"
+          localPadrao="Haras Tuiuti, Tuiuti-SP"
           titulo="Técnicas de Condução 4x4"
         />
       </div>
@@ -179,11 +179,11 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
   </section>
 
   <!-- QUEM CONDUZ --------------------------------------------------------------->
-  {caio && (
+  {caio && caio.data.foto && (
     <section class="secao">
       <div class="container quem">
         <div class="quem-foto" style={`--foco: ${caio.data.fotoPosicao}`}>
-          <Foto src={caio.data.foto} alt={caio.data.fotoAlt} largura={700} sizes="(max-width: 820px) 100vw, 520px" />
+          <Foto src={caio.data.foto} alt={caio.data.fotoAlt ?? caio.data.nome} largura={700} sizes="(max-width: 820px) 100vw, 520px" />
         </div>
         <div>
           <p class="eyebrow">Quem conduz</p>
@@ -191,10 +191,10 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
           <p class="quem-cargo">{caio.data.cargo}</p>
           <ul class="lista-check">{caio.data.credenciais.map((c) => <li>{c}</li>)}</ul>
           <div class="parceria">
-            <Foto src={sobre.parceria.logo} alt="Logo do Raceville Speed Club" largura={120} />
-            <p><strong>Parceria Raceville Speed Club.</strong> Os treinamentos acontecem na pista off-road do clube, em Brotas-SP.</p>
+            <Foto src={sobre.parceria.logo} alt="Logo do Haras Tuiuti" largura={120} />
+            <p><strong>Treinamentos no Haras Tuiuti.</strong> Complexo automobilístico em Tuiuti-SP, com uma pista off-road técnica e estrutura completa.</p>
           </div>
-          <a class="link-seta" href="/a-keeptrack/">Conheça a KeepTrack</a>
+          <a class="link-seta" href="/a-keeptrack/#equipe">Conheça toda a equipe</a>
         </div>
       </div>
     </section>

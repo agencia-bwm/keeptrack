@@ -11,7 +11,7 @@ export async function GET({ site: base }: APIContext) {
   const agenda = await agendaTurmas();
   const txt = `# KeepTrack 4x4
 
-> Empresa de Brotas-SP especializada em treinamentos de técnicas de condução 4x4 e expedições off-road guiadas pelo Brasil e pela América do Sul. Os treinamentos acontecem no Raceville Speed Club (Brotas-SP). Atendimento e inscrições pelo WhatsApp ${formatarTelefone(site.whatsappPrincipal)}.
+> Empresa de Brotas-SP especializada em treinamentos de técnicas de condução 4x4 e expedições off-road guiadas pelo Brasil e pela América do Sul. Os treinamentos acontecem no Haras Tuiuti (Tuiuti-SP). Atendimento e inscrições pelo WhatsApp ${formatarTelefone(site.whatsappPrincipal)}.
 
 ## Treinamentos
 ${ts.map((t) => `- [${t.data.titulo}](${u(`/treinamentos/${t.id}/`)}): ${t.data.resumo}`).join('\n')}
@@ -26,7 +26,7 @@ ${[...proximas, ...realizadas].map((v) => `- [${v.data.titulo}](${u(`/viagens/${
 ${posts.map((p) => `- [${p.data.titulo}](${u(`/blog/${p.id}/`)}): ${p.data.resumo}`).join('\n')}
 
 ## Empresa
-- [A KeepTrack](${u('/a-keeptrack/')}): história, equipe, frota e parceria com o Raceville Speed Club
+- [A KeepTrack](${u('/a-keeptrack/')}): história, equipe, frota e local dos treinamentos (Haras Tuiuti)
 - [Contato](${u('/contato/')}): WhatsApp, e-mail (${site.email}), Instagram e Facebook
 `;
   return new Response(txt, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

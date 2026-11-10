@@ -10,12 +10,13 @@ facebook: https://www.facebook.com/KeepTrack4x4/
 cidade: Brotas
 uf: SP
 local:
-  nome: Raceville Speed Club
-  endereco: Brotas, SP
-  mapsUrl: https://www.google.com/maps/search/?api=1&query=Raceville+Speed+Club+Brotas+SP
-  # Coordenadas aproximadas (centro de Brotas) — confirmar o ponto exato do Raceville
-  lat: -22.2843
-  lng: -48.1267
+  nome: Haras Tuiuti
+  cidade: Tuiuti
+  endereco: Tuiuti, SP
+  mapsUrl: https://www.google.com/maps/search/?api=1&query=Haras+Tuiuti+Tuiuti+SP
+  # Coordenadas aproximadas (Tuiuti-SP) — confirmar o ponto exato do haras
+  lat: -22.8197
+  lng: -46.6936
 horario: Atendimento pelo WhatsApp, de segunda a sábado
 # Google Tag Manager da KeepTrack (o GA4 G-VTTFW4T2QX é configurado dentro do GTM)
 gtmId: GTM-WRZ2KPK

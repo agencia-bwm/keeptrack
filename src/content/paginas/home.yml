@@ -1,13 +1,13 @@
 heroEyebrow: Treinamentos e expedições 4x4 · Brotas-SP
 heroTitulo: Off-road com quem leva segurança a sério
 heroSubtitulo: Treinamentos de condução 4x4 e expedições guiadas pelo Brasil e pela América do Sul. Você aprende a usar tudo o que o seu 4x4 oferece e volta para casa com o carro, os passageiros e a história inteiros.
-heroImagem: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-capa-3.png
-heroImagemAlt: Caminhonete 4x4 atravessando trecho de lama durante treinamento KeepTrack
+heroImagem: /src/assets/uploads/fotos/canastra/4runner-pedras.jpg
+heroImagemAlt: Toyota 4Runner equipada vencendo trecho de pedras na Serra da Canastra
 # Números de autoridade — confirmar com o Caio antes do lançamento
 numeros:
   - valor: "10+"
     rotulo: destinos percorridos em expedições
-  - valor: "6"
+  - valor: "14"
     rotulo: turmas de treinamento em 2026
   - valor: "6 h"
     rotulo: de treinamento, metade em pista off-road
@@ -21,24 +21,24 @@ pilares:
   - titulo: Roteiro testado
     texto: Os trajetos são percorridos e planejados com antecedência, com pontos de parada, hospedagem e plano B definidos.
 galeria:
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-4@4x-1024x768.png
-    alt: Participantes do treinamento 4x4 na pista do Raceville
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2023/01/keeptrack-jalapao-54.jpg
-    alt: Grupo da expedição Jalapão em um fervedouro
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/09/keeptrack-sertoes-3.png
-    alt: Comboio KeepTrack acompanhando o Rally dos Sertões
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/07/keeptrack-pantanal-bonito-5.jpg
-    alt: Rio de águas claras em Bonito, MS
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2024/04/track-serra-da-boacaina-2-1.jpg
-    alt: Vista aérea de lagoa e mata na Serra da Bocaina
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-2@4x-1024x768.png
-    alt: Aula teórica do treinamento de técnicas de condução 4x4
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2025/06/estrada-real-keeptrack-3.jpg
-    alt: Participantes da expedição Estrada Real em cidade histórica
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2022/04/Track-Amazonia-4x4-1.jpg
-    alt: Canoa às margens de rio na expedição Amazônia
-  - src: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-6@4x-1024x768.png
-    alt: Instrutor orienta participante ao lado do veículo
+  - src: /src/assets/uploads/fotos/jalapao/dunas.jpg
+    alt: "Dunas do Jalapão com a Serra do Espírito Santo ao fundo"
+  - src: /src/assets/uploads/fotos/canastra/travessia-rio.jpg
+    alt: "Picape de apoio da KeepTrack atravessando um rio na Serra da Canastra"
+  - src: /src/assets/uploads/fotos/treinamento/ponte.jpg
+    alt: "Caminhonete passando sob a ponte de troncos na pista off-road do Haras Tuiuti"
+  - src: /src/assets/uploads/fotos/jalapao/fervedouro.jpg
+    alt: "Grupo da expedição em um fervedouro de água azul no Jalapão"
+  - src: /src/assets/uploads/fotos/canastra/poeira.jpg
+    alt: "SUV levantando poeira em estrada de terra na Serra da Canastra"
+  - src: /src/assets/uploads/fotos/jalapao/escarpa-vermelha.jpg
+    alt: "Escarpas de arenito vermelho no Jalapão"
+  - src: /src/assets/uploads/fotos/treinamento/material.jpg
+    alt: "Apostila e kit de boas-vindas do treinamento de técnicas de condução off-road"
+  - src: /src/assets/uploads/fotos/canastra/cachoeira-casca-danta.jpg
+    alt: "Cachoeira Casca d’Anta, na Serra da Canastra"
+  - src: /src/assets/uploads/fotos/jalapao/grupo.jpg
+    alt: "Participantes da Expedição Jalapão reunidos em lajedo de pedra"
 seo:
   titulo: KeepTrack 4x4 | Treinamentos e Expedições Off-Road
-  descricao: Curso de condução 4x4 em Brotas-SP e expedições off-road guiadas pelo Brasil e América do Sul. Segurança, técnica e apoio em cada quilômetro.
+  descricao: Curso de condução 4x4 no Haras Tuiuti (SP) e expedições off-road guiadas pelo Brasil e América do Sul. Segurança, técnica e apoio em cada quilômetro.

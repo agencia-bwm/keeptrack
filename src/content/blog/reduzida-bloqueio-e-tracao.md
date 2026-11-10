@@ -2,13 +2,13 @@
 slug: reduzida-bloqueio-e-tracao
 titulo: "Reduzida, bloqueio e tração 4x4: para que serve cada um"
 publicado: 2026-10-06
-autor: caio-ferraz
+autor: caio-alves
 categoria: dicas
 tags: [técnica, tração, reduzida]
 resumo: Entenda a diferença entre 4x2, 4x4 alta, reduzida e bloqueio de diferencial, e quando usar cada modo fora de estrada.
 resposta: No off-road, a 4x4 alta serve para pisos de baixa aderência em velocidade moderada, a reduzida multiplica a força e dá controle em subidas, descidas e obstáculos lentos, e o bloqueio de diferencial faz as rodas do mesmo eixo girarem juntas quando uma delas perde contato ou aderência. No asfalto seco, o certo é rodar em 4x2.
-capa: https://www.keeptrack.com.br/wp/wp-content/uploads/2026/01/keeptrack-treinamento-capa-3.png
-capaAlt: Caminhonete 4x4 em trecho de lama usando tração integral
+capa: /src/assets/uploads/fotos/treinamento/cruzamento-eixos-video.jpg
+capaAlt: Caminhonete 4x4 em cruzamento de eixos na pista off-road
 relacionadosTreinamentos: [tecnicas-de-conducao-4x4]
 seo:
   titulo: Reduzida, Bloqueio e Tração 4x4 - Quando Usar | KeepTrack
@@ -35,4 +35,4 @@ Faz as rodas do mesmo eixo girarem juntas. Ajuda quando uma roda fica no ar ou s
 
 ## Na prática
 
-Ler o terreno antes de entrar nele é o que define o modo certo. É exatamente isso que treinamos na pista do Raceville, em Brotas.
+Ler o terreno antes de entrar nele é o que define o modo certo. É exatamente isso que treinamos na pista off-road do Haras Tuiuti, em Tuiuti-SP.

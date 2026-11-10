@@ -31,10 +31,10 @@ export async function artesOg(): Promise<ArteOg[]> {
   const fixas: ArteOg[] = [
     { slug: '', eyebrow: 'Treinamentos e expedições 4x4', titulo: home.heroTitulo, sub: 'Brotas-SP · Brasil e América do Sul', imagem: home.heroImagem },
     { slug: 'a-keeptrack', eyebrow: 'Quem somos', titulo: sobre.titulo, sub: 'Expedições, treinamentos e eventos off-road', imagem: sobre.capa },
-    { slug: 'treinamentos', eyebrow: 'Treinamentos', titulo: 'Treinamentos de condução 4x4', sub: 'Raceville Speed Club · Brotas-SP', imagem: `${U}2022/11/treinamentos-4x4-1.jpg` },
-    { slug: 'viagens', eyebrow: 'Expedições guiadas', titulo: 'Viagens & Expedições 4x4', sub: 'Roteiros off-road pelo Brasil e América do Sul', imagem: `${U}2025/07/keeptrack-pantanal-bonito.jpg` },
+    { slug: 'treinamentos', eyebrow: 'Treinamentos', titulo: 'Treinamentos de condução 4x4', sub: 'Haras Tuiuti · Tuiuti-SP', imagem: '/src/assets/uploads/fotos/treinamento/lama-video.jpg' },
+    { slug: 'viagens', eyebrow: 'Expedições guiadas', titulo: 'Viagens & Expedições 4x4', sub: 'Roteiros off-road pelo Brasil e América do Sul', imagem: '/src/assets/uploads/fotos/jalapao/dunas.jpg' },
     { slug: 'blog', eyebrow: 'Dicas 4x4', titulo: 'Dicas e relatos off-road', sub: 'Técnica, equipamentos e histórias de expedição', imagem: `${U}2025/06/Estrada-Real.jpg` },
-    { slug: 'contato', eyebrow: 'Contato', titulo: 'Fale com a KeepTrack', sub: 'Atendimento direto pelo WhatsApp', imagem: `${U}2026/01/keeptrack-treinamento-8@4x-1024x768.png` },
+    { slug: 'contato', eyebrow: 'Contato', titulo: 'Fale com a KeepTrack', sub: 'Atendimento direto pelo WhatsApp', imagem: '/src/assets/uploads/fotos/treinamento/turma-defender.jpg' },
     { slug: 'politica-de-privacidade', eyebrow: 'LGPD', titulo: 'Privacidade e cookies', imagem: home.heroImagem },
   ];
 

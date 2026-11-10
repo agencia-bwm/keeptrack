@@ -92,7 +92,17 @@ const treinamentos = defineCollection({
     paraQuem: z.array(z.string()).min(1),
     requisitos: z.array(z.string()).min(1),
     inclui: z.array(z.string()).default([]),
+    naoInclui: z.array(z.string()).default([]),
     preco,
+    /** Local em destaque na página (ex.: Haras Tuiuti) */
+    sobreLocal: z.object({ nome: z.string(), texto: z.string(), logo: imagem.optional() }).optional(),
+    programacao: z.array(z.object({ hora: z.string(), atividade: z.string() })).default([]),
+    observacao: z.string().optional(),
+    planos: z
+      .array(z.object({ nome: z.string(), subtitulo: z.string().optional(), valor: z.number(), descricao: z.string(), destaque: z.boolean().default(false) }))
+      .default([]),
+    extras: z.array(z.object({ nome: z.string(), valor: z.number(), descricao: z.string() })).default([]),
+    pagamento: z.array(z.object({ titulo: z.string(), texto: z.string() })).default([]),
     instrutores: z.array(reference('equipe')).default([]),
     capa: imagem,
     capaAlt: z.string(),
@@ -131,10 +141,14 @@ const equipe = defineCollection({
   schema: z.object({
     nome: z.string(),
     cargo: z.string(),
-    foto: imagem,
-    fotoAlt: z.string(),
+    /** pessoa ou empresa parceira (ex.: produtora de vídeo) — muda o schema.org */
+    tipo: z.enum(['pessoa', 'empresa']).default('pessoa'),
+    /** sem foto, o site mostra as iniciais na cor da marca */
+    foto: imagem.optional(),
+    fotoAlt: z.string().optional(),
     /** enquadramento da foto (CSS object-position), ex.: "95% center" para quem está na direita */
     fotoPosicao: z.string().default('center'),
+    /** mini bio; separe parágrafos com uma linha em branco */
     bio: z.string(),
     credenciais: z.array(z.string()).default([]),
     ordem: z.number().default(10),
@@ -156,6 +170,7 @@ const config = defineCollection({
     uf: z.string().length(2),
     local: z.object({
       nome: z.string(),
+      cidade: z.string(),
       endereco: z.string(),
       mapsUrl: z.string().url(),
       lat: z.number(),

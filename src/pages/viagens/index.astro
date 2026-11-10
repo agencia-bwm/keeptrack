@@ -15,7 +15,7 @@ const schema = [
   schemaBreadcrumb(migalhas, Astro.site!),
   { '@type': 'ItemList', itemListElement: todas.map((v, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/viagens/${v.id}/`, Astro.site).href, name: v.data.titulo })) },
 ];
-const capa = 'https://www.keeptrack.com.br/wp/wp-content/uploads/2025/07/keeptrack-pantanal-bonito.jpg';
+const capa = '/src/assets/uploads/fotos/jalapao/dunas.jpg';
 ---
 <BaseLayout titulo="Viagens e Expedições 4x4 em Grupo | KeepTrack"
   descricao="Expedições off-road guiadas pelo Brasil e América do Sul: Jalapão, Serra da Canastra, Pantanal, Estrada Real e mais, com comboio e carro de apoio."
@@ -23,7 +23,7 @@ const capa = 'https://www.keeptrack.com.br/wp/wp-content/uploads/2025/07/keeptra
   <PageHero titulo="Viagens & Expedições 4x4"
     eyebrow="Expedições guiadas"
     subtitulo="Roteiros off-road em comboio pelo Brasil e pela América do Sul. Você dirige o seu 4x4; a gente cuida do caminho, do apoio e da segurança."
-    imagem={capa} imagemAlt="Baía com vegetação aquática no Pantanal da Nhecolândia" migalhas={migalhas} />
+    imagem={capa} imagemAlt="Dunas do Jalapão com a serra ao fundo" migalhas={migalhas} />
 
   <section class="secao">
     <div class="container">
