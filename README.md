@@ -38,5 +38,5 @@ Crie dois *environments* no GitHub: `producao` (proteção na branch `main`) e `
 - [ ] Bio e foto do Caio
 - [ ] CNPJ e razão social (Política de Privacidade)
 - [ ] Coordenadas exatas do Raceville
-- [ ] ID real do GTM em `src/content/config/site.yml`
+- [x] GTM (GTM-WRZ2KPK) configurado; importar `gtm/keeptrack-gtm-import.json` no container
 - [ ] Qual WhatsApp recebe os leads
