@@ -21,7 +21,7 @@ const site = await getSite();
           <div class="data"><span class="dia">{dm.dia}</span><span class="mes">{dm.mes}<span class="ano">{dm.ano}</span></span></div>
           <div class="info">
             {mostrarTreinamento && <p class="nome">{link ? <a href={link}>{nome}</a> : nome}</p>}
-            <p><Icone nome="calendario" /><span class="cap">{dm.semana}</span>{t.horario && <> · {t.horario}</>}</p>
+            <p><Icone nome="calendario" /><span>{dm.semana.charAt(0).toUpperCase() + dm.semana.slice(1)}</span>{t.horario && <> · {t.horario}</>}</p>
             <p><Icone nome="local" />{t.local ?? localPadrao}</p>
             {typeof t.vagas === 'number' && <p><Icone nome="pessoas" />{t.vagas} vagas</p>}
           </div>

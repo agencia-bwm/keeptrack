@@ -36,7 +36,7 @@ const ano = new Date().getFullYear();
           <li><Icone nome="whatsapp" /><a href={linkWhatsApp(site.whatsappSecundario, site.whatsappTexto)} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="footer-2">{formatarTelefone(site.whatsappSecundario)}</a></li>
         )}
         <li><Icone nome="email" /><a href={`mailto:${site.email}`} data-track="click_email" data-local="footer">{site.email}</a></li>
-        <li><Icone nome="local" /><span>Treinamentos no {site.local.nome}, {site.cidade}-{site.uf}</span></li>
+        <li><Icone nome="local" /><span>Treinamentos no {site.local.nome}, {site.local.cidade}-{site.uf}</span></li>
       </ul>
     </div>
   </div>
