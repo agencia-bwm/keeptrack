@@ -12,7 +12,7 @@ const { texto, produto } = Astro.props;
 <style>
   .wa-flutuante {
     position: fixed; right: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); z-index: 40;
-    width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center;
+    width: 60px; height: 60px; border-radius: var(--raio); display: grid; place-items: center;
     background: #25d366; color: #fff; box-shadow: 0 10px 24px -6px rgb(0 0 0 / .35);
     transition: transform .2s;
   }

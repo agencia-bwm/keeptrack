@@ -11,7 +11,7 @@ const {
 ---
 <section class="cta-sec">
  <div class="container">
-  <div class="cta topo interno">
+  <div class="cta topo moldura interno">
     <div>
       <p class="eyebrow eyebrow--claro">Fale com a KeepTrack</p>
       <h2>{titulo}</h2>
@@ -30,7 +30,7 @@ const {
 </section>
 <style>
   .cta-sec { padding-block: clamp(32px, 5vw, 64px); }
-  .cta { background: radial-gradient(700px 400px at 100% 0%, #5a83d4, transparent 60%), linear-gradient(135deg, var(--azul) 0%, #2d4f98 100%); color: #eaf0fb; padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 72px); border-radius: calc(var(--raio-g) + 8px); overflow: hidden; box-shadow: var(--sombra-forte); }
+  .cta { background: radial-gradient(700px 400px at 100% 0%, #5a83d4, transparent 60%), linear-gradient(135deg, var(--azul) 0%, #2d4f98 100%); color: #eaf0fb; padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 72px); border-radius: var(--raio-g); overflow: hidden; box-shadow: var(--sombra-forte); }
   .cta::before { opacity: .14; }
   .interno { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
   h2 { color: #fff; margin: 0 0 .3em; max-width: 16ch; }
