@@ -4,7 +4,7 @@ import { getSite, linkWhatsApp } from '../lib/utils';
 interface Props { titulo?: string; texto?: string; whatsappTexto?: string; produto?: string }
 const site = await getSite();
 const {
-  titulo = 'Bora para a trilha?',
+  titulo = 'Bora para a próxima expedição?',
   texto = 'Tire suas dúvidas, veja datas e garanta sua vaga direto com a nossa equipe no WhatsApp.',
   whatsappTexto, produto,
 } = Astro.props;
