@@ -115,7 +115,8 @@ const treinamentos = defineCollection({
 
 /* Blog ------------------------------------------------------------------ */
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  // arquivos antigos que podem ter ficado no repositório: ignorados no build
+  loader: glob({ pattern: ['**/*.md', '!primeira-viagem-off-road.md', '!reduzida-bloqueio-e-tracao.md'], base: './src/content/blog' }),
   schema: z.object({
     titulo: z.string(),
     publicado: z.coerce.date(),
@@ -137,7 +138,8 @@ const blog = defineCollection({
 
 /* Equipe ---------------------------------------------------------------- */
 const equipe = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/equipe' }),
+  // caio-ferraz.md era o perfil antigo do Caio Alves (mesma pessoa): ignorado no build
+  loader: glob({ pattern: ['**/*.md', '!caio-ferraz.md'], base: './src/content/equipe' }),
   schema: z.object({
     nome: z.string(),
     cargo: z.string(),
