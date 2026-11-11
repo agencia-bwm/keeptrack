@@ -3,9 +3,9 @@ slug: caio-alves
 nome: Caio Alves
 cargo: "Turismólogo | Especialista em Expedições e Condução Off-Road"
 tipo: pessoa
-foto: https://www.keeptrack.com.br/wp/wp-content/uploads/2017/09/caio-ferraz-1.jpg
-fotoAlt: Caio Alves em mirante na serra
-fotoPosicao: 95% center
+foto: /src/assets/uploads/fotos/equipe/caio-alves.jpg
+fotoAlt: Caio Alves ao lado da Hilux da KeepTrack
+fotoPosicao: center 30%
 bio: |
   Bacharel em Turismo pela Universidade Anhembi Morumbi, Caio Alves é sócio-fundador da KeepTrack 4x4 e possui experiência na organização e condução de expedições, viagens de aventura e experiências automotivas.
 
