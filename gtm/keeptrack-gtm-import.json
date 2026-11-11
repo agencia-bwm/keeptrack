@@ -155,7 +155,7 @@
               {
                 "type": "TEMPLATE",
                 "key": "arg1",
-                "value": "^(click_whatsapp|click_instagram|click_facebook|click_email|click_mapa|click_mais_info|view_item|scroll_75|consentimento_atualizado)$"
+                "value": "^(click_whatsapp|click_instagram|click_youtube|click_parceiro|click_facebook|click_email|click_mapa|click_mais_info|view_item|scroll_75|consentimento_atualizado)$"
               }
             ]
           }
