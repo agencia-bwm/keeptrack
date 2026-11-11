@@ -15,7 +15,7 @@ galeria:
   - src: /src/assets/uploads/fotos/canastra/cachoeira-casca-danta.jpg
     alt: "Cachoeira Casca d’Anta"
   - src: /src/assets/uploads/fotos/canastra/travessia-rio.jpg
-    alt: "Picape atravessando rio em trilha fechada"
+    alt: "Picape atravessando rio em meio à mata"
   - src: /src/assets/uploads/fotos/canastra/4runner-pedras.jpg
     alt: "Toyota 4Runner em trecho de pedras"
   - src: /src/assets/uploads/fotos/canastra/poeira.jpg
@@ -25,7 +25,7 @@ galeria:
   - src: /src/assets/uploads/fotos/canastra/trilha-casca-danta.jpg
     alt: "Participantes na placa da Trilha Casca d’Anta"
   - src: /src/assets/uploads/fotos/canastra/hilux-trilha.jpg
-    alt: "Picape de apoio em trilha de terra"
+    alt: "Picape de apoio em estrada de terra"
   - src: /src/assets/uploads/fotos/canastra/comboio-campo.jpg
     alt: "Comboio atravessando os chapadões"
   - src: /src/assets/uploads/fotos/canastra/mirante.jpg

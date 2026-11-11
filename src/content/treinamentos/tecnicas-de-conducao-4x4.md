@@ -42,7 +42,7 @@ programacao:
   - { hora: "10h30", atividade: Intervalo }
   - { hora: "12h", atividade: Almoço }
   - { hora: "14h às 17h", atividade: Exercícios práticos na pista off-road }
-observacao: A programação pode mudar sem aviso prévio por causa do clima, das condições das trilhas ou de imprevistos perto da data, sempre priorizando a segurança de todos.
+observacao: A programação pode mudar sem aviso prévio por causa do clima, das condições da pista ou de imprevistos perto da data, sempre priorizando a segurança de todos.
 paraQuem:
   - Quem acabou de comprar um 4x4 e quer aprender a usar o carro de verdade
   - Motoristas experientes que querem corrigir vícios e ganhar confiança
@@ -131,4 +131,4 @@ seo:
   descricao: Treinamento de condução off-road no Haras Tuiuti-SP. 3 h de teoria e 3 h de prática na pista off-road, almoço e certificado. Veja datas e valores.
 ---
 
-Um dia inteiro para entender como o seu 4x4 funciona e praticar, na pista off-road do Haras Tuiuti, as situações que você vai encontrar em trilhas e viagens. O treinamento prioriza a segurança, o respeito ao meio ambiente e a integridade do veículo, e cada participante dirige o próprio carro, com o instrutor por perto.
+Um dia inteiro para entender como o seu 4x4 funciona e praticar, na pista off-road do Haras Tuiuti, as situações que você vai encontrar em expedições e viagens. O treinamento prioriza a segurança, o respeito ao meio ambiente e a integridade do veículo, e cada participante dirige o próprio carro, com o instrutor por perto.

@@ -3,7 +3,7 @@ slug: willi-heisterkamp
 nome: Willi Heisterkamp
 cargo: "Mecânico | Instrutor de Condução Off-Road"
 foto: /src/assets/uploads/fotos/equipe/willi-heisterkamp.jpg
-fotoAlt: Willi Heisterkamp com câmera fotográfica em trilha durante expedição da KeepTrack
+fotoAlt: Willi Heisterkamp com câmera fotográfica durante expedição da KeepTrack
 fotoPosicao: center 25%
 tipo: pessoa
 bio: |

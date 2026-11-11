@@ -1,8 +1,8 @@
 # Configurações gerais — editável no painel (Pages CMS)
 nome: KeepTrack 4x4
 # Só números, com DDI 55 + DDD. Qual número recebe os leads está pendente com o cliente.
-whatsappPrincipal: "5514998028008"
-whatsappSecundario: "5511998221440"
+whatsappPrincipal: "5511998221440"
+whatsappSecundario: "5514998028008"
 whatsappTexto: "Olá, KeepTrack! Vim pelo site e quero saber mais."
 email: contato@keeptrack.com.br
 instagram: https://www.instagram.com/keeptrack4x4/

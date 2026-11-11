@@ -8,7 +8,7 @@ tags: [preparação do veículo, manutenção, acessórios]
 resumo: Depende do roteiro. Veja o que avaliar no seu 4x4, por que a manutenção vem antes dos acessórios e como a equipe ajuda nessa escolha.
 resposta: Depende do roteiro. Há expedições compatíveis com veículos originais de fábrica e outras que exigem características e equipamentos específicos. Antes de investir em modificações, apresente seu carro à equipe, mantenha pneus, freios, suspensão e fluidos em dia, confira o estepe e só instale acessórios que tenham uma finalidade clara para o seu uso.
 capa: /src/assets/uploads/fotos/canastra/hilux-trilha.jpg
-capaAlt: Hilux equipada com rack e snorkel em trilha de terra na Serra da Canastra
+capaAlt: Hilux equipada com rack e snorkel em estrada de terra na Serra da Canastra
 relacionadosViagens: []
 relacionadosTreinamentos: [tecnicas-de-conducao-4x4]
 faq:
