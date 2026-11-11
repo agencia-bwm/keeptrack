@@ -12,6 +12,7 @@ const ano = new Date().getFullYear();
       <p>Treinamentos de condução 4x4 e expedições off-road com segurança, técnica e apoio em cada quilômetro.</p>
       <div class="redes">
         <a href={site.instagram} target="_blank" rel="noopener" aria-label="Instagram da KeepTrack" data-track="click_instagram" data-local="footer"><Icone nome="instagram" /></a>
+        {site.youtube && <a href={site.youtube} target="_blank" rel="noopener" aria-label="Canal da KeepTrack no YouTube" data-track="click_youtube" data-local="footer"><Icone nome="youtube" /></a>}
         <a href={site.facebook} target="_blank" rel="noopener" aria-label="Facebook da KeepTrack" data-track="click_facebook" data-local="footer"><Icone nome="facebook" /></a>
       </div>
     </div>

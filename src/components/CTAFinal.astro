@@ -22,8 +22,13 @@ const {
         <Icone nome="whatsapp" />Chamar no WhatsApp
       </a>
       <a class="btn btn--contorno-claro" href={site.instagram} target="_blank" rel="noopener" data-track="click_instagram" data-local="cta-final">
-        <Icone nome="instagram" />@keeptrack4x4
+        <Icone nome="instagram" />Instagram
       </a>
+      {site.youtube && (
+        <a class="btn btn--contorno-claro" href={site.youtube} target="_blank" rel="noopener" data-track="click_youtube" data-local="cta-final">
+          <Icone nome="youtube" />YouTube
+        </a>
+      )}
     </div>
   </div>
  </div>

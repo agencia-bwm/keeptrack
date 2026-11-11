@@ -1,7 +1,7 @@
 ---
 import Foto from './Foto.astro';
 import Icone from './Icone.astro';
-import { periodo, rotulos, statusEfetivo, dias, type Viagem } from '../lib/utils';
+import { quandoViagem, rotulos, statusEfetivo, dias, type Viagem } from '../lib/utils';
 interface Props { viagem: Viagem; nivelTitulo?: 'h2' | 'h3' }
 const { viagem: v, nivelTitulo = 'h3' } = Astro.props;
 const d = v.data;
@@ -15,7 +15,7 @@ const H = nivelTitulo;
     <span class:list={['selo', status === 'realizada' ? 'selo--foto' : `selo--${status}`]}>{rotulos.statusViagem[status]}</span>
   </div>
   <div class="corpo">
-    <p class="quando"><Icone nome="calendario" />{periodo(d.inicio, d.fim, realizada)}{!realizada && <> · {dias(d.inicio, d.fim)} dias</>}</p>
+    <p class="quando"><Icone nome="calendario" /><span class:list={[d.dataAConfirmar && 'sem-caps']}>{quandoViagem(v, realizada)}</span>{!realizada && !d.dataAConfirmar && <> · {dias(d.inicio, d.fim)} dias</>}</p>
     <H class="titulo"><a href={`/viagens/${v.id}/`}>{d.titulo}</a></H>
     <p class="destinos">{d.destinos.join(' · ')}</p>
     <ul class="fatos">
@@ -43,4 +43,5 @@ const H = nivelTitulo;
   .fatos li { display: flex; gap: .5em; align-items: center; }
   .fatos :global(svg) { width: 18px; color: var(--azul); flex: none; }
   .link-seta { margin-top: auto; color: var(--azul); padding-top: .9rem; border-top: 1px solid var(--linha); }
+  .sem-caps { text-transform: none; }
 </style>
