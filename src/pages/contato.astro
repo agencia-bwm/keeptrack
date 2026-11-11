@@ -10,7 +10,7 @@ const site = await getSite();
 const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Contato', url: '/contato/' }];
 const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage', name: 'Contato KeepTrack 4x4', url: new URL('/contato/', Astro.site).href }];
 ---
-<BaseLayout titulo="Contato | KeepTrack 4x4 Brotas-SP"
+<BaseLayout titulo="Contato | KeepTrack 4x4"
   descricao="Fale com a KeepTrack 4x4 pelo WhatsApp: treinamentos de condução 4x4 no Haras Tuiuti (SP), expedições off-road e eventos corporativos."
   schema={schema}>
   <PageHero titulo="Fale com a gente" eyebrow="Contato" migalhas={migalhas}

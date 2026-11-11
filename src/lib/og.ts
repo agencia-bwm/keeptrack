@@ -29,7 +29,7 @@ export async function artesOg(): Promise<ArteOg[]> {
   const U = 'https://www.keeptrack.com.br/wp/wp-content/uploads/';
 
   const fixas: ArteOg[] = [
-    { slug: '', eyebrow: 'Treinamentos e expedições 4x4', titulo: home.heroTitulo, sub: 'Brotas-SP · Brasil e América do Sul', imagem: home.heroImagem },
+    { slug: '', eyebrow: 'Treinamentos e expedições 4x4', titulo: home.heroTitulo, sub: 'Brasil e América do Sul', imagem: home.heroImagem },
     { slug: 'a-keeptrack', eyebrow: 'Quem somos', titulo: sobre.titulo, sub: 'Expedições, treinamentos e eventos off-road', imagem: sobre.capa },
     { slug: 'treinamentos', eyebrow: 'Treinamentos', titulo: 'Treinamentos de condução 4x4', sub: 'Haras Tuiuti · Tuiuti-SP', imagem: '/src/assets/uploads/fotos/treinamento/lama-video.jpg' },
     { slug: 'viagens', eyebrow: 'Expedições guiadas', titulo: 'Viagens & Expedições 4x4', sub: 'Roteiros off-road pelo Brasil e América do Sul', imagem: '/src/assets/uploads/fotos/jalapao/dunas.jpg' },
