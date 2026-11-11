@@ -189,6 +189,8 @@ const home = defineCollection({
     heroSubtitulo: z.string(),
     heroImagem: imagem,
     heroImagemAlt: z.string(),
+    /** fotos extras do topo: a cada visita a home sorteia uma (heroImagem + estas) */
+    heroFotos: z.array(z.object({ imagem, alt: z.string(), posicao: z.string().optional() })).default([]),
     numeros: z.array(z.object({ valor: z.string(), rotulo: z.string() })),
     pilares: z.array(z.object({ titulo: z.string(), texto: z.string() })),
     galeria,

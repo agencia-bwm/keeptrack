@@ -24,12 +24,34 @@ const prox = agenda[0];
 const proxDm = prox ? diaMes(prox.turma.data) : null;
 const caio = (await getCollection('equipe')).sort((a, b) => a.data.ordem - b.data.ordem)[0];
 
+// Fotos do topo: a cada visita um script sorteia uma (sem repetir a anterior). Sem JS, fica a primeira.
+const fotosHero = [{ imagem: home.heroImagem, alt: home.heroImagemAlt, posicao: undefined as string | undefined }, ...home.heroFotos];
+
 const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
 ---
-<BaseLayout titulo={home.seo.titulo} descricao={home.seo.descricao} imagem={home.heroImagem} preloadImagem={home.heroImagem}>
+<BaseLayout titulo={home.seo.titulo} descricao={home.seo.descricao} imagem={home.heroImagem} preloadImagem={fotosHero.length > 1 ? undefined : home.heroImagem}>
   <!-- HERO ---------------------------------------------------------------->
   <section class="hero">
-    <div class="hero-foto"><Foto src={home.heroImagem} alt={home.heroImagemAlt} largura={1600} prioridade /></div>
+    {fotosHero.map((f) => (
+      <div class="hero-foto" style={f.posicao ? `--foco: ${f.posicao}` : undefined}>
+        <Foto src={f.imagem} alt={f.alt} largura={1600} prioridade={fotosHero.length === 1} />
+      </div>
+    ))}
+    {fotosHero.length > 1 && (
+      <script is:inline>
+        (function () {
+          var fs = document.querySelectorAll('.hero .hero-foto'), n = fs.length, ult = -1, i;
+          try { ult = parseInt(localStorage.getItem('kt-hero'), 10); } catch (e) {}
+          do { i = Math.floor(Math.random() * n); } while (n > 1 && i === ult);
+          try { localStorage.setItem('kt-hero', i); } catch (e) {}
+          fs.forEach(function (el, k) {
+            if (k !== i) { el.remove(); return; }
+            var img = el.querySelector('img');
+            if (img) { img.loading = 'eager'; img.fetchPriority = 'high'; img.decoding = 'auto'; }
+          });
+        })();
+      </script>
+    )}
     <div class="container hero-conteudo">
       <p class="eyebrow eyebrow--claro">{home.heroEyebrow}</p>
       <h1>{home.heroTitulo}</h1>
@@ -223,7 +245,8 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
   /* Hero */
   .hero { position: relative; isolation: isolate; min-height: min(94vh, 860px); display: flex; align-items: flex-end; color: #e6ecf8; overflow: hidden; background: var(--azul-escuro); }
   .hero-foto { position: absolute; inset: 0; z-index: -1; }
-  .hero-foto :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+  .hero-foto :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: var(--foco, 60% 50%); }
+  .hero-foto + .hero-foto { display: none; }
   .hero-foto::after {
     content: ''; position: absolute; inset: 0;
     background:
@@ -313,7 +336,7 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
   }
   @media (max-width: 600px) {
     .hero { min-height: 0; }
-    .hero-foto :global(img) { object-position: 70% 50%; }
+    .hero-foto :global(img) { object-position: var(--foco, 70% 50%); }
     .hero-foto::after { background: linear-gradient(0deg, rgb(18 29 61 / .96) 15%, rgb(18 29 61 / .55) 70%, rgb(18 29 61 / .35) 100%); }
     .hero-conteudo { padding-top: 180px; padding-bottom: 110px; }
     .hero-botoes .btn { flex: 1 1 100%; }

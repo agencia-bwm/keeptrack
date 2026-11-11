@@ -2,6 +2,9 @@
 slug: popo-media
 nome: Popo Media
 cargo: "Produção Audiovisual | Fotografia e Conteúdo Digital"
+foto: /src/assets/uploads/fotos/equipe/popo-media.jpg
+fotoAlt: Fotógrafo da Popo Media com câmera em trilha à beira do rio
+fotoPosicao: center
 tipo: empresa
 bio: |
   Especializada na produção de conteúdo audiovisual, registros fotográficos e edição de imagens e vídeos, a Popo Media é responsável por transformar os momentos vividos nas expedições da KeepTrack 4x4 em histórias e memórias visuais.

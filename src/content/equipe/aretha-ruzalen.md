@@ -2,6 +2,9 @@
 slug: aretha-ruzalen
 nome: Aretha Ruzalen
 cargo: "Especialista em Eventos Automotivos"
+foto: /src/assets/uploads/fotos/equipe/aretha-ruzalen.jpg
+fotoAlt: Aretha Ruzalen em mirante de estrada de montanha durante expedição
+fotoPosicao: center
 tipo: pessoa
 bio: |
   Com experiência em planejamento de viagens, curadoria de experiências e eventos automotivos, Aretha Ruzalen atua na criação e organização de experiências que combinam turismo, aventura e exclusividade.
