@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import CardViagem from '../../components/CardViagem.astro';
 import Icone from '../../components/Icone.astro';
 import CTAFinal from '../../components/CTAFinal.astro';
+import CardEmBreve from '../../components/CardEmBreve.astro';
 import { getViagens, getSite, linkWhatsApp } from '../../lib/utils';
 import { schemaBreadcrumb } from '../../lib/schema';
 
@@ -32,7 +33,7 @@ const capa = '/src/assets/uploads/fotos/jalapao/dunas.jpg';
         <p>Vagas limitadas por comboio. As datas novas são avisadas primeiro no WhatsApp.</p>
       </div>
       {proximas.length ? (
-        <div class="grade">{proximas.map((v) => <CardViagem viagem={v} />)}</div>
+        <div class="grade">{proximas.map((v) => <CardViagem viagem={v} />)}<CardEmBreve /></div>
       ) : (
         <div class="vazio topo">
           <Icone nome="bussola" />

@@ -4,7 +4,7 @@
  * (treinamentos, viagens, posts). Páginas fixas estão listadas em `fixas`.
  */
 import { getEntry } from 'astro:content';
-import { getTreinamentos, getViagens, getPosts, periodo, statusEfetivo, rotulos, proximasTurmas, dataLonga } from './utils';
+import { getTreinamentos, getViagens, getPosts, quandoViagem, statusEfetivo, rotulos, proximasTurmas, dataLonga } from './utils';
 
 export interface ArteOg {
   slug: string;      // caminho da página sem barras ('' = home)
@@ -55,7 +55,7 @@ export async function artesOg(): Promise<ArteOg[]> {
       slug: `viagens/${v.id}`,
       eyebrow: `Expedição · ${rotulos.statusViagem[st]}`,
       titulo: v.data.titulo,
-      sub: `${periodo(v.data.inicio, v.data.fim, st === 'realizada')} · ${v.data.destinos.slice(0, 2).join(' · ')}`,
+      sub: `${quandoViagem(v, st === 'realizada')} · ${v.data.destinos.slice(0, 2).join(' · ')}`,
       imagem: v.data.capa,
     };
   });

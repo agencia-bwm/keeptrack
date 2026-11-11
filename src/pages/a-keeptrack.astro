@@ -7,6 +7,7 @@ import Icone from '../components/Icone.astro';
 import CardEquipe from '../components/CardEquipe.astro';
 import FaixaAutoridade from '../components/FaixaAutoridade.astro';
 import CTAFinal from '../components/CTAFinal.astro';
+import Parceiros from '../components/Parceiros.astro';
 import { schemaBreadcrumb, schemaPessoa } from '../lib/schema';
 
 const s = (await getEntry('sobre', 'a-keeptrack'))!.data;
@@ -79,6 +80,8 @@ const schema = [
       </div>
     </div>
   </section>
+
+  <Parceiros fundo="bege" />
 
   <CTAFinal />
 </BaseLayout>

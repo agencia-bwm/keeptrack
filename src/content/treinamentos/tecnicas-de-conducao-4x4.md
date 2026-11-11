@@ -20,8 +20,8 @@ turmas:
   - { data: 2026-10-02, status: realizada }
   - { data: 2026-10-16, status: realizada }
   - { data: 2026-11-23, horario: "9h às 17h", status: aberta }
-  - { data: 2026-12-10, horario: "9h às 17h", status: aberta }
   - { data: 2026-12-11, horario: "9h às 17h", status: aberta }
+avisoTurmas: "Calendário 2027: aguardando a agenda do Haras Tuiuti, nosso parceiro. Entre na lista para ser avisado das novas datas."
 cargaHoraria: 1 dia, das 9h às 17h (3 h teóricas + 3 h práticas)
 local: Haras Tuiuti, Tuiuti-SP
 sobreLocal:

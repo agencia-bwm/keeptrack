@@ -66,6 +66,15 @@ const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage
               <span class="c-seta" aria-hidden="true"><Icone nome="seta" /></span>
             </a>
           </li>
+          {site.youtube && (
+            <li>
+              <a href={site.youtube} target="_blank" rel="noopener" data-track="click_youtube" data-local="contato">
+                <span class="c-icone"><Icone nome="youtube" /></span>
+                <span class="c-texto"><span class="c-rot">YouTube</span><strong>@keeptrack4x4</strong></span>
+                <span class="c-seta" aria-hidden="true"><Icone nome="seta" /></span>
+              </a>
+            </li>
+          )}
           <li>
             <a href={site.facebook} target="_blank" rel="noopener" data-track="click_facebook" data-local="contato">
               <span class="c-icone"><Icone nome="facebook" /></span>

@@ -36,6 +36,8 @@ const viagens = defineCollection({
     status: z.enum(['proxima', 'esgotada', 'realizada']),
     inicio: z.coerce.date(),
     fim: z.coerce.date(),
+    /** quando as datas exatas ainda não saíram: o site mostra só o mês (ex.: janeiro de 2027) */
+    dataAConfirmar: z.boolean().default(false),
     destinos: z.array(z.string()).min(1),
     encontro: z.string().optional(),
     dificuldade: z.enum(['leve', 'moderado', 'avancado']),
@@ -86,6 +88,8 @@ const treinamentos = defineCollection({
         }),
       )
       .default([]),
+    /** aviso exibido abaixo da lista de turmas (ex.: calendário do ano seguinte) */
+    avisoTurmas: z.string().optional(),
     cargaHoraria: z.string(),
     local: z.string(),
     conteudo: z.array(z.string()).min(1),
@@ -168,6 +172,10 @@ const config = defineCollection({
     email: z.string().email(),
     instagram: z.string().url(),
     facebook: z.string().url(),
+    youtube: z.string().url().optional(),
+    parceiros: z
+      .array(z.object({ nome: z.string(), descricao: z.string().optional(), logo: imagem.optional(), url: z.string().url().optional() }))
+      .default([]),
     cidade: z.string(),
     uf: z.string().length(2),
     local: z.object({

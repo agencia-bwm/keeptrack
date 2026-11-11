@@ -22,7 +22,7 @@ export function schemaOrganizacao(site: Site, base: URL) {
     address: { '@type': 'PostalAddress', addressLocality: site.cidade, addressRegion: site.uf, addressCountry: 'BR' },
     geo: { '@type': 'GeoCoordinates', latitude: site.local.lat, longitude: site.local.lng },
     areaServed: ['BR', 'South America'],
-    sameAs: [site.instagram, site.facebook],
+    sameAs: [site.instagram, site.facebook, ...(site.youtube ? [site.youtube] : [])],
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: `+${site.whatsappPrincipal}`,

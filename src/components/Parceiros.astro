@@ -1,0 +1,47 @@
+---
+// Faixa de parceiros (editável em Configurações gerais > Parceiros)
+import Foto from './Foto.astro';
+import { getSite } from '../lib/utils';
+interface Props { titulo?: string; fundo?: 'branco' | 'bege' }
+const { titulo = 'Quem caminha com a gente', fundo = 'branco' } = Astro.props;
+const site = await getSite();
+const parceiros = site.parceiros;
+---
+{parceiros.length > 0 && (
+  <section class:list={['secao', fundo === 'bege' && 'secao--bege']} aria-labelledby="titulo-parceiros">
+    <div class="container">
+      <div class="cabecalho-secao">
+        <div><p class="eyebrow">Parceiros</p><h2 id="titulo-parceiros">{titulo}</h2></div>
+      </div>
+      <ul class="parceiros">
+        {parceiros.map((p) => {
+          const Tag = p.url ? 'a' : 'div';
+          return (
+            <li>
+              <Tag class="parceiro" {...(p.url ? { href: p.url, target: '_blank', rel: 'noopener', 'data-track': 'click_parceiro', 'data-local': 'parceiros', 'data-produto': p.nome } : {})}>
+                {p.logo ? (
+                  <span class="logo"><Foto src={p.logo} alt={`Logo ${p.nome}`} largura={220} sizes="220px" /></span>
+                ) : (
+                  <span class="marca">{p.nome}</span>
+                )}
+                <span class="nome">{p.logo ? p.nome : (p.descricao ?? 'Parceiro')}</span>
+                {p.logo && p.descricao && <span class="desc">{p.descricao}</span>}
+              </Tag>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+)}
+<style>
+  .parceiros { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+  .parceiro { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .35rem; text-align: center; padding: 1.4rem 1rem; min-height: 170px; background: var(--branco); border-radius: var(--raio-g); box-shadow: var(--sombra), inset 0 0 0 1px rgb(18 29 61 / .05); color: inherit; text-decoration: none; transition: transform .3s var(--ease), box-shadow .3s; }
+  a.parceiro:hover { transform: translateY(-3px); box-shadow: var(--sombra-forte); }
+  .logo { display: flex; align-items: center; justify-content: center; height: 76px; }
+  .logo :global(img) { max-height: 76px; width: auto; max-width: 180px; object-fit: contain; }
+  .marca { display: flex; align-items: center; justify-content: center; min-height: 76px; font-family: var(--f-titulo); font-weight: 700; font-size: 1.9rem; line-height: 1; text-transform: uppercase; letter-spacing: .02em; color: var(--azul-escuro); }
+  .nome { font-weight: 600; color: var(--azul-escuro); font-size: .98rem; }
+  .marca + .nome { font-weight: 500; color: var(--cinza); font-size: .9rem; }
+  .desc { font-size: .88rem; color: var(--cinza); }
+</style>

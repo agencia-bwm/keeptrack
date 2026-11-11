@@ -43,6 +43,17 @@ export function mesAno(d: Date) {
   return d.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric', timeZone: TZ }).replace('.', '').replace(' de ', ' ');
 }
 
+/** Mês por extenso: "janeiro de 2027" */
+export function mesLongo(d: Date) {
+  const t = d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric', timeZone: TZ });
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/** Quando a viagem acontece, respeitando "data a confirmar" */
+export function quandoViagem(v: Viagem, realizada = false) {
+  return v.data.dataAConfirmar ? mesLongo(v.data.inicio) : periodo(v.data.inicio, v.data.fim, realizada);
+}
+
 /** Período de viagem. Viagens realizadas mostram só mês/ano. */
 export function periodo(inicio: Date, fim: Date, somenteMes = false) {
   if (somenteMes) {

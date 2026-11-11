@@ -7,6 +7,15 @@ whatsappTexto: "Olá, KeepTrack! Vim pelo site e quero saber mais."
 email: contato@keeptrack.com.br
 instagram: https://www.instagram.com/keeptrack4x4/
 facebook: https://www.facebook.com/KeepTrack4x4/
+youtube: https://www.youtube.com/@keeptrack4x4
+# Parceiros exibidos na home e em A KeepTrack (logo e site são opcionais)
+parceiros:
+  - nome: Haras Tuiuti
+    descricao: Local dos treinamentos
+    logo: /src/assets/uploads/parceiros/haras-tuiuti.png
+  - nome: LS Motors
+  - nome: Racing Track
+  - nome: AMO Design
 cidade: Brotas
 uf: SP
 local:
