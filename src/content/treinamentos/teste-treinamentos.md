@@ -3,6 +3,12 @@ titulo: teste treinamentos
 slug: teste-treinamentos
 modalidade: corporativo
 ordem: 10
+turmas:
+  - data: 2026-11-25
+    horario: 9h às 17h
+    local: Haras Tuiuti, Tuiuti-SP
+    status: aberta
+avisoTurmas: teste
 resumo: teste
 resposta: Lorem Ipsum is simply dummy text of the printing and typesetting
   industry. Lorem Ipsum has been the industry's standard dummy text ever since
