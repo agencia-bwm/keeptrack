@@ -10,7 +10,7 @@ const H = nivelTitulo;
 ---
 <article class="card-trein">
   <div class="midia">
-    <Foto src={d.capa} alt={d.capaAlt} largura={640} sizes="(max-width: 720px) 100vw, 400px" />
+    <Foto src={d.capa} alt={d.capaAlt} largura={640} sizes="(max-width: 720px) calc(100vw - 56px), 400px" qualidade={60} />
     <span class="selo selo--azul">{rotulos.modalidade[d.modalidade]}</span>
   </div>
   <div class="corpo">

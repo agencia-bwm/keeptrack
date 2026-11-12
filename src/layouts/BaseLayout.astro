@@ -30,11 +30,13 @@ interface Props {
   tipoProduto?: 'viagem' | 'treinamento' | 'post' | 'pagina';
   /** imagem do hero para preload (LCP) */
   preloadImagem?: string;
+  /** qualidade da foto do topo — tem que ser a mesma do <Foto> (PageHero usa 55) */
+  preloadQualidade?: number;
 }
 
 const {
   titulo, descricao, imagem, tipoOg = 'website', noindex = false, schema = [],
-  whatsappTexto, produto, tipoProduto = 'pagina', preloadImagem,
+  whatsappTexto, produto, tipoProduto = 'pagina', preloadImagem, preloadQualidade = 72,
 } = Astro.props;
 
 const site = await getSite();
@@ -46,7 +48,7 @@ const preload = preloadImagem ? resolverImagem(preloadImagem) : undefined;
 // Preload da foto do topo (LCP) com o mesmo srcset AVIF que o <Foto> gera
 const preloadLocal =
   preload && typeof preload !== 'string'
-    ? await getImage({ src: preload, widths: [400, 640, 800, 1024, 1280, 1600].filter((w) => w <= preload.width), format: 'avif', quality: 72 })
+    ? await getImage({ src: preload, widths: [400, 640, 800, 1024, 1280, 1600].filter((w) => w <= preload.width), format: 'avif', quality: preloadQualidade })
     : undefined;
 
 const grafo = {

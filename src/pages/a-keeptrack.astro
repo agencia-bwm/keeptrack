@@ -21,7 +21,7 @@ const schema = [
   ...equipe.map((e) => schemaPessoa(e.data, Astro.site!)),
 ];
 ---
-<BaseLayout titulo={s.seo.titulo} descricao={s.seo.descricao} imagem={s.capa} preloadImagem={s.capa} schema={schema}>
+<BaseLayout titulo={s.seo.titulo} descricao={s.seo.descricao} imagem={s.capa} preloadImagem={s.capa} preloadQualidade={55} schema={schema}>
   <PageHero titulo={s.titulo} eyebrow="Quem somos" subtitulo={s.subtitulo} imagem={s.capa} imagemAlt={s.capaAlt} migalhas={migalhas} />
 
   <section class="secao">

@@ -36,7 +36,7 @@ const outras = [...proximas, ...realizadas].filter((x) => x.id !== v.id).slice(0
 const posts = (await getPosts()).filter((p) => p.data.relacionadosViagens.some((r) => r.id === v.id)).slice(0, 3);
 const precoTxt = d.preco?.valor ? `A partir de R$ ${d.preco.valor.toLocaleString('pt-BR')}` : d.preco?.texto;
 ---
-<BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} schema={schema}
+<BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} preloadQualidade={55} schema={schema}
   whatsappTexto={waTexto} produto={d.titulo} tipoProduto="viagem">
   <PageHero titulo={d.titulo} eyebrow={`${rotulos.statusViagem[status]} · ${quandoViagem(v, realizada)}`} subtitulo={d.resumo}
     imagem={d.capa} imagemAlt={d.capaAlt} migalhas={migalhas} />

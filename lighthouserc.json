@@ -13,7 +13,7 @@
         "http://localhost/a-keeptrack/",
         "http://localhost/contato/"
       ],
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": {
         "formFactor": "mobile",
         "screenEmulation": {

@@ -10,10 +10,12 @@ interface Props {
   /** proporção desejada, ex.: 16/9 — o recorte é feito em CSS (object-fit) */
   sizes?: string;
   prioridade?: boolean;
+  /** qualidade da compressão (padrão 72; miniaturas de card usam menos) */
+  qualidade?: number;
   class?: string;
 }
 
-const { src, alt, largura = 800, sizes = '100vw', prioridade = false, class: classe } = Astro.props;
+const { src, alt, largura = 800, sizes = '100vw', prioridade = false, qualidade = 72, class: classe } = Astro.props;
 const img = resolverImagem(src);
 // PREVIEW=1 gera uma versão leve (1 tamanho, só WebP) para o protótipo publicado
 const preview = import.meta.env.PREVIEW === '1' || process.env.PREVIEW === '1';
@@ -42,7 +44,7 @@ const larguras = preview
       sizes={sizes}
       formats={preview ? ['webp'] : ['avif', 'webp']}
       fallbackFormat={preview ? "webp" : "jpg"}
-      quality={72}
+      quality={qualidade}
       loading={prioridade ? 'eager' : 'lazy'}
       decoding={prioridade ? 'auto' : 'async'}
       fetchpriority={prioridade ? 'high' : 'auto'}

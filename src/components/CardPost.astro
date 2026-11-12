@@ -6,7 +6,7 @@ const { post: p, nivelTitulo = 'h3' } = Astro.props;
 const H = nivelTitulo;
 ---
 <article class="card-post">
-  <div class="midia"><Foto src={p.data.capa} alt={p.data.capaAlt} largura={640} sizes="(max-width: 720px) 100vw, 400px" /></div>
+  <div class="midia"><Foto src={p.data.capa} alt={p.data.capaAlt} largura={640} sizes="(max-width: 720px) calc(100vw - 56px), 400px" qualidade={60} /></div>
   <div class="corpo">
     <p class="meta"><span class="cat">{rotulos.categoria[p.data.categoria]}</span> · <time datetime={p.data.publicado.toISOString()}>{dataLonga(p.data.publicado)}</time></p>
     <H class="titulo"><a href={`/blog/${p.id}/`}>{p.data.titulo}</a></H>

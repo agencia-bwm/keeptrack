@@ -8,7 +8,7 @@ interface Props {
 const { titulo, eyebrow, subtitulo, imagem, imagemAlt = '', migalhas } = Astro.props;
 ---
 <section class:list={['page-hero', { 'com-imagem': imagem }]}>
-  {imagem && <div class="fundo"><Foto src={imagem} alt={imagemAlt} largura={1600} prioridade /></div>}
+  {imagem && <div class="fundo"><Foto src={imagem} alt={imagemAlt} largura={1600} prioridade qualidade={55} /></div>}
   <div class="container conteudo">
     <Breadcrumb itens={migalhas} claro />
     {eyebrow && <p class="eyebrow eyebrow--claro">{eyebrow}</p>}

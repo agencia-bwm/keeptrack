@@ -54,7 +54,7 @@ const datasAbertas = turmas.filter((x) => x.status === 'aberta').map((x) => {
 });
 const reais = (n: number) => n.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
 ---
-<BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} schema={schema}
+<BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} preloadQualidade={55} schema={schema}
   whatsappTexto={waTexto} produto={d.titulo} tipoProduto="treinamento">
   <PageHero titulo={d.titulo} eyebrow={`Treinamento · ${rotulos.modalidade[d.modalidade]}`} subtitulo={d.resumo} imagem={d.capa} imagemAlt={d.capaAlt} migalhas={migalhas} />
 
