@@ -40,7 +40,7 @@ async function fundo(arte: ArteOg) {
 export const GET: APIRoute = async ({ props }) => {
   const arte = props.arte as ArteOg;
   const foto = await fundo(arte);
-  const tamanhoTitulo = arte.titulo.length > 40 ? 76 : arte.titulo.length > 26 ? 90 : 104;
+  const tamanhoTitulo = arte.titulo.length > 34 ? 78 : arte.titulo.length > 26 ? 90 : 104;
 
   const arvore = el('div', { width: W, height: H, display: 'flex', position: 'relative', backgroundColor: '#1b2a54', fontFamily: 'Barlow' }, [
     foto ? el('img', { position: 'absolute', top: 0, left: 0, width: W, height: H, objectFit: 'cover' }, undefined, { src: foto, width: W, height: H }) : null,
