@@ -1,7 +1,7 @@
 ---
 titulo: Testando uma dica nova...
 slug: dica-nova
-rascunho: false
+rascunho: true
 publicado: 2026-11-12
 atualizado: 2026-11-12
 categoria: dicas
