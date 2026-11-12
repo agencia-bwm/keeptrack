@@ -9,21 +9,48 @@
         "http://localhost/viagens/",
         "http://localhost/viagens/expedicao-jalapao/",
         "http://localhost/blog/",
-        "http://localhost/blog/primeira-viagem-off-road/",
+        "http://localhost/blog/primeira-expedicao-4x4/",
         "http://localhost/a-keeptrack/",
         "http://localhost/contato/"
       ],
       "numberOfRuns": 1,
-      "settings": { "preset": "perf", "formFactor": "mobile", "screenEmulation": { "mobile": true } }
+      "settings": {
+        "formFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true
+        }
+      }
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["error", { "minScore": 0.9 }],
-        "categories:accessibility": ["error", { "minScore": 0.9 }],
-        "categories:best-practices": ["error", { "minScore": 0.9 }],
-        "categories:seo": ["error", { "minScore": 0.9 }]
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:best-practices": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ]
       }
     },
-    "upload": { "target": "temporary-public-storage" }
+    "upload": {
+      "target": "temporary-public-storage"
+    }
   }
 }
