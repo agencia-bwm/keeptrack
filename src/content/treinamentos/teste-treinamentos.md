@@ -37,5 +37,6 @@ paraQuem:
 requisitos:
   - teste
 galeria:
-  - {}
+  - src: /src/assets/uploads/logo-lsmotors.png
+    alt: foto de tesste do site
 ---
