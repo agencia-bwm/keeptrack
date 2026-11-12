@@ -12,7 +12,7 @@ import CardPost from '../../components/CardPost.astro';
 import CardTreinamento from '../../components/CardTreinamento.astro';
 import CTAFinal from '../../components/CTAFinal.astro';
 import Foto from '../../components/Foto.astro';
-import { proximasTurmas, rotulos, diaMes, getPosts, getTreinamentos } from '../../lib/utils';
+import { proximasTurmas, rotulos, diaMes, dataCurta, getPosts, getTreinamentos } from '../../lib/utils';
 import { schemaBreadcrumb, schemaCurso, schemaFaq } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -42,6 +42,16 @@ const schema = [
   ...schemaFaq(d.faq),
 ];
 const dm = prox ? diaMes(prox.data) : null;
+// Datas abertas para a lateral: a pessoa escolhe a turma (ou chega por ?turma=AAAA-MM-DD)
+const datasAbertas = turmas.filter((x) => x.status === 'aberta').map((x) => {
+  const m = diaMes(x.data);
+  return {
+    id: x.data.toISOString().slice(0, 10),
+    rotulo: `${m.dia} ${m.mes} ${m.ano}`,
+    curto: `${m.dia} ${m.mes}`,
+    whatsapp: `Olá! Quero me inscrever na turma de ${dataCurta(x.data)} do treinamento ${d.titulo}.`,
+  };
+});
 const reais = (n: number) => n.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
 ---
 <BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} schema={schema}
@@ -83,7 +93,7 @@ const reais = (n: number) => n.toLocaleString('pt-BR', { minimumFractionDigits: 
       {d.modalidade === 'grupo' && (
         <section class="bloco" id="turmas">
           <h2>Próximas turmas</h2>
-          <ListaTurmas turmas={turmas} localPadrao={d.local} titulo={d.titulo} />
+          <ListaTurmas turmas={turmas} localPadrao={d.local} titulo={d.titulo} aviso={d.avisoTurmas} />
         </section>
       )}
 
@@ -166,7 +176,8 @@ const reais = (n: number) => n.toLocaleString('pt-BR', { minimumFractionDigits: 
         { icone: 'carro', rotulo: 'Veículo', valor: d.requisitos[0] },
       ]}
       preco={d.preco?.valor ? `A partir de R$ ${reais(d.preco.valor)}${d.preco.texto ? ' ' + d.preco.texto : ''}` : d.preco?.texto}
-      whatsappTexto={waTexto}
+      whatsappTexto={datasAbertas[0]?.whatsapp ?? waTexto}
+      datas={datasAbertas}
       produto={d.titulo}
       botao={d.modalidade === 'corporativo' ? 'Pedir proposta' : d.modalidade === 'personalizado' ? 'Combinar data' : 'Garantir vaga'}
     />

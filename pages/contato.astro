@@ -10,7 +10,7 @@ const site = await getSite();
 const migalhas = [{ nome: 'Início', url: '/' }, { nome: 'Contato', url: '/contato/' }];
 const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage', name: 'Contato KeepTrack 4x4', url: new URL('/contato/', Astro.site).href }];
 ---
-<BaseLayout titulo="Contato | KeepTrack 4x4 Brotas-SP"
+<BaseLayout titulo="Contato | KeepTrack 4x4"
   descricao="Fale com a KeepTrack 4x4 pelo WhatsApp: treinamentos de condução 4x4 no Haras Tuiuti (SP), expedições off-road e eventos corporativos."
   schema={schema}>
   <PageHero titulo="Fale com a gente" eyebrow="Contato" migalhas={migalhas}
@@ -66,6 +66,15 @@ const schema = [schemaBreadcrumb(migalhas, Astro.site!), { '@type': 'ContactPage
               <span class="c-seta" aria-hidden="true"><Icone nome="seta" /></span>
             </a>
           </li>
+          {site.youtube && (
+            <li>
+              <a href={site.youtube} target="_blank" rel="noopener" data-track="click_youtube" data-local="contato">
+                <span class="c-icone"><Icone nome="youtube" /></span>
+                <span class="c-texto"><span class="c-rot">YouTube</span><strong>@keeptrack4x4</strong></span>
+                <span class="c-seta" aria-hidden="true"><Icone nome="seta" /></span>
+              </a>
+            </li>
+          )}
           <li>
             <a href={site.facebook} target="_blank" rel="noopener" data-track="click_facebook" data-local="contato">
               <span class="c-icone"><Icone nome="facebook" /></span>

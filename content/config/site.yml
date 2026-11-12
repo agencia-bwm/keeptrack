@@ -1,12 +1,22 @@
 # Configurações gerais — editável no painel (Pages CMS)
 nome: KeepTrack 4x4
 # Só números, com DDI 55 + DDD. Qual número recebe os leads está pendente com o cliente.
-whatsappPrincipal: "5514998028008"
-whatsappSecundario: "5511998221440"
+whatsappPrincipal: "5511998221440"
+whatsappSecundario: "5514998028008"
 whatsappTexto: "Olá, KeepTrack! Vim pelo site e quero saber mais."
 email: contato@keeptrack.com.br
 instagram: https://www.instagram.com/keeptrack4x4/
 facebook: https://www.facebook.com/KeepTrack4x4/
+youtube: https://www.youtube.com/@keeptrack4x4
+# Parceiros exibidos na home e em A KeepTrack (logo e site são opcionais)
+parceiros:
+  - nome: Haras Tuiuti
+    descricao: Local dos treinamentos
+    logo: /src/assets/uploads/parceiros/haras-tuiuti.png
+  - nome: LS Motors
+    logo: /src/assets/uploads/parceiros/ls-motors.png
+  - nome: Racing Track
+  - nome: AMO Design
 cidade: Brotas
 uf: SP
 local:

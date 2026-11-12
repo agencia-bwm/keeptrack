@@ -10,7 +10,7 @@ cargaHoraria: Sob medida, combinada com o participante
 local: Haras Tuiuti, Tuiuti-SP (ou outro local a combinar)
 conteudo:
   - Diagnóstico do seu nível e do seu veículo
-  - Técnicas escolhidas para o seu objetivo (viagem, trilha, areia, lama, serra)
+  - Técnicas escolhidas para o seu objetivo (viagem, estrada de terra, areia, lama, serra)
   - Prática individual com o instrutor ao lado
 paraQuem:
   - Quem prefere aprender no próprio ritmo
@@ -33,5 +33,5 @@ faq:
 whatsapp: Olá! Quero um treinamento 4x4 personalizado.
 seo:
   titulo: Treinamento 4x4 Personalizado | KeepTrack
-  descricao: Aula de condução 4x4 sob medida para você ou seu grupo, com data e conteúdo ajustados ao seu veículo e ao seu objetivo. Brotas-SP.
+  descricao: Aula de condução 4x4 sob medida para você ou seu grupo, com data e conteúdo ajustados ao seu veículo e ao seu objetivo.
 ---

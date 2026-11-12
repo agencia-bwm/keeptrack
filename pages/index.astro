@@ -10,6 +10,8 @@ import CardPost from '../components/CardPost.astro';
 import ListaTurmas from '../components/ListaTurmas.astro';
 import Galeria from '../components/Galeria.astro';
 import CTAFinal from '../components/CTAFinal.astro';
+import CardEmBreve from '../components/CardEmBreve.astro';
+import Parceiros from '../components/Parceiros.astro';
 import { getSite, linkWhatsApp, getTreinamentos, getViagens, getPosts, agendaTurmas, diaMes } from '../lib/utils';
 
 const site = await getSite();
@@ -17,7 +19,8 @@ const home = (await getEntry('home', 'home'))!.data;
 const sobre = (await getEntry('sobre', 'a-keeptrack'))!.data;
 const treinamentos = await getTreinamentos();
 const { proximas, realizadas } = await getViagens();
-const viagensVitrine = [...proximas, ...realizadas].slice(0, 3);
+// Com viagens futuras, a home mostra até 2 + o card "Em breve"; sem elas, as 3 últimas realizadas
+const viagensVitrine = proximas.length ? proximas.slice(0, 2) : realizadas.slice(0, 3);
 const posts = (await getPosts()).slice(0, 3);
 const agenda = (await agendaTurmas()).slice(0, 3);
 const prox = agenda[0];
@@ -127,6 +130,7 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
           links={agenda.map((a) => `/treinamentos/${a.treinamento.id}/`)}
           localPadrao="Haras Tuiuti, Tuiuti-SP"
           titulo="Técnicas de Condução 4x4"
+          aviso={treinamentos.find((t) => t.data.avisoTurmas)?.data.avisoTurmas}
         />
       </div>
       <div class="grade">
@@ -143,7 +147,7 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
           <p class="eyebrow">Por que a KeepTrack</p>
           <h2>Segurança faz parte do roteiro</h2>
         </div>
-        <p>Off-road é diversão quando tudo está sob controle. Por isso cada treinamento e cada expedição começam muito antes da trilha.</p>
+        <p>Off-road é diversão quando tudo está sob controle. Por isso cada treinamento e cada expedição começam muito antes da estrada.</p>
       </div>
       <ul class="pilares">
         {home.pilares.map((p, i) => (
@@ -182,6 +186,7 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
       )}
       <div class="grade">
         {viagensVitrine.map((v) => <CardViagem viagem={v} />)}
+        {proximas.length > 0 && <CardEmBreve />}
       </div>
     </div>
   </section>
@@ -191,10 +196,13 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
     <div class="container">
       <div class="cabecalho-secao">
         <div>
-          <p class="eyebrow">Na trilha</p>
+          <p class="eyebrow">Na estrada</p>
           <h2>Registros de quem já foi</h2>
         </div>
-        <a class="link-seta" href={site.instagram} target="_blank" rel="noopener" data-track="click_instagram" data-local="galeria">Mais no Instagram</a>
+        <div class="links-redes">
+          <a class="link-seta" href={site.instagram} target="_blank" rel="noopener" data-track="click_instagram" data-local="galeria">Mais no Instagram</a>
+          {site.youtube && <a class="link-seta" href={site.youtube} target="_blank" rel="noopener" data-track="click_youtube" data-local="galeria">Vídeos no YouTube</a>}
+        </div>
       </div>
       <Galeria fotos={home.galeria} />
     </div>
@@ -237,6 +245,8 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
       </div>
     </section>
   )}
+
+  <Parceiros />
 
   <CTAFinal />
 </BaseLayout>
@@ -341,4 +351,5 @@ const iconesPilares = ['escudo', 'ferramenta', 'rota'] as const;
     .hero-conteudo { padding-top: 180px; padding-bottom: 110px; }
     .hero-botoes .btn { flex: 1 1 100%; }
   }
+  .links-redes { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; }
 </style>

@@ -1,4 +1,4 @@
-heroEyebrow: Treinamentos e expedições 4x4 · Brotas-SP
+heroEyebrow: Treinamentos e expedições 4x4
 heroTitulo: Off-road com quem leva segurança a sério
 heroSubtitulo: Treinamentos de condução 4x4 e expedições guiadas pelo Brasil e pela América do Sul. Você aprende a usar tudo o que o seu 4x4 oferece e volta para casa com o carro, os passageiros e a história inteiros.
 heroImagem: /src/assets/uploads/fotos/canastra/4runner-pedras.jpg
@@ -7,7 +7,7 @@ heroFotos:
   - imagem: /src/assets/uploads/fotos/canastra/travessia-rio.jpg
     alt: Hilux da KeepTrack atravessando um rio raso na Serra da Canastra
   - imagem: /src/assets/uploads/fotos/canastra/hilux-trilha.jpg
-    alt: Hilux de apoio da KeepTrack com rack e snorkel em trilha na Serra da Canastra
+    alt: Hilux de apoio da KeepTrack com rack e snorkel em estrada de terra na Serra da Canastra
     posicao: 50% 55%
   - imagem: /src/assets/uploads/fotos/jalapao/comboio.jpg
     alt: Comboio de carros 4x4 da expedição parado em estrada de terra no Jalapão
@@ -15,7 +15,7 @@ heroFotos:
 numeros:
   - valor: "10+"
     rotulo: destinos percorridos em expedições
-  - valor: "14"
+  - valor: "13"
     rotulo: turmas de treinamento em 2026
   - valor: "6 h"
     rotulo: de treinamento, metade em pista off-road

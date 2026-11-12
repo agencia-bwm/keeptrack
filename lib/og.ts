@@ -4,7 +4,7 @@
  * (treinamentos, viagens, posts). Páginas fixas estão listadas em `fixas`.
  */
 import { getEntry } from 'astro:content';
-import { getTreinamentos, getViagens, getPosts, periodo, statusEfetivo, rotulos, proximasTurmas, dataLonga } from './utils';
+import { getTreinamentos, getViagens, getPosts, quandoViagem, statusEfetivo, rotulos, proximasTurmas, dataLonga } from './utils';
 
 export interface ArteOg {
   slug: string;      // caminho da página sem barras ('' = home)
@@ -29,7 +29,7 @@ export async function artesOg(): Promise<ArteOg[]> {
   const U = 'https://www.keeptrack.com.br/wp/wp-content/uploads/';
 
   const fixas: ArteOg[] = [
-    { slug: '', eyebrow: 'Treinamentos e expedições 4x4', titulo: home.heroTitulo, sub: 'Brotas-SP · Brasil e América do Sul', imagem: home.heroImagem },
+    { slug: '', eyebrow: 'Treinamentos e expedições 4x4', titulo: home.heroTitulo, sub: 'Brasil e América do Sul', imagem: home.heroImagem },
     { slug: 'a-keeptrack', eyebrow: 'Quem somos', titulo: sobre.titulo, sub: 'Expedições, treinamentos e eventos off-road', imagem: sobre.capa },
     { slug: 'treinamentos', eyebrow: 'Treinamentos', titulo: 'Treinamentos de condução 4x4', sub: 'Haras Tuiuti · Tuiuti-SP', imagem: '/src/assets/uploads/fotos/treinamento/lama-video.jpg' },
     { slug: 'viagens', eyebrow: 'Expedições guiadas', titulo: 'Viagens & Expedições 4x4', sub: 'Roteiros off-road pelo Brasil e América do Sul', imagem: '/src/assets/uploads/fotos/jalapao/dunas.jpg' },
@@ -55,7 +55,7 @@ export async function artesOg(): Promise<ArteOg[]> {
       slug: `viagens/${v.id}`,
       eyebrow: `Expedição · ${rotulos.statusViagem[st]}`,
       titulo: v.data.titulo,
-      sub: `${periodo(v.data.inicio, v.data.fim, st === 'realizada')} · ${v.data.destinos.slice(0, 2).join(' · ')}`,
+      sub: `${quandoViagem(v, st === 'realizada')} · ${v.data.destinos.slice(0, 2).join(' · ')}`,
       imagem: v.data.capa,
     };
   });

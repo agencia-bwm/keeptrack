@@ -1,0 +1,50 @@
+---
+import Foto from './Foto.astro';
+import { diaMes, proximasTurmas, rotulos, type Treinamento } from '../lib/utils';
+interface Props { treinamento: Treinamento; nivelTitulo?: 'h2' | 'h3' }
+const { treinamento: t, nivelTitulo = 'h3' } = Astro.props;
+const d = t.data;
+const prox = proximasTurmas(t)[0];
+const dm = prox ? diaMes(prox.data) : null;
+const H = nivelTitulo;
+---
+<article class="card-trein">
+  <div class="midia">
+    <Foto src={d.capa} alt={d.capaAlt} largura={640} sizes="(max-width: 720px) 100vw, 400px" />
+    <span class="selo selo--azul">{rotulos.modalidade[d.modalidade]}</span>
+  </div>
+  <div class="corpo">
+    <H class="titulo"><a href={`/treinamentos/${t.id}/`}>{d.titulo}</a></H>
+    <p class="resumo">{d.resumo}</p>
+    {dm ? (
+      <div class="prox">
+        <div class="data"><span class="dia">{dm.dia}</span><span class="mes">{dm.mes}</span></div>
+        <div><strong>Próxima turma</strong><br /><span>{dm.semana.charAt(0).toUpperCase() + dm.semana.slice(1)}, {prox!.local ?? d.local}</span></div>
+      </div>
+    ) : (
+      <p class="sob">{d.modalidade === 'grupo' ? 'Novas turmas em breve' : 'Data combinada com você'}</p>
+    )}
+    <span class="link-seta" aria-hidden="true">Saiba mais</span>
+  </div>
+</article>
+<style>
+  .card-trein { position: relative; display: flex; flex-direction: column; background: var(--branco); border-radius: var(--raio-g); padding: 8px; box-shadow: var(--sombra), inset 0 0 0 1px rgb(18 29 61 / .05); transition: transform .35s var(--ease), box-shadow .35s; }
+  .card-trein:hover { transform: translateY(-4px); box-shadow: var(--sombra-forte); }
+  .midia { position: relative; aspect-ratio: 16 / 10; background: var(--bege-2); overflow: hidden; border-radius: calc(var(--raio-g) - 5px); }
+  .midia :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .card-trein:hover .midia :global(img) { transform: scale(1.04); }
+  .midia .selo { position: absolute; top: 12px; left: 12px; box-shadow: 0 4px 14px -6px rgb(0 0 0 / .35); }
+  .corpo { padding: 1.2rem 1rem 1rem; display: flex; flex-direction: column; flex: 1; }
+  .titulo { font-size: 1.75rem; margin: 0 0 .5rem; }
+  .titulo a { color: inherit; text-decoration: none; }
+  .titulo a::after { content: ''; position: absolute; inset: 0; }
+  .resumo { color: var(--cinza); margin: 0 0 1.2rem; }
+  .prox { display: flex; gap: .9rem; align-items: center; padding: .7rem; background: var(--bege); border-radius: var(--raio); margin-bottom: 1.2rem; font-size: .95rem; line-height: 1.35; }
+  .prox span { color: var(--cinza); }
+  .prox strong { color: var(--azul-escuro); }
+  .data { flex: none; width: 58px; text-align: center; background: linear-gradient(160deg, var(--azul), var(--azul-escuro)); color: #fff; border-radius: var(--raio); padding: .35rem 0; font-family: var(--f-titulo); text-transform: uppercase; line-height: 1; }
+  .data .dia { display: block; font-size: 1.8rem; font-weight: 700; color: #fff; }
+  .data .mes { font-size: .85rem; letter-spacing: .1em; color: #c5d0ea; }
+  .sob { font-weight: 600; color: var(--azul-escuro); margin: 0 0 1.2rem; }
+  .link-seta { margin-top: auto; color: var(--azul); padding-top: .9rem; border-top: 1px solid var(--linha); }
+</style>

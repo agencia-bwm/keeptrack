@@ -1,0 +1,86 @@
+---
+import Foto from './Foto.astro';
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  pessoa: CollectionEntry<'equipe'>;
+  /** destaque: foto grande ao lado do texto; compacto: card para a grade da equipe */
+  variante?: 'destaque' | 'compacto';
+  nivelTitulo?: 'h2' | 'h3';
+}
+const { pessoa, variante = 'destaque', nivelTitulo = 'h3' } = Astro.props;
+const p = pessoa.data;
+const paragrafos = p.bio.split(/\n\s*\n/).map((t) => t.trim()).filter(Boolean);
+const iniciais = p.nome.split(/\s+/).filter(Boolean).slice(0, 2).map((n) => n[0]).join('').toUpperCase();
+const H = nivelTitulo;
+---
+<article class:list={['pessoa', variante]} id={`equipe-${pessoa.id}`}>
+  <div class="foto" style={`--foco: ${p.fotoPosicao}`}>
+    {p.foto ? (
+      <Foto src={p.foto} alt={p.fotoAlt ?? p.nome} largura={variante === 'destaque' ? 600 : 360} sizes={variante === 'destaque' ? '(max-width: 720px) 100vw, 420px' : '160px'} />
+    ) : (
+      <span class="iniciais topo" aria-hidden="true">{iniciais}</span>
+    )}
+  </div>
+  <div class="texto">
+    <H class="nome">{p.nome}</H>
+    <p class="cargo">{p.cargo}</p>
+    {variante === 'destaque' ? (
+      <>
+        {paragrafos.map((t) => <p>{t}</p>)}
+        {p.credenciais.length > 0 && <ul class="lista-check">{p.credenciais.map((c) => <li>{c}</li>)}</ul>}
+      </>
+    ) : (
+      <>
+        <p>{paragrafos[0]}</p>
+        {paragrafos.length > 1 && (
+          <details>
+            <summary>Ler perfil completo</summary>
+            {paragrafos.slice(1).map((t) => <p>{t}</p>)}
+          </details>
+        )}
+        {p.credenciais.length > 0 && <ul class="tags">{p.credenciais.map((c) => <li>{c}</li>)}</ul>}
+      </>
+    )}
+  </div>
+</article>
+<style>
+  .foto { border-radius: var(--raio-g); overflow: hidden; background: var(--bege-2); }
+  .foto :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: var(--foco, center); }
+  .iniciais {
+    width: 100%; height: 100%; display: grid; place-items: center;
+    background: radial-gradient(circle at 80% 0%, rgb(63 104 185 / .55), transparent 60%), var(--azul-escuro);
+    color: #fff; font-family: var(--f-titulo); font-weight: 700; letter-spacing: .04em;
+  }
+  .iniciais::before { opacity: .14; }
+  .nome { margin: 0; }
+  .cargo { font-family: var(--f-titulo); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--azul); margin: .3rem 0 1rem; line-height: 1.3; }
+
+  /* Destaque */
+  .destaque { display: grid; grid-template-columns: minmax(220px, 380px) 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+  .destaque .foto { aspect-ratio: 4 / 5; }
+  .destaque .nome { font-size: clamp(2rem, 4vw, 2.8rem); }
+  .destaque .iniciais { font-size: clamp(4rem, 9vw, 7rem); }
+  .destaque .lista-check { margin-top: 1.2rem; }
+
+  /* Compacto */
+  .compacto { display: grid; grid-template-columns: 112px 1fr; gap: 1.2rem; align-items: start; padding: 1.4rem; border-radius: var(--raio-g); background: var(--branco); box-shadow: var(--sombra), inset 0 0 0 1px rgb(18 29 61 / .06); }
+  .compacto .foto { aspect-ratio: 1; }
+  .compacto .iniciais { font-size: 2.4rem; }
+  .compacto .nome { font-size: 1.6rem; }
+  .compacto .cargo { font-size: .88rem; margin-bottom: .7rem; }
+  .compacto p { font-size: .98rem; color: var(--cinza); }
+  .compacto p:last-child { margin-bottom: 0; }
+  details summary { cursor: pointer; font-weight: 600; color: var(--azul); margin-bottom: .6rem; }
+  details[open] summary { margin-bottom: .8rem; }
+  .tags { list-style: none; margin: .8rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+  .tags li { font-size: .82rem; font-weight: 600; color: var(--azul-escuro); padding: .25em .7em; border-radius: var(--raio); background: var(--bege); }
+
+  @media (max-width: 720px) {
+    .destaque { grid-template-columns: 1fr; }
+    .destaque .foto { aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 460px) {
+    .compacto { grid-template-columns: 1fr; }
+    .compacto .foto { width: 96px; }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import Icone from './Icone.astro';
+import { getSite, linkWhatsApp } from '../lib/utils';
+interface Props { titulo?: string; texto?: string; whatsappTexto?: string; produto?: string }
+const site = await getSite();
+const {
+  titulo = 'Bora para a próxima expedição?',
+  texto = 'Tire suas dúvidas, veja datas e garanta sua vaga direto com a nossa equipe no WhatsApp.',
+  whatsappTexto, produto,
+} = Astro.props;
+---
+<section class="cta-sec">
+ <div class="container">
+  <div class="cta topo moldura interno">
+    <div>
+      <p class="eyebrow eyebrow--claro">Fale com a KeepTrack</p>
+      <h2>{titulo}</h2>
+      <p class="texto">{texto}</p>
+    </div>
+    <div class="botoes">
+      <a class="btn btn--wa" href={linkWhatsApp(site.whatsappPrincipal, whatsappTexto ?? site.whatsappTexto)} target="_blank" rel="noopener" data-track="click_whatsapp" data-local="cta-final" data-produto={produto}>
+        <Icone nome="whatsapp" />Chamar no WhatsApp
+      </a>
+      <a class="btn btn--contorno-claro" href={site.instagram} target="_blank" rel="noopener" data-track="click_instagram" data-local="cta-final">
+        <Icone nome="instagram" />Instagram
+      </a>
+      {site.youtube && (
+        <a class="btn btn--contorno-claro" href={site.youtube} target="_blank" rel="noopener" data-track="click_youtube" data-local="cta-final">
+          <Icone nome="youtube" />YouTube
+        </a>
+      )}
+    </div>
+  </div>
+ </div>
+</section>
+<style>
+  .cta-sec { padding-block: clamp(32px, 5vw, 64px); }
+  .cta { background: radial-gradient(700px 400px at 100% 0%, #5a83d4, transparent 60%), linear-gradient(135deg, var(--azul) 0%, #2d4f98 100%); color: #eaf0fb; padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 72px); border-radius: var(--raio-g); overflow: hidden; box-shadow: var(--sombra-forte); }
+  .cta::before { opacity: .14; }
+  .interno { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+  h2 { color: #fff; margin: 0 0 .3em; max-width: 16ch; }
+  .eyebrow { color: #dbe5fa; }
+  .texto { max-width: 46ch; margin: 0; font-size: 1.15rem; }
+  .botoes { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .btn--contorno-claro:hover { color: var(--azul); }
+</style>

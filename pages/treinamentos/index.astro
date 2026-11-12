@@ -47,7 +47,8 @@ const schema = [
       </div>
       <ListaTurmas turmas={agenda.map((a) => a.turma)} mostrarTreinamento={agenda.map((a) => a.treinamento.data.titulo)}
         links={agenda.map((a) => `/treinamentos/${a.treinamento.id}/`)}
-        localPadrao="Haras Tuiuti, Tuiuti-SP" titulo="Técnicas de Condução 4x4" />
+        localPadrao="Haras Tuiuti, Tuiuti-SP" titulo="Técnicas de Condução 4x4"
+        aviso={treinamentos.find((t) => t.data.avisoTurmas)?.data.avisoTurmas} />
     </div>
   </section>
 

@@ -1,0 +1,11 @@
+---
+// Logo KeepTrack 4x4 em SVG monocromático (herda a cor via currentColor)
+import logo from '../assets/brand/logo-mono.svg?raw';
+interface Props { class?: string }
+const { class: classe } = Astro.props;
+---
+<span class:list={['logo', classe]} set:html={logo} />
+<style>
+  .logo { display: block; line-height: 0; }
+  .logo :global(svg) { width: 100%; height: auto; }
+</style>

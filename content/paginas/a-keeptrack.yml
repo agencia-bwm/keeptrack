@@ -1,9 +1,9 @@
 titulo: A KeepTrack
 subtitulo: Uma empresa de expedições, treinamentos e eventos off-road que trata segurança como parte do roteiro.
-capa: /src/assets/uploads/fotos/canastra/mirante.jpg
-capaAlt: Veículos da expedição estacionados em mirante na Serra da Canastra
+capa: /src/assets/uploads/fotos/jalapao/grupo-topo.jpg
+capaAlt: Grupo de uma expedição da KeepTrack reunido nas pedras do Jalapão
 historia: |
-  A KeepTrack nasceu da estrada. Antes de virar empresa, eram viagens de 4x4 por trilhas do interior paulista, depois pelo Brasil e, com o tempo, pela América do Sul. Em cada uma ficou claro que a diferença entre uma boa aventura e um problema sério está no preparo: saber usar o carro, levar o equipamento certo e ter alguém que conhece o caminho.
+  A KeepTrack nasceu da estrada. Antes de virar empresa, eram viagens de 4x4 pelas estradas do interior paulista, depois pelo Brasil e, com o tempo, pela América do Sul. Em cada uma ficou claro que a diferença entre uma boa aventura e um problema sério está no preparo: saber usar o carro, levar o equipamento certo e ter alguém que conhece o caminho.
 
   Hoje a KeepTrack organiza treinamentos de técnicas de condução 4x4 na pista off-road do Haras Tuiuti, em Tuiuti-SP, e expedições guiadas para destinos como Jalapão, Serra da Canastra, Pantanal e Estrada Real. Também atende empresas com treinamentos e eventos corporativos, orienta sobre acessórios e equipamentos e presta consultoria de manutenção e preparação de veículos 4x4.
 servicos:
@@ -26,12 +26,14 @@ frota:
   - GPS Garmin
   - Inversor 110 V
   - Geladeira
+  - Starlink
+  - E muito mais
 frotaImagem: /src/assets/uploads/fotos/canastra/hilux-trilha.jpg
-frotaImagemAlt: Picape de apoio da KeepTrack equipada com rack e snorkel em trilha
+frotaImagemAlt: Picape de apoio da KeepTrack equipada com rack e snorkel em estrada de terra durante expedição
 parceria:
   titulo: Treinamentos no Haras Tuiuti
   texto: Os treinamentos acontecem no Haras Tuiuti, complexo automobilístico em Tuiuti-SP com autódromo, centro de eventos e uma pista off-road técnica, que simula diversas situações fora de estrada em ambiente controlado e seguro.
   logo: /src/assets/uploads/parceiros/haras-tuiuti.png
 seo:
   titulo: A KeepTrack | Expedições e Treinamentos Off-Road
-  descricao: "Conheça a KeepTrack 4x4, de Brotas-SP: treinamentos de condução, expedições guiadas, eventos corporativos e consultoria para veículos 4x4."
+  descricao: "Conheça a KeepTrack 4x4: treinamentos de condução, expedições guiadas, eventos corporativos e consultoria para veículos 4x4."

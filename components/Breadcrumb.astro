@@ -1,0 +1,18 @@
+---
+interface Props { itens: { nome: string; url: string }[]; claro?: boolean }
+const { itens, claro = false } = Astro.props;
+---
+<nav aria-label="Você está em" class:list={['migalhas', { claro }]}>
+  <ol>
+    {itens.map((i, idx) => (
+      <li>{idx < itens.length - 1 ? <a href={i.url}>{i.nome}</a> : <span aria-current="page">{i.nome}</span>}</li>
+    ))}
+  </ol>
+</nav>
+<style>
+  .migalhas ol { list-style: none; display: flex; flex-wrap: wrap; gap: .3em; padding: 0; margin: 0 0 1.25rem; font-size: .95rem; color: var(--cinza); }
+  .migalhas li + li::before { content: '/'; margin-right: .3em; opacity: .6; }
+  .migalhas a { color: inherit; }
+  .claro ol { color: #c5d0ea; }
+  .claro a:hover { color: #fff; }
+</style>

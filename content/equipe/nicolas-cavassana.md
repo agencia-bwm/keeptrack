@@ -3,7 +3,7 @@ slug: nicolas-cavassana
 nome: Nicolas Cavassana
 cargo: "Apoio Operacional | Expedições 4x4"
 foto: /src/assets/uploads/fotos/equipe/nicolas-cavassana.jpg
-fotoAlt: Nicolas Cavassana com camiseta da KeepTrack e rádio em trilha de pedras
+fotoAlt: Nicolas Cavassana com camiseta da KeepTrack e rádio sobre as pedras durante expedição
 fotoPosicao: center 25%
 tipo: pessoa
 bio: |

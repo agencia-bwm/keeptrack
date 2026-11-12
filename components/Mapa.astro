@@ -1,0 +1,69 @@
+---
+/**
+ * Mapa do Google com LGPD: vem fechado e só carrega o iframe do Google
+ * (que grava cookies) depois do clique, ou automaticamente se o visitante
+ * aceitou "Conteúdo externo" no banner de cookies.
+ */
+import Icone from './Icone.astro';
+interface Props { nome: string; cidade: string; uf: string; mapsUrl: string; busca?: string }
+const { nome, cidade, uf, mapsUrl, busca = `${nome}, ${cidade} - ${uf}` } = Astro.props;
+const embed = `https://www.google.com/maps?q=${encodeURIComponent(busca)}&z=14&output=embed`;
+---
+<div class="mapa topo" data-mapa data-embed={embed} data-titulo={`Mapa: ${nome}`}>
+  <button type="button" class="abrir" data-track="click_mapa" data-local="abrir-mapa">
+    <span class="pino"><Icone nome="local" /></span>
+    <span class="cta-mapa">Clique para abrir o mapa</span>
+    <span class="aviso">Ao abrir, o Google Maps é carregado e pode gravar cookies.</span>
+  </button>
+  <span class="mapa-rot">{nome}<small>{cidade} · {uf}</small></span>
+  <a class="externo" href={mapsUrl} target="_blank" rel="noopener" data-track="click_mapa" data-local="google-maps">
+    Abrir no Google Maps <Icone nome="seta" />
+  </a>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-mapa]').forEach((caixa) => {
+    const carregar = () => {
+      if (caixa.dataset.carregado) return;
+      caixa.dataset.carregado = '1';
+      const f = document.createElement('iframe');
+      f.src = caixa.dataset.embed!;
+      f.title = caixa.dataset.titulo!;
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.allowFullscreen = true;
+      caixa.appendChild(f);
+      caixa.classList.add('aberto');
+    };
+    caixa.querySelector('.abrir')!.addEventListener('click', carregar);
+    // Consentimento já dado no banner (agora ou em visita anterior)
+    if (window.__ktConsent?.conteudo) carregar();
+    window.addEventListener('kt:consentimento', (e) => {
+      if ((e as CustomEvent).detail?.conteudo) carregar();
+    });
+  });
+</script>
+
+<style>
+  .mapa { position: relative; aspect-ratio: 4 / 3; max-width: 100%; border-radius: var(--raio-g); background: var(--azul-escuro); overflow: hidden; box-shadow: var(--sombra); }
+  .mapa::before { opacity: .2; }
+  .abrir {
+    position: absolute; inset: 0; width: 100%; border: 0; background: transparent; color: #fff; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; padding: 1.5rem; text-align: center;
+  }
+  .pino { width: 72px; height: 72px; border-radius: var(--raio); background: var(--azul); display: grid; place-items: center; box-shadow: 0 0 0 12px rgb(63 104 185 / .25), 0 0 0 26px rgb(63 104 185 / .12); transition: transform .3s var(--ease); }
+  .pino :global(svg) { width: 36px; }
+  .cta-mapa { margin-top: 1.4rem; font-family: var(--f-titulo); font-weight: 700; font-size: 1.25rem; letter-spacing: .08em; text-transform: uppercase; padding: .55em 1.2em; border-radius: var(--raio); background: rgb(255 255 255 / .1); box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / .45); transition: background-color .25s; }
+  .aviso { font-size: .85rem; color: #c5d0ea; max-width: 32ch; }
+  .abrir:hover .pino, .abrir:focus-visible .pino { transform: translateY(-4px); }
+  .abrir:hover .cta-mapa, .abrir:focus-visible .cta-mapa { background: var(--azul); }
+  .mapa-rot { position: absolute; bottom: 1.1rem; left: 1.2rem; color: #fff; font-family: var(--f-titulo); font-weight: 700; font-size: 1.3rem; text-transform: uppercase; line-height: 1.1; pointer-events: none; }
+  .mapa-rot small { display: block; font-size: .9rem; color: #9fb6e6; letter-spacing: .12em; }
+  .externo { position: absolute; bottom: 1.1rem; right: 1.2rem; display: inline-flex; align-items: center; gap: .4em; color: #dfe6f5; font-size: .9rem; font-weight: 600; text-decoration: none; }
+  .externo :global(svg) { width: 16px; }
+  .externo:hover { color: #fff; text-decoration: underline; }
+  .mapa :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .aberto .abrir, .aberto .mapa-rot { display: none; }
+  .aberto .externo { background: var(--azul-escuro); padding: .4em .8em; border-radius: var(--raio); bottom: .8rem; right: .8rem; }
+  @media (max-width: 480px) { .mapa { aspect-ratio: 4 / 4.4; } .aviso { display: none; } .externo { left: 1.2rem; right: auto; bottom: 3.8rem; } }
+</style>

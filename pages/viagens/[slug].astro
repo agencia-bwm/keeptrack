@@ -10,7 +10,7 @@ import FAQ from '../../components/FAQ.astro';
 import CardViagem from '../../components/CardViagem.astro';
 import CardPost from '../../components/CardPost.astro';
 import CTAFinal from '../../components/CTAFinal.astro';
-import { statusEfetivo, periodo, dias, rotulos, getViagens, getPosts } from '../../lib/utils';
+import { statusEfetivo, quandoViagem, dias, rotulos, getViagens, getPosts } from '../../lib/utils';
 import { schemaBreadcrumb, schemaViagem, schemaFaq } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -38,7 +38,7 @@ const precoTxt = d.preco?.valor ? `A partir de R$ ${d.preco.valor.toLocaleString
 ---
 <BaseLayout titulo={d.seo.titulo} descricao={d.seo.descricao} imagem={d.capa} preloadImagem={d.capa} schema={schema}
   whatsappTexto={waTexto} produto={d.titulo} tipoProduto="viagem">
-  <PageHero titulo={d.titulo} eyebrow={`${rotulos.statusViagem[status]} · ${periodo(d.inicio, d.fim, realizada)}`} subtitulo={d.resumo}
+  <PageHero titulo={d.titulo} eyebrow={`${rotulos.statusViagem[status]} · ${quandoViagem(v, realizada)}`} subtitulo={d.resumo}
     imagem={d.capa} imagemAlt={d.capaAlt} migalhas={migalhas} />
 
   <div class="container produto">
@@ -67,10 +67,10 @@ const precoTxt = d.preco?.valor ? `A partir de R$ ${d.preco.valor.toLocaleString
     </div>
 
     <FichaProduto
-      destaque={{ rotulo: realizada ? 'Expedição realizada' : 'Saída', valor: periodo(d.inicio, d.fim, realizada) }}
+      destaque={{ rotulo: realizada ? 'Expedição realizada' : 'Saída', valor: quandoViagem(v, realizada) }}
       fatos={[
         { icone: 'rota', rotulo: 'Destinos', valor: d.destinos.join(' · ') },
-        ...(!realizada ? [{ icone: 'calendario' as const, rotulo: 'Duração', valor: `${dias(d.inicio, d.fim)} dias` }] : []),
+        ...(!realizada && !d.dataAConfirmar ? [{ icone: 'calendario' as const, rotulo: 'Duração', valor: `${dias(d.inicio, d.fim)} dias` }] : []),
         { icone: 'nivel', rotulo: 'Dificuldade', valor: rotulos.dificuldade[d.dificuldade] },
         { icone: 'carro', rotulo: 'Veículo exigido', valor: d.veiculo },
         ...(d.encontro ? [{ icone: 'local' as const, rotulo: 'Ponto de encontro', valor: d.encontro }] : []),
