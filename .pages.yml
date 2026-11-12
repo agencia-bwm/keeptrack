@@ -1,0 +1,568 @@
+# Painel do cliente (Pages CMS) — https://pagescms.org/docs/configuration/
+# Cada coleção vira um formulário. O schema do Astro (src/content.config.ts)
+# valida os mesmos campos no build: campo inválido bloqueia o deploy, não quebra o site.
+media:
+  input: src/assets/uploads
+  output: /src/assets/uploads
+  extensions: [jpg, jpeg, png, webp]
+settings:
+  commit:
+    identity: user
+
+components:
+  seo:
+    type: object
+    label: Google e redes sociais (SEO)
+    description: Como a página aparece no Google e quando o link é compartilhado no WhatsApp.
+    fields:
+      - name: titulo
+        label: Título para o Google
+        type: string
+        required: true
+        description: Até 60 caracteres. O " | KeepTrack" entra sozinho.
+        options: { maxlength: 60 }
+      - name: descricao
+        label: Descrição para o Google
+        type: text
+        required: true
+        description: Até 155 caracteres. Resuma a página e convide para o clique.
+        options: { maxlength: 155 }
+
+  faq:
+    type: object
+    label: Perguntas frequentes
+    list:
+      collapsible: { collapsed: true, summary: "{pergunta}" }
+    fields:
+      - { name: pergunta, label: Pergunta, type: string, required: true }
+      - { name: resposta, label: Resposta, type: text, required: true }
+
+  galeria:
+    type: object
+    label: Fotos (galeria)
+    description: A primeira foto aparece maior. Arraste para mudar a ordem.
+    list:
+      collapsible: { collapsed: true, summary: "{index}. {alt}" }
+    fields:
+      - { name: src, label: Foto, type: image, required: true }
+      - name: alt
+        label: Descrição da foto
+        type: string
+        required: true
+        description: 'O que aparece na foto. Ex.: "Comboio atravessando rio na Serra da Canastra".'
+
+  preco:
+    type: object
+    label: Preço
+    fields:
+      - name: valor
+        label: Valor (R$)
+        type: number
+        description: 'Só o número, sem pontos. Ex.: 2095. Deixe vazio para usar o texto abaixo.'
+        options: { min: 0 }
+      - name: texto
+        label: Texto do preço
+        type: string
+        description: 'Ex.: "A partir de R$ 2.095 por veículo" ou "Consulte a equipe".'
+
+  resposta:
+    type: text
+    label: Resposta direta
+    required: true
+    description: 'Parágrafo de 40 a 60 palavras que responde "o que é, quando, onde, para quem". Aparece no topo da página e é o trecho que o Google e as IAs mais citam.'
+    pattern:
+      regex: '^\s*(\S+\s+){34,69}\S+\s*$'
+      message: A resposta direta precisa ter entre 40 e 60 palavras.
+
+  resumo:
+    type: text
+    label: Resumo (card e subtítulo)
+    required: true
+    description: Até 160 caracteres.
+    options: { maxlength: 160 }
+
+  lista:
+    type: string
+    list: true
+
+# =====================================================================
+#  PAINÉIS
+# =====================================================================
+content:
+
+  # ======================= TREINAMENTOS =======================
+  - name: treinamentos
+    label: Treinamentos
+    type: collection
+    path: src/content/treinamentos
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    view:
+      primary: titulo
+      fields: [titulo, modalidade, ordem]
+      sort: [ordem, titulo]
+      default: { sort: ordem, order: asc }
+    fields:
+      - { name: titulo, label: Nome do treinamento, type: string, required: true }
+      - name: slug
+        label: Endereço da página (URL)
+        type: string
+        required: true
+        description: 'Só letras minúsculas, números e hífen. Ex.: expedicao-jalapao vira keeptrack.com.br/treinamentos/expedicao-jalapao/. Não mude depois de publicado.'
+        pattern: { regex: "^[a-z0-9-]+$", message: "Só letras minúsculas, números e hífen" }
+      - name: modalidade
+        label: Modalidade
+        type: select
+        required: true
+        options:
+          values:
+            - { name: grupo, value: grupo, label: Aberto em grupo }
+            - { name: personalizado, value: personalizado, label: Personalizado }
+            - { name: corporativo, value: corporativo, label: Corporativo }
+      - name: ordem
+        label: Ordem na listagem
+        type: number
+        description: 1 aparece primeiro.
+        default: 10
+
+      - name: turmas
+        label: Próximas turmas
+        description: 'Para lançar uma data nova, clique em "Adicionar". O dia da semana e a mensagem do WhatsApp com a data são gerados sozinhos. Turmas que já passaram saem do site no build diário (03h).'
+        type: object
+        list:
+          collapsible: { collapsed: false, summary: "{data} · {status}" }
+        fields:
+          - { name: data, label: Data, type: date, required: true, options: { format: yyyy-MM-dd } }
+          - { name: horario, label: Horário, type: string, default: "9h às 17h" }
+          - { name: local, label: Local, type: string, default: "Haras Tuiuti, Tuiuti-SP" }
+          - name: vagas
+            label: Vagas restantes
+            type: number
+            description: Opcional. Deixe vazio para não mostrar.
+            options: { min: 0 }
+          - name: status
+            label: Situação
+            type: select
+            default: aberta
+            options:
+              values:
+                - { name: aberta, value: aberta, label: Vagas abertas }
+                - { name: esgotada, value: esgotada, label: Esgotada }
+                - { name: realizada, value: realizada, label: Realizada }
+      - name: avisoTurmas
+        label: Aviso abaixo das turmas
+        type: text
+        description: 'Ex.: "Calendário 2027: aguardando a agenda do Haras Tuiuti…". Em branco = sem aviso.'
+
+      - { name: resumo, component: resumo }
+      - { name: resposta, component: resposta }
+      - name: nivel
+        label: Nível
+        type: select
+        required: true
+        options:
+          values:
+            - { name: todos, value: todos, label: Todos os níveis }
+            - { name: iniciante, value: iniciante, label: Iniciante }
+            - { name: intermediario, value: intermediario, label: Intermediário }
+            - { name: avancado, value: avancado, label: Avançado }
+      - { name: cargaHoraria, label: Carga horária, type: string, required: true, description: 'Ex.: 1 dia, das 9h às 17h (3 h teóricas + 3 h práticas)' }
+      - { name: local, label: Local, type: string, required: true }
+      - { name: capa, label: Foto de capa, type: image, required: true, options: { path: src/assets/uploads/treinamento } }
+      - { name: capaAlt, label: Descrição da foto de capa, type: string, required: true }
+
+      - name: sobreLocal
+        label: Local em destaque ("Onde acontece")
+        type: object
+        fields:
+          - { name: nome, label: Nome do local, type: string }
+          - { name: texto, label: Texto, type: text }
+          - { name: logo, label: Logo, type: image, options: { path: src/assets/uploads/parceiros } }
+      - { name: conteudo, value: conteudo, label: O que você vai aprender, component: lista, required: true, list: { min: 1 } }
+      - name: programacao
+        label: Programação do dia
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{hora} — {atividade}" }
+        fields:
+          - { name: hora, label: Horário, type: string, required: true }
+          - { name: atividade, label: Atividade, type: string, required: true }
+      - { name: observacao, label: Observação da programação, type: text }
+
+      - name: planos
+        label: Valores (planos)
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{nome} — R$ {valor}" }
+        fields:
+          - { name: nome, label: Nome do plano, type: string, required: true, description: 'Ex.: Grupo' }
+          - { name: subtitulo, label: Subtítulo, type: string, description: 'Ex.: Até 5 carros' }
+          - { name: valor, label: Valor (R$), type: number, required: true, description: 'Só o número. Ex.: 2095', options: { min: 0 } }
+          - { name: descricao, label: Descrição, type: text, required: true }
+          - { name: destaque, label: Plano em destaque, type: boolean, default: false }
+      - name: extras
+        label: Adicionais
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{nome} — R$ {valor}" }
+        fields:
+          - { name: nome, label: Item, type: string, required: true, description: 'Ex.: 2º condutor no mesmo carro' }
+          - { name: valor, label: Valor (R$), type: number, required: true, options: { min: 0 } }
+          - { name: descricao, label: Explicação, type: text, required: true }
+      - name: pagamento
+        label: Forma de pagamento
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{titulo}" }
+        fields:
+          - { name: titulo, label: Título, type: string, required: true }
+          - { name: texto, label: Detalhe, type: string, required: true }
+      - { name: preco, component: preco, description: 'Usado no quadro lateral e no Google. Para o formato Grupo, informe o menor valor.' }
+
+      - { name: inclui, value: inclui, label: O que inclui, component: lista }
+      - { name: naoInclui, value: naoInclui, label: Não inclui, component: lista }
+      - { name: paraQuem, value: paraQuem, label: Para quem é, component: lista, required: true, list: { min: 1 } }
+      - { name: requisitos, value: requisitos, label: Requisitos, component: lista, required: true, list: { min: 1 } }
+      - { name: galeria, component: galeria }
+      - name: instrutores
+        label: Quem conduz
+        type: reference
+        list: true
+        description: Pessoas cadastradas no painel Equipe.
+        options: { collection: equipe, value: "{fields.slug}", label: "{fields.nome}" }
+      - { name: faq, component: faq }
+      - name: whatsapp
+        label: Mensagem do WhatsApp
+        type: string
+        description: Opcional. Texto que já vem escrito quando a pessoa clica no botão. Com turma marcada, a mensagem com a data é automática.
+      - { name: seo, component: seo }
+      - { name: body, label: Texto adicional (opcional), type: rich-text }
+
+  # ======================= EXPEDIÇÕES (agenda) =======================
+  - name: expedicoes
+    label: Expedições
+    type: collection
+    path: src/content/viagens/proximas
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    view:
+      primary: titulo
+      fields: [titulo, status, inicio]
+      sort: [inicio, titulo]
+      default: { sort: inicio, order: asc }
+    fields:
+      - { name: titulo, label: Nome da expedição, type: string, required: true, description: 'Ex.: Expedição Chapada Diamantina' }
+      - name: slug
+        label: Endereço da página (URL)
+        type: string
+        required: true
+        description: 'Só letras minúsculas, números e hífen. Ex.: expedicao-jalapao vira keeptrack.com.br/viagens/expedicao-jalapao/. Não mude depois de publicado.'
+        pattern: { regex: "^[a-z0-9-]+$", message: "Só letras minúsculas, números e hífen" }
+      - name: status
+        label: Inscrições
+        type: select
+        required: true
+        default: proxima
+        description: 'Depois que a viagem termina (data de fim), ela passa sozinha para "Expedições realizadas" no build diário.'
+        options:
+          values:
+            - { name: proxima, value: proxima, label: Inscrições abertas }
+            - { name: esgotada, value: esgotada, label: Esgotada (lista de espera) }
+      - { name: inicio, label: Data de saída, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: fim, label: Data de retorno, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - name: dataAConfirmar
+        label: Datas ainda a confirmar
+        type: boolean
+        default: false
+        description: 'Ligado = o site mostra só o mês (ex.: "janeiro de 2027"). Use o dia 1º nas datas acima.'
+      - { name: destinos, label: Destinos, type: string, list: { min: 1 }, required: true, description: 'Um destino por item. Ex.: Jalapão (TO)' }
+      - { name: encontro, label: Ponto de encontro, type: string, description: 'Ex.: Palmas (TO)' }
+      - name: dificuldade
+        label: Dificuldade
+        type: select
+        required: true
+        options:
+          values:
+            - { name: leve, value: leve, label: Leve }
+            - { name: moderado, value: moderado, label: Moderado }
+            - { name: avancado, value: avancado, label: Avançado }
+      - { name: veiculo, label: Veículo exigido, type: string, required: true, description: 'Ex.: 4x4 original com reduzida' }
+      - { name: resumo, component: resumo }
+      - { name: resposta, component: resposta }
+      - { name: capa, label: Foto de capa, type: image, required: true }
+      - { name: capaAlt, label: Descrição da foto de capa, type: string, required: true }
+      - name: roteiro
+        label: Roteiro dia a dia
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "Dia {dia} — {titulo}" }
+        fields:
+          - { name: dia, label: Dia, type: number, required: true, options: { min: 1 } }
+          - { name: titulo, label: Título do dia, type: string, required: true, description: 'Ex.: Palmas → Ponte Alta do Tocantins' }
+          - { name: descricao, label: O que acontece, type: text, required: true }
+          - { name: km, label: Km rodados, type: number, options: { min: 0 } }
+      - { name: inclui, value: inclui, label: O que inclui, component: lista }
+      - { name: naoInclui, value: naoInclui, label: Não inclui, component: lista }
+      - { name: preco, component: preco }
+      - { name: vagas, label: Vagas restantes, type: number, description: Opcional., options: { min: 0 } }
+      - { name: galeria, component: galeria, description: Opcional. Fotos do destino ou de edições anteriores. }
+      - { name: faq, component: faq }
+      - { name: whatsapp, label: Mensagem do WhatsApp, type: string, description: 'Opcional. Em branco = mensagem automática com o nome e a data da viagem.' }
+      - { name: seo, component: seo }
+      - { name: body, label: Texto da página (opcional), type: rich-text }
+
+  # ======================= EXPEDIÇÕES REALIZADAS =======================
+  - name: expedicoes_realizadas
+    label: Expedições realizadas
+    type: collection
+    path: src/content/viagens/realizadas
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    view:
+      primary: titulo
+      fields: [titulo, inicio]
+      sort: [inicio, titulo]
+      default: { sort: inicio, order: desc }
+    fields:
+      - { name: titulo, label: Nome da expedição, type: string, required: true }
+      - name: slug
+        label: Endereço da página (URL)
+        type: string
+        required: true
+        description: 'Só letras minúsculas, números e hífen. Ex.: expedicao-jalapao vira keeptrack.com.br/viagens/expedicao-jalapao/. Não mude depois de publicado.'
+        pattern: { regex: "^[a-z0-9-]+$", message: "Só letras minúsculas, números e hífen" }
+      - { name: status, type: string, hidden: true, default: realizada }
+      - { name: inicio, label: Data de saída, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: fim, label: Data de retorno, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: dataAConfirmar, label: Mostrar só o mês, type: boolean, default: false, description: 'Ligado = o site mostra só "jul 2025", sem os dias.' }
+      - { name: destinos, label: Destinos, type: string, list: { min: 1 }, required: true }
+      - name: dificuldade
+        label: Dificuldade
+        type: select
+        required: true
+        options:
+          values:
+            - { name: leve, value: leve, label: Leve }
+            - { name: moderado, value: moderado, label: Moderado }
+            - { name: avancado, value: avancado, label: Avançado }
+      - { name: veiculo, label: Veículo exigido, type: string, required: true }
+      - { name: resumo, component: resumo }
+      - { name: resposta, component: resposta, description: 'Conte em 40 a 60 palavras como foi: quando, por onde passou, nível e carro exigido.' }
+      - { name: capa, label: Foto de capa, type: image, required: true }
+      - { name: capaAlt, label: Descrição da foto de capa, type: string, required: true }
+      - { name: galeria, component: galeria, label: 'Fotos de "Como foi"', description: 'Mínimo de 3 fotos. A primeira aparece maior.', list: { min: 3, collapsible: { collapsed: true, summary: "{index}. {alt}" } } }
+      - { name: body, label: Relato — como foi (opcional), type: rich-text }
+      - name: roteiro
+        label: Roteiro percorrido
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "Dia {dia} — {titulo}" }
+        fields:
+          - { name: dia, label: Dia, type: number, required: true, options: { min: 1 } }
+          - { name: titulo, label: Título do dia, type: string, required: true }
+          - { name: descricao, label: O que aconteceu, type: text, required: true }
+          - { name: km, label: Km rodados, type: number, options: { min: 0 } }
+      - { name: faq, component: faq }
+      - { name: whatsapp, label: Mensagem do WhatsApp, type: string, description: 'Opcional. Em branco = "Quero saber da próxima…".' }
+      - { name: seo, component: seo }
+      # Campos da fase de vendas: guardados, mas fora do formulário
+      - { name: encontro, type: string, hidden: true }
+      - { name: inclui, type: string, list: true, hidden: true }
+      - { name: naoInclui, type: string, list: true, hidden: true }
+      - { name: preco, component: preco, hidden: true }
+      - { name: vagas, type: number, hidden: true }
+
+  # ======================= DICAS (BLOG) =======================
+  - name: dicas
+    label: Dicas
+    type: collection
+    path: src/content/blog
+    exclude: [primeira-viagem-off-road.md, reduzida-bloqueio-e-tracao.md]
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    view:
+      primary: titulo
+      fields: [titulo, categoria, publicado, rascunho]
+      sort: [publicado, titulo]
+      search: [titulo, resumo, tags]
+      default: { sort: publicado, order: desc }
+    fields:
+      - { name: titulo, label: Título, type: string, required: true, description: 'Uma pergunta ou promessa clara. Ex.: "Como escolher pneus para estrada de terra"' }
+      - name: slug
+        label: Endereço da página (URL)
+        type: string
+        required: true
+        description: 'Só letras minúsculas, números e hífen. Ex.: expedicao-jalapao vira keeptrack.com.br/blog/expedicao-jalapao/. Não mude depois de publicado.'
+        pattern: { regex: "^[a-z0-9-]+$", message: "Só letras minúsculas, números e hífen" }
+      - { name: rascunho, label: Rascunho (não publicar ainda), type: boolean, default: false, description: Rascunhos ficam salvos aqui mas não aparecem no site. }
+      - { name: publicado, label: Data de publicação, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: atualizado, label: Atualizado em, type: date, default: "", description: Preencha quando revisar um artigo antigo., options: { format: yyyy-MM-dd } }
+      - name: categoria
+        label: Categoria
+        type: select
+        required: true
+        options:
+          values:
+            - { name: dicas, value: dicas, label: Dicas 4x4 }
+            - { name: equipamentos, value: equipamentos, label: Equipamentos }
+            - { name: relatos, value: relatos, label: Relatos de viagem }
+            - { name: noticias, value: noticias, label: Notícias }
+      - name: autor
+        label: Autor
+        type: reference
+        required: true
+        options: { collection: equipe, value: "{fields.slug}", label: "{fields.nome}" }
+      - { name: tags, label: Palavras-chave, type: string, list: true, description: 'Opcional. Ex.: jalapão, areia, pneus' }
+      - { name: resumo, component: resumo }
+      - { name: resposta, component: resposta, description: 'Responda a pergunta do título em 40 a 60 palavras, logo no início. É o trecho que o Google e as IAs mais citam.' }
+      - { name: capa, label: Foto de capa, type: image, required: true }
+      - { name: capaAlt, label: Descrição da foto de capa, type: string, required: true }
+      - { name: body, label: Texto do artigo, type: rich-text, required: true, description: 'Use "Título 2" para dividir o texto em seções. Não use "Título 1" (já é o título do artigo).' }
+      - name: relacionadosViagens
+        label: Expedições relacionadas (agenda)
+        type: reference
+        list: true
+        description: Aparecem como cards no fim do artigo.
+        options: { collection: expedicoes, value: "{fields.slug}", label: "{fields.titulo}" }
+      - name: relacionadosRealizadas
+        label: Expedições realizadas relacionadas
+        type: reference
+        list: true
+        description: Para relatos e dicas ligados a uma viagem que já aconteceu.
+        options: { collection: expedicoes_realizadas, value: "{fields.slug}", label: "{fields.titulo}" }
+      - name: relacionadosTreinamentos
+        label: Treinamentos relacionados
+        type: reference
+        list: true
+        options: { collection: treinamentos, value: "{fields.slug}", label: "{fields.titulo}" }
+      - { name: faq, component: faq }
+      - { name: seo, component: seo }
+
+  # ----------------------------------------------------------------- Equipe
+  - name: equipe
+    label: Equipe
+    type: collection
+    path: src/content/equipe
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    view: { fields: [nome, cargo], primary: nome }
+    fields:
+      - { name: nome, label: Nome, type: string, required: true }
+      - { name: slug, label: "Identificador (ex.: caio-alves)", type: string, required: true }
+      - { name: cargo, label: Cargo, type: string, required: true }
+      - name: tipo
+        label: Tipo
+        type: select
+        options: { values: [ { value: pessoa, label: Pessoa }, { value: empresa, label: Empresa parceira } ] }
+      - { name: foto, label: "Foto (sem foto, aparecem as iniciais)", type: image }
+      - { name: fotoAlt, label: Descrição da foto, type: string }
+      - { name: fotoPosicao, label: "Enquadramento da foto (ex.: center, 95% center, left top)", type: string }
+      - { name: bio, label: "Mini bio (separe parágrafos com uma linha em branco)", type: text, required: true }
+      - { name: credenciais, label: Credenciais, type: string, list: true }
+      - { name: ordem, label: Ordem, type: number }
+
+  # ------------------------------------------------- Arquivos únicos
+  - name: site
+    label: Configurações gerais
+    type: file
+    path: src/content/config/site.yml
+    format: yaml
+    fields:
+      - { name: nome, label: Nome da empresa, type: string, required: true }
+      - { name: whatsappPrincipal, label: "WhatsApp principal (só números, com 55 e DDD)", type: string, required: true, pattern: { regex: "^\\d{12,13}$", message: "Ex.: 5514998028008" } }
+      - { name: whatsappSecundario, label: "WhatsApp secundário", type: string, pattern: { regex: "^(\\d{12,13})?$", message: "Ex.: 5511998221440" } }
+      - { name: whatsappTexto, label: Texto padrão do WhatsApp, type: string, required: true }
+      - { name: email, label: E-mail, type: string, required: true }
+      - { name: instagram, label: Instagram (URL), type: string, required: true }
+      - { name: facebook, label: Facebook (URL), type: string, required: true }
+      - { name: youtube, label: YouTube (URL), type: string }
+      - name: parceiros
+        label: Parceiros
+        type: object
+        list: true
+        fields:
+          - { name: nome, label: Nome, type: string, required: true }
+          - { name: descricao, label: "Linha de apoio (opcional, ex.: Local dos treinamentos)", type: string }
+          - { name: logo, label: Logo (opcional), type: image }
+          - { name: url, label: Site ou Instagram do parceiro (opcional), type: string }
+      - { name: cidade, label: Cidade, type: string, required: true }
+      - { name: uf, label: UF, type: string, required: true }
+      - name: local
+        label: Local dos treinamentos
+        type: object
+        fields:
+          - { name: nome, label: Nome, type: string }
+          - { name: cidade, label: Cidade do local, type: string }
+          - { name: endereco, label: Endereço, type: string }
+          - { name: mapsUrl, label: Link do Google Maps, type: string }
+          - { name: lat, label: Latitude, type: number }
+          - { name: lng, label: Longitude, type: number }
+      - { name: horario, label: Horário de atendimento, type: string }
+      - { name: gtmId, label: "ID do Google Tag Manager", type: string }
+
+  - name: home
+    label: Página inicial
+    type: file
+    path: src/content/paginas/home.yml
+    format: yaml
+    fields:
+      - { name: heroEyebrow, label: Linha acima do título, type: string }
+      - { name: heroTitulo, label: Título principal, type: string, required: true }
+      - { name: heroSubtitulo, label: Subtítulo, type: text, required: true }
+      - { name: heroImagem, label: Imagem do topo, type: image, required: true }
+      - { name: heroImagemAlt, label: Descrição da imagem, type: string, required: true }
+      - name: heroFotos
+        label: Outras fotos do topo (uma diferente a cada visita)
+        description: A foto principal acima entra no sorteio junto com estas. Use fotos horizontais, de preferência com o lado esquerdo mais escuro ou neutro, onde fica o texto.
+        type: object
+        list: true
+        fields:
+          - { name: imagem, label: Foto, type: image, required: true }
+          - { name: alt, label: Descrição da foto, type: string, required: true }
+          - { name: posicao, label: "Ponto de foco (opcional, ex.: 60% 50%)", type: string }
+      - name: numeros
+        label: Números de autoridade
+        type: object
+        list: { min: 2, max: 4 }
+        fields:
+          - { name: valor, label: Número, type: string }
+          - { name: rotulo, label: Legenda, type: string }
+      - name: pilares
+        label: Diferenciais
+        type: object
+        list: { max: 3 }
+        fields:
+          - { name: titulo, label: Título, type: string }
+          - { name: texto, label: Texto, type: text }
+      - { name: galeria, component: galeria }
+      - { name: seo, component: seo }
+
+  - name: sobre
+    label: Página A KeepTrack
+    type: file
+    path: src/content/paginas/a-keeptrack.yml
+    format: yaml
+    fields:
+      - { name: titulo, label: Título, type: string, required: true }
+      - { name: subtitulo, label: Subtítulo, type: text }
+      - { name: capa, label: Imagem do topo, type: image, required: true }
+      - { name: capaAlt, label: Descrição da imagem, type: string, required: true }
+      - { name: historia, label: "História (separe parágrafos com linha em branco)", type: text, required: true }
+      - name: servicos
+        label: Serviços
+        type: object
+        list: true
+        fields:
+          - { name: titulo, label: Título, type: string }
+          - { name: texto, label: Texto, type: text }
+      - { name: frota, label: Frota e equipamentos, type: string, list: true }
+      - { name: frotaImagem, label: Foto da frota, type: image }
+      - { name: frotaImagemAlt, label: Descrição da foto da frota, type: string }
+      - name: parceria
+        label: Parceria
+        type: object
+        fields:
+          - { name: titulo, label: Título, type: string }
+          - { name: texto, label: Texto, type: text }
+          - { name: logo, label: Logo do parceiro, type: image }
+      - { name: seo, component: seo }
