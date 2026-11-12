@@ -26,6 +26,8 @@ Push em `main` → GitHub Actions valida, faz o build, roda o Lighthouse e envia
 Crie dois *environments* no GitHub: `producao` (proteção na branch `main`) e `homologacao`.
 
 ## Painel do cliente
+Painéis: Treinamentos, Expedições, Expedições realizadas, Dicas, Equipe, Configurações, Página inicial e A KeepTrack. Guia completo (inclusive o passo a passo para o cliente) em [LEIA-ME-PAINEIS.md](LEIA-ME-PAINEIS.md).
+
 1. Instalar o GitHub App do Pages CMS (https://app.pagescms.org) no repositório.
 2. Convidar o cliente por e-mail como colaborador. Ele edita conteúdo e mídia, sem acesso ao código.
 

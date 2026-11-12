@@ -4,7 +4,9 @@ Site estático em **Astro 5**, conteúdo em `src/content/`, editado pelo cliente
 
 ## Estrutura
 - `src/content.config.ts` — schemas Zod de todas as coleções. **Fonte da verdade dos campos.**
-- `src/content/` — `viagens/`, `treinamentos/`, `blog/`, `equipe/` (Markdown + frontmatter), `config/site.yml`, `paginas/home.yml`, `paginas/a-keeptrack.yml`.
+- `src/content/` — `viagens/proximas/` e `viagens/realizadas/` (um painel cada), `treinamentos/`, `blog/`, `equipe/` (Markdown + frontmatter), `config/site.yml`, `paginas/home.yml`, `paginas/a-keeptrack.yml`.
+- O id/URL de toda entrada vem do campo `slug` do frontmatter (gravado pelo painel), não da pasta.
+- `scripts/organizar-viagens.mjs` — roda no Actions antes do build: viagem com `fim` passado vira `realizada` e o arquivo vai para a pasta do status. Guia dos painéis: `LEIA-ME-PAINEIS.md`.
 - `src/components/` — um componente por bloco do Figma. `Foto.astro` é o único jeito de renderizar imagem.
 - `src/layouts/BaseLayout.astro` — SEO (title, description, canonical, OG), JSON-LD global, Consent Mode v2, eventos `data-track`.
 - `src/lib/utils.ts` (datas, WhatsApp, coleções), `src/lib/schema.ts` (JSON-LD), `src/lib/imagens.ts` (resolve caminho do painel → imagem otimizada).
@@ -12,7 +14,7 @@ Site estático em **Astro 5**, conteúdo em `src/content/`, editado pelo cliente
 
 ## Criar um campo novo
 1. Adicionar ao schema em `src/content.config.ts`.
-2. Adicionar o mesmo `name` ao formulário em `.pages.yml` (mesmo tipo, mesma obrigatoriedade).
+2. Adicionar o mesmo `name` ao formulário em `.pages.yml` (mesmo tipo, mesma obrigatoriedade). Viagens têm dois formulários (`expedicoes` e `expedicoes_realizadas`): campo novo vai nos dois. Campo opcional no schema: use `opcional(...)`, porque o painel grava `""`/`null` quando fica em branco.
 3. Usar no template/componente.
 4. `npm run build` precisa passar. Campo obrigatório faltando = build falha = site no ar não quebra.
 
