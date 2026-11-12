@@ -1,9 +1,9 @@
 ---
 titulo: Testando uma dica nova...
 slug: dica-nova
-rascunho: true
-publicado: 2026-11-12
-atualizado: 2026-11-12
+rascunho: false
+publicado: 2026-11-11
+atualizado: 2026-11-11
 categoria: dicas
 autor: caio-alves
 tags:
