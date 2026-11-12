@@ -53,6 +53,10 @@ jobs:
 
   deploy:
     needs: build
+    # Desligado até o lançamento: o envio para a Hostinger substitui o site atual
+    # (rsync --delete). Para ligar: Settings → Secrets and variables → Actions →
+    # Variables → New variable  DEPLOY_HOSTINGER = true  (e cadastrar os secrets SSH).
+    if: vars.DEPLOY_HOSTINGER == 'true'
     runs-on: ubuntu-24.04
     environment: ${{ github.ref == 'refs/heads/main' && 'producao' || 'homologacao' }}
     steps:
