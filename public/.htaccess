@@ -1,0 +1,56 @@
+# KeepTrack 4x4 — Hostinger (Apache/LiteSpeed)
+Options -Indexes -MultiViews
+DirectorySlash On
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+
+# 1) HTTPS + domínio canônico (www), em um único redirecionamento
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://www.%1%{REQUEST_URI} [L,R=301]
+
+# 2) Lixo de WordPress: bots continuam batendo depois da troca
+RewriteRule ^(wp-admin|wp-includes|wp-content|wp-json)(/.*)?$ - [G,L]
+RewriteRule ^(wp-login\.php|xmlrpc\.php|wp-config\.php|readme\.html)$ - [G,L]
+RewriteRule ^feed/?$ /rss.xml [R=301,L]
+
+# 3) Redirecionamentos 301 do site antigo (completar com a lista do crawl do Screaming Frog)
+RewriteRule ^keeptrack/?$ / [R=301,L]
+RewriteRule ^quem-somos/?$ /a-keeptrack/ [R=301,L]
+RewriteRule ^corporativo/?$ /treinamentos/corporativo/ [R=301,L]
+RewriteRule ^treinamento/.*$ /treinamentos/tecnicas-de-conducao-4x4/ [R=301,L]
+RewriteRule ^modulo-basico-.*$ /treinamentos/tecnicas-de-conducao-4x4/ [R=301,L]
+RewriteRule ^viagem/expedicao-jalapao.*$ /viagens/expedicao-jalapao/ [R=301,L]
+RewriteRule ^viagem/expedicao-serra-da-canastra.*$ /viagens/expedicao-serra-da-canastra/ [R=301,L]
+RewriteRule ^expedicao-rally-dos-sertoes.*$ /viagens/rally-dos-sertoes/ [R=301,L]
+RewriteRule ^expedicao-pantanal-e-bonito.*$ /viagens/pantanal-e-bonito/ [R=301,L]
+RewriteRule ^estrada-real.*$ /viagens/estrada-real/ [R=301,L]
+RewriteRule ^category/viagens-realizadas/?.*$ /viagens/ [R=301,L]
+# URLs do tipo ?post_type=training&p=123
+RewriteCond %{QUERY_STRING} (^|&)post_type=training(&|$) [NC]
+RewriteRule ^$ /treinamentos/tecnicas-de-conducao-4x4/? [R=301,L]
+
+# 4) Cabeçalhos de segurança
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # CSP em modo de teste: trocar para Content-Security-Policy depois de validar no navegador
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net; img-src 'self' data: https://www.keeptrack.com.br https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://*.google.com https://*.google.com.br; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://www.facebook.com; frame-src https://www.google.com https://maps.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+
+  # 5) Cache: assets com hash = 1 ano; HTML = curto
+  <FilesMatch "\.(js|css|woff2|avif|webp|jpg|jpeg|png|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=300, must-revalidate"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+</IfModule>
