@@ -13,7 +13,7 @@ import Footer from '../components/Footer.astro';
 import WhatsAppFlutuante from '../components/WhatsAppFlutuante.astro';
 import { getSite } from '../lib/utils';
 import { resolverImagem } from '../lib/imagens';
-import { urlOg } from '../lib/og';
+import { urlOg, origemPublicada } from '../lib/og';
 import { schemaOrganizacao, schemaWebSite } from '../lib/schema';
 
 interface Props {
@@ -43,7 +43,8 @@ const site = await getSite();
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 // Arte de compartilhamento 1200×630 gerada no build para cada página (src/pages/og/)
-const og = noindex ? new URL('/og-padrao.jpg', Astro.site).href : new URL(urlOg(Astro.url.pathname), Astro.site).href;
+const origem = origemPublicada(Astro.site);
+const og = new URL(noindex ? '/og-padrao.jpg' : urlOg(Astro.url.pathname), origem).href;
 const preload = preloadImagem ? resolverImagem(preloadImagem) : undefined;
 // Preload da foto do topo (LCP) com o mesmo srcset AVIF que o <Foto> gera
 const preloadLocal =
