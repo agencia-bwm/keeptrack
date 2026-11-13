@@ -1,6 +1,8 @@
 ---
 import Logo from './Logo.astro';
 import Icone from './Icone.astro';
+import { Image } from 'astro:assets';
+import seloCadastur from '../assets/brand/cadastur.png';
 import { getSite, linkWhatsApp, formatarTelefone } from '../lib/utils';
 const site = await getSite();
 const ano = new Date().getFullYear();
@@ -15,6 +17,7 @@ const ano = new Date().getFullYear();
         {site.youtube && <a href={site.youtube} target="_blank" rel="noopener" aria-label="Canal da KeepTrack no YouTube" data-track="click_youtube" data-local="footer"><Icone nome="youtube" /></a>}
         <a href={site.facebook} target="_blank" rel="noopener" aria-label="Facebook da KeepTrack" data-track="click_facebook" data-local="footer"><Icone nome="facebook" /></a>
       </div>
+      <Image src={seloCadastur} alt="Cadastur — empresa cadastrada no Ministério do Turismo" width={150} densities={[1, 2]} class="selo-cadastur" loading="lazy" />
     </div>
 
     <nav aria-label="Rodapé">
@@ -67,6 +70,7 @@ const ano = new Date().getFullYear();
   .redes a { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgb(255 255 255 / .2); border-radius: var(--raio); }
   .redes a:hover { background: var(--azul); border-color: var(--azul); }
   .redes svg { width: 20px; }
+  .selo-cadastur { display: block; width: 150px; height: auto; margin-top: 1.75rem; }
   .base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgb(255 255 255 / .1); font-size: .92rem; }
   .base p { margin: 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
   .link-cookies { background: none; border: 0; padding: 0; color: #dfe6f5; cursor: pointer; text-decoration: underline; text-underline-offset: .18em; }
