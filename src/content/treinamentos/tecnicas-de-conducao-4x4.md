@@ -8,18 +8,6 @@ resumo: Um dia no Haras Tuiuti (SP), com 3 h de aula teórica e 3 h de exercíci
 resposta: "O treinamento Técnicas de Condução Off-Road da KeepTrack acontece em um dia no Haras Tuiuti, em Tuiuti-SP, das 9h às 17h: 3 horas de aula teórica em sala e 3 horas de exercícios práticos na pista off-road. Vale para qualquer SUV 4x4, jipe ou utilitário 4x4 original, em grupos de até 5 carros, com almoço e certificado inclusos."
 # Calendário 2026 (fonte: material do cliente). Turmas passadas ficam como "realizada".
 turmas:
-  - { data: 2026-05-22, status: realizada }
-  - { data: 2026-06-22, status: realizada }
-  - { data: 2026-07-09, status: realizada }
-  - { data: 2026-07-16, status: realizada }
-  - { data: 2026-07-30, status: realizada }
-  - { data: 2026-08-06, status: realizada }
-  - { data: 2026-08-20, status: realizada }
-  - { data: 2026-09-04, status: realizada }
-  - { data: 2026-09-18, status: realizada }
-  - { data: 2026-10-02, status: realizada }
-  - { data: 2026-10-16, status: realizada }
-  - { data: 2026-11-23, horario: "9h às 17h", status: aberta }
   - { data: 2026-12-11, horario: "9h às 17h", status: aberta }
 avisoTurmas: "Calendário 2027: aguardando a agenda do Haras Tuiuti, nosso parceiro. Entre na lista para ser avisado das novas datas."
 cargaHoraria: 1 dia, das 9h às 17h (3 h teóricas + 3 h práticas)
