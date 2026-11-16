@@ -6,6 +6,7 @@ import RespostaDireta from '../../components/RespostaDireta.astro';
 import FichaProduto from '../../components/FichaProduto.astro';
 import Roteiro from '../../components/Roteiro.astro';
 import Galeria from '../../components/Galeria.astro';
+import Video from '../../components/Video.astro';
 import FAQ from '../../components/FAQ.astro';
 import CardViagem from '../../components/CardViagem.astro';
 import CardPost from '../../components/CardPost.astro';
@@ -59,6 +60,10 @@ const precoTxt = d.preco?.valor ? `A partir de R$ ${d.preco.valor.toLocaleString
 
       {d.galeria.length > 0 && (
         <section class="bloco"><h2>{realizada ? 'Como foi' : 'Fotos'}</h2><Galeria fotos={d.galeria} /></section>
+      )}
+
+      {d.video && (
+        <section class="bloco"><h2>{d.videoTitulo ?? 'Vídeo'}</h2><Video src={d.video} titulo={d.videoTitulo ?? d.titulo} capa={d.capa} local="pagina-viagem" /></section>
       )}
 
       {d.faq.length > 0 && (

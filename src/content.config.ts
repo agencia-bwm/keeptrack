@@ -134,6 +134,9 @@ const viagens = defineCollection({
     capa: imagem,
     capaAlt: z.string(),
     galeria,
+    /** link do YouTube ou arquivo em public/videos/ (ex.: /videos/aftermovie.mp4) */
+    video: opcional(z.string()),
+    videoTitulo: opcional(z.string()),
     faq,
     whatsapp: opcional(z.string()),
     seo,

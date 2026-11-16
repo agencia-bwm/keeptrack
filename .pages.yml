@@ -306,6 +306,8 @@ content:
       - { name: preco, component: preco }
       - { name: vagas, label: Vagas restantes, type: number, description: Opcional., options: { min: 0 } }
       - { name: galeria, component: galeria, description: Opcional. Fotos do destino ou de edições anteriores. }
+      - { name: video, label: Vídeo (link do YouTube), type: string, description: 'Opcional. Cole o link do vídeo no YouTube (ex.: https://www.youtube.com/watch?v=...). Aparece abaixo das fotos, com a foto de capa como imagem inicial.' }
+      - { name: videoTitulo, label: Título do vídeo, type: string, description: 'Opcional. Ex.: Aftermovie Rally dos Sertões 2025' }
       - { name: faq, component: faq }
       - { name: whatsapp, label: Mensagem do WhatsApp, type: string, description: 'Opcional. Em branco = mensagem automática com o nome e a data da viagem.' }
       - { name: seo, component: seo }
@@ -362,6 +364,8 @@ content:
           - { name: titulo, label: Título do dia, type: string, required: true }
           - { name: descricao, label: O que aconteceu, type: text, required: true }
           - { name: km, label: Km rodados, type: number, options: { min: 0 } }
+      - { name: video, label: Vídeo (link do YouTube), type: string, description: 'Opcional. Cole o link do vídeo no YouTube (ex.: https://www.youtube.com/watch?v=...). Aparece abaixo das fotos, com a foto de capa como imagem inicial.' }
+      - { name: videoTitulo, label: Título do vídeo, type: string, description: 'Opcional. Ex.: Aftermovie Rally dos Sertões 2025' }
       - { name: faq, component: faq }
       - { name: whatsapp, label: Mensagem do WhatsApp, type: string, description: 'Opcional. Em branco = "Quero saber da próxima…".' }
       - { name: seo, component: seo }

@@ -1,0 +1,81 @@
+---
+/**
+ * Vídeo de uma página (ex.: aftermovie da expedição).
+ * - Link do YouTube → vem fechado (capa + botão) e só carrega o player do
+ *   YouTube (youtube-nocookie) depois do clique — mesmo padrão LGPD do <Mapa>.
+ * - Arquivo próprio ("/videos/x.mp4", em public/videos/) → <video> nativo com
+ *   preload="none": nada é baixado até o visitante dar o play.
+ */
+import { getImage } from 'astro:assets';
+import { resolverImagem } from '../lib/imagens';
+import Icone from './Icone.astro';
+
+interface Props { src: string; titulo: string; capa?: string; local?: string }
+const { src, titulo, capa, local = 'video' } = Astro.props;
+
+const idYoutube = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([\w-]{11})/)?.[1];
+const imgCapa = capa ? resolverImagem(capa) : undefined;
+const poster = imgCapa
+  ? typeof imgCapa === 'string' ? imgCapa : (await getImage({ src: imgCapa, width: 1280, format: 'webp', quality: 60 })).src
+  : undefined;
+const embed = idYoutube ? `https://www.youtube-nocookie.com/embed/${idYoutube}?autoplay=1&rel=0` : undefined;
+---
+{idYoutube ? (
+  <div class="video" data-video data-embed={embed} data-titulo={titulo}>
+    {poster && <img class="poster" src={poster} alt="" loading="lazy" decoding="async" />}
+    <button type="button" class="play" data-track="click_video" data-local={local} aria-label={`Assistir: ${titulo}`}>
+      <span class="bola"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>
+      <span class="aviso">Ao abrir, o YouTube é carregado e pode gravar cookies.</span>
+    </button>
+    <a class="externo" href={`https://www.youtube.com/watch?v=${idYoutube}`} target="_blank" rel="noopener" data-track="click_youtube" data-local={local}>
+      Ver no YouTube <Icone nome="seta" />
+    </a>
+  </div>
+) : (
+  <div class="video">
+    <video controls preload="none" playsinline poster={poster} title={titulo} data-track-video={local}>
+      <source src={src} type="video/mp4" />
+      <a href={src}>Baixar o vídeo</a>
+    </video>
+  </div>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-video]').forEach((caixa) => {
+    caixa.querySelector('.play')!.addEventListener('click', () => {
+      if (caixa.dataset.carregado) return;
+      caixa.dataset.carregado = '1';
+      const f = document.createElement('iframe');
+      f.src = caixa.dataset.embed!;
+      f.title = caixa.dataset.titulo!;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      caixa.appendChild(f);
+      caixa.classList.add('aberto');
+    });
+  });
+  // Play no vídeo próprio também vira evento no GTM (só se o dataLayer existir)
+  document.querySelectorAll<HTMLVideoElement>('video[data-track-video]').forEach((v) => {
+    v.addEventListener('play', () => {
+      (window as any).dataLayer?.push({ event: 'video_play', video_local: v.dataset.trackVideo, video_titulo: v.title });
+    }, { once: true });
+  });
+</script>
+
+<style>
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--raio-g); background: var(--azul-escuro); overflow: hidden; box-shadow: var(--sombra); }
+  .video video, .video :global(iframe), .poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+  .video video { background: #000; }
+  .play { position: absolute; inset: 0; width: 100%; border: 0; cursor: pointer; color: #fff; background: linear-gradient(180deg, rgb(27 42 84 / .15), rgb(27 42 84 / .55));
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem; text-align: center; }
+  .bola { width: 84px; height: 84px; border-radius: 50%; background: var(--azul); display: grid; place-items: center; box-shadow: 0 0 0 12px rgb(63 104 185 / .3); transition: transform .3s var(--ease); }
+  .bola svg { width: 38px; margin-left: 4px; }
+  .aviso { font-size: .85rem; color: #dfe6f5; max-width: 34ch; }
+  .play:hover .bola, .play:focus-visible .bola { transform: scale(1.06); }
+  .externo { position: absolute; bottom: .9rem; right: 1rem; display: inline-flex; align-items: center; gap: .4em; color: #fff; font-size: .9rem; font-weight: 600; text-decoration: none; }
+  .externo :global(svg) { width: 16px; }
+  .aberto .play, .aberto .poster { display: none; }
+  .aberto .externo { display: none; }
+  @media (max-width: 480px) { .aviso { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .bola { transition: none; } }
+</style>
